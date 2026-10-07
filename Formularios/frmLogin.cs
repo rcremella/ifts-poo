@@ -55,8 +55,7 @@ namespace proyectoClub
         {
 
 
-             String conexion = "user=admindsoo;host=164.152.243.176;port=1080;database=dsoo;pwd=ClaVeGenerica21";
-             MySqlConnection myCon = new MySqlConnection(conexion);
+             MySqlConnection myCon = Conexion.Obtener();
 
 
 

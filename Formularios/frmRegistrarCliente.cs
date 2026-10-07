@@ -50,8 +50,7 @@ namespace proyectoClub
         {
             // verificar el dni 
             // se crea la clase persona que verifica existencia, se carga o admite el registro
-            String conexion = "user=admindsoo;host=164.152.243.176;port=1080;database=dsoo;pwd=ClaVeGenerica21";
-            MySqlConnection myCon = new MySqlConnection(conexion);
+            MySqlConnection myCon = Conexion.Obtener();
 
 
 
@@ -105,8 +104,7 @@ namespace proyectoClub
             //primerro verificar que existan los datos, sino hacer foco en el cuadro de texto
 
             // tomar todos los datos y agregarlos a persona
-            String conexion = "user=admindsoo;host=164.152.243.176;port=1080;database=dsoo;pwd=ClaVeGenerica21";
-            MySqlConnection myCon = new MySqlConnection(conexion);
+            MySqlConnection myCon = Conexion.Obtener();
 
 
 

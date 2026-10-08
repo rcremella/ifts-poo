@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Text;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 
 namespace proyectoClub
 {
@@ -45,7 +41,7 @@ namespace proyectoClub
                     _apellido = reader["apellido"].ToString() ?? "";
                     _telefono = reader["telefono"].ToString() ?? "";
 
-                    Console.WriteLine(_nombre); 
+                    Console.WriteLine(_nombre);
 
                     reader.Close();
                     return true;
@@ -69,11 +65,11 @@ namespace proyectoClub
 
         public bool verificarDatosCompletos()
         {
-            if(_apellido == null ||  _nombre == null || _telefono  == null )
+            if (_apellido == null || _nombre == null || _telefono == null)
             {
-               return false;
+                return false;
             }
-           return true;
+            return true;
         }
 
         public bool registrarPersona()

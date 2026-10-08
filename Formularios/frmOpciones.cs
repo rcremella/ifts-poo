@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace proyectoClub
+﻿namespace proyectoClub
 {
     public partial class frmOpcionesGestion : Form
     {

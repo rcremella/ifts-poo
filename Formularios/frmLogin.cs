@@ -1,5 +1,4 @@
 using MySql.Data.MySqlClient;
-using System.Security.Cryptography.X509Certificates;
 
 namespace proyectoClub
 {
@@ -9,6 +8,7 @@ namespace proyectoClub
         {
             InitializeComponent();
             this.ActiveControl = btnConectar; // lo pongo para que no haga foco directo en el nombre de usuario
+            this.AcceptButton = btnConectar; // al apretar Enter en cualquier campo se ejecuta CONECTAR
         }
 
         private void txtNombre_Text_Enter(object sender, EventArgs e)
@@ -53,31 +53,32 @@ namespace proyectoClub
 
         private void btnConectar_Click(object sender, EventArgs e)
         {
-
-
-             MySqlConnection myCon = Conexion.Obtener();
-
-
-
-            String nombreUsuario= txtUsuario.Text;
+            String nombreUsuario = txtUsuario.Text;
             String clave = txtClave.Text;
 
-            //conexion automatica
-            /* nombreUsuario = "empleado1";
-             clave = "123456";
-            */
+            // si algún campo está vacío o tiene el texto de ayuda, no consulto la base
+            if (String.IsNullOrWhiteSpace(nombreUsuario) || nombreUsuario == "Ingrese Nombre de Usuario" ||
+                String.IsNullOrWhiteSpace(clave) || clave == "Ingrese su contraseña")
+            {
+                lblResultado.Text = "Complete usuario y contraseña";
+                lblResultado.BackColor = Color.Red;
+                return;
+            }
+
+            MySqlConnection myCon = Conexion.Obtener();
 
             Usuario u = new Usuario(myCon, nombreUsuario, clave);
 
             bool logueado = u.ValidarLogin();
-            
+
             if (logueado)
             {
-                lblResultado.Text = "Usuario y contraseña correctos";
-                lblResultado.BackColor = Color.Green;
+                this.Hide(); // oculto el login mientras está abierto el menú
+
                 Form formulario = new frmOpcionesGestion(u);
                 formulario.ShowDialog(); // llama al formulario instanciado de la forma MODAL
 
+                this.Close(); // al cerrar el menú termina la aplicación
             }
             else
             {

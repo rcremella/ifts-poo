@@ -50,7 +50,8 @@
             // 
             // btnCobrar
             // 
-            btnCobrar.BackColor = Color.Red;
+            btnCobrar.BackColor = Color.LightGray;
+            btnCobrar.Enabled = false;
             btnCobrar.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             btnCobrar.ForeColor = SystemColors.ButtonHighlight;
             btnCobrar.Location = new Point(471, 64);
@@ -62,7 +63,8 @@
             // 
             // btnListarVto
             // 
-            btnListarVto.BackColor = Color.Red;
+            btnListarVto.BackColor = Color.LightGray;
+            btnListarVto.Enabled = false;
             btnListarVto.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             btnListarVto.ForeColor = SystemColors.ButtonHighlight;
             btnListarVto.Location = new Point(471, 234);
@@ -74,7 +76,8 @@
             // 
             // btnCarnet
             // 
-            btnCarnet.BackColor = Color.Red;
+            btnCarnet.BackColor = Color.LightGray;
+            btnCarnet.Enabled = false;
             btnCarnet.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             btnCarnet.ForeColor = SystemColors.ButtonHighlight;
             btnCarnet.Location = new Point(148, 234);

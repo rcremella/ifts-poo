@@ -1,13 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Bcpg;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Numerics;
-using System.Text;
-using System.Windows.Forms;
 
 namespace proyectoClub
 {
@@ -60,37 +51,37 @@ namespace proyectoClub
 
             Persona persona = new Persona(myCon, documento);
 
-            
+
 
             bloquearExistente(persona);
 
-        /*
-            if (persona.validarExistencia())
-            {
-                lblMensaje.Text = "el usuario ya existe";
-                txtApellido.Text = persona._apellido;
-                txtNombre.Text = persona._nombre;
-                txtTelefono.Text = persona._telefono;
-                txtNombre.Enabled = false;
-                txtApellido.Enabled = false;
-                txtTelefono.Enabled = false;
-                btnRegistrar.Enabled = false;
-            }
-            else
-            {
-                lblMensaje.Text = "Complete los datos";
-                txtNombre.Enabled = true;
-                txtApellido.Enabled = true;
-                txtTelefono.Enabled = true;
-                btnRegistrar.Enabled = true;
-                txtApellido.Text = "";
-                txtNombre.Text = "";
-                txtTelefono.Text = "";
+            /*
+                if (persona.validarExistencia())
+                {
+                    lblMensaje.Text = "el usuario ya existe";
+                    txtApellido.Text = persona._apellido;
+                    txtNombre.Text = persona._nombre;
+                    txtTelefono.Text = persona._telefono;
+                    txtNombre.Enabled = false;
+                    txtApellido.Enabled = false;
+                    txtTelefono.Enabled = false;
+                    btnRegistrar.Enabled = false;
+                }
+                else
+                {
+                    lblMensaje.Text = "Complete los datos";
+                    txtNombre.Enabled = true;
+                    txtApellido.Enabled = true;
+                    txtTelefono.Enabled = true;
+                    btnRegistrar.Enabled = true;
+                    txtApellido.Text = "";
+                    txtNombre.Text = "";
+                    txtTelefono.Text = "";
 
 
-            }
-        */
-           // Console.WriteLine(persona._apellido);
+                }
+            */
+            // Console.WriteLine(persona._apellido);
 
 
 

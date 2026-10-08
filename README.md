@@ -19,7 +19,40 @@ git clone https://github.com/rcremella/ifts-poo.git
 ```
 
 2. Abrir `proyectoClub.slnx`.
-3. Ejecutar con F5.
+3. Configurar la cadena de conexión (ver [Configurar la conexión a la base de datos](#configurar-la-conexión-a-la-base-de-datos)).
+4. Ejecutar con F5.
+
+## Configurar la conexión a la base de datos
+
+La cadena de conexión no está en el código: se lee de los **user secrets** de .NET con la clave `ConnectionStrings:Club`. Los secretos se guardan en tu máquina (fuera del repositorio), así que cada integrante tiene que cargarlos una vez después de clonar.
+
+El proyecto ya tiene un `UserSecretsId` en `proyectoClub.csproj`, así que no hace falta correr `dotnet user-secrets init`.
+
+Desde la carpeta del proyecto (donde está `proyectoClub.csproj`), ejecutar:
+
+```bash
+dotnet user-secrets set "ConnectionStrings:Club" "user=USUARIO;host=HOST;port=PUERTO;database=BASE;pwd=CONTRASEÑA"
+```
+
+Reemplazar `USUARIO`, `HOST`, `PUERTO`, `BASE` y `CONTRASEÑA` con los datos que se comparten por privado en el grupo (no subirlos al repositorio).
+
+Para comprobar que quedó guardado:
+
+```bash
+dotnet user-secrets list
+```
+
+También se puede hacer desde Visual Studio: clic derecho sobre el proyecto → **Administrar secretos de usuario** y completar el `secrets.json` así:
+
+```json
+{
+  "ConnectionStrings": {
+    "Club": "user=USUARIO;host=HOST;port=PUERTO;database=BASE;pwd=CONTRASEÑA"
+  }
+}
+```
+
+Si falta el secreto, la aplicación lanza el error `Falta ConnectionStrings:Club en los secretos de usuario.`
 
 ## Estructura
 

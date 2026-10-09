@@ -14,10 +14,13 @@ namespace proyectoClub
         {
             if (persona.validarExistencia())
             {
-                lblMensaje.Text = "el usuario ya existe";
+                lblMensaje.Text = "El usuario ya existe";
+
                 txtApellido.Text = persona._apellido;
                 txtNombre.Text = persona._nombre;
                 txtTelefono.Text = persona._telefono;
+
+                txtDocumento.Enabled = false;
                 txtNombre.Enabled = false;
                 txtApellido.Enabled = false;
                 txtTelefono.Enabled = false;
@@ -43,15 +46,17 @@ namespace proyectoClub
             // se crea la clase persona que verifica existencia, se carga o admite el registro
             MySqlConnection myCon = Conexion.Obtener();
 
+            int documento;
 
+            if (!int.TryParse(txtDocumento.Text, out documento))
+            {
+                lblMensaje.Text = "Ingrese un documento valido";
+                return;
+            }
 
-            int documento = int.Parse(txtDocumento.Text);
             Console.WriteLine(documento);
 
-
             Persona persona = new Persona(myCon, documento);
-
-
 
             bloquearExistente(persona);
 
@@ -97,25 +102,46 @@ namespace proyectoClub
             // tomar todos los datos y agregarlos a persona
             MySqlConnection myCon = Conexion.Obtener();
 
+            int documento;
 
+            if (!int.TryParse(txtDocumento.Text, out documento))
+            {
+                lblMensaje.Text = "Ingrese un documento valido";
+                return;
+            }
 
-            int documento = int.Parse(txtDocumento.Text);
             Persona persona = new Persona(myCon, documento);
             persona._nombre = txtNombre.Text;
             persona._apellido = txtApellido.Text;
             persona._telefono = txtTelefono.Text;
 
             bool verificacion = persona.verificarDatosCompletos();
+
             if (verificacion)
             {
                 persona.registrarPersona();
                 bloquearExistente(persona);
-
             }
 
             //mensaje de error , que complete los campos
 
 
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtDocumento.Text = "";
+            txtNombre.Text = "";
+            txtApellido.Text = "";
+            txtTelefono.Text = "";
+
+            txtDocumento.Enabled = true;
+            txtNombre.Enabled = true;
+            txtApellido.Enabled = true;
+            txtTelefono.Enabled = true;
+            btnRegistrar.Enabled = true;
+
+            lblMensaje.Text = "Complete los datos";
         }
     }
 }

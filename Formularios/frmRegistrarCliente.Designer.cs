@@ -86,7 +86,7 @@
             lblTelefono.AutoSize = true;
             lblTelefono.Location = new Point(47, 161);
             lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(52, 15);
+            lblTelefono.Size = new Size(53, 15);
             lblTelefono.TabIndex = 6;
             lblTelefono.Text = "Télefono";
             // 
@@ -124,6 +124,7 @@
             btnLimpiar.TabIndex = 9;
             btnLimpiar.Text = "Limpiar";
             btnLimpiar.UseVisualStyleBackColor = true;
+            btnLimpiar.Click += btnLimpiar_Click;
             // 
             // lblMensaje
             // 

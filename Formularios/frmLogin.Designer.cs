@@ -41,11 +41,11 @@
             // lblConexion
             // 
             lblConexion.AutoSize = true;
-            lblConexion.Location = new Point(122, 24);
+            lblConexion.Location = new Point(151, 40);
             lblConexion.Name = "lblConexion";
-            lblConexion.Size = new Size(67, 15);
+            lblConexion.Size = new Size(122, 15);
             lblConexion.TabIndex = 0;
-            lblConexion.Text = "CONEXIÓN";
+            lblConexion.Text = "INGRESO AL SISTEMA";
             // 
             // lblNombre
             // 
@@ -96,7 +96,7 @@
             // 
             // btnConectar
             // 
-            btnConectar.Location = new Point(283, 192);
+            btnConectar.Location = new Point(283, 183);
             btnConectar.Name = "btnConectar";
             btnConectar.Size = new Size(82, 23);
             btnConectar.TabIndex = 5;

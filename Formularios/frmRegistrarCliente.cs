@@ -43,7 +43,7 @@ namespace proyectoClub
 
             int documento;
 
-            if (!int.TryParse(txtDocumento.Text, out documento))
+            if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
             {
                 lblMensaje.Text = "Ingrese un documento valido";
                 return;
@@ -99,9 +99,15 @@ namespace proyectoClub
 
             int documento;
 
-            if (!int.TryParse(txtDocumento.Text, out documento))
+            if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
             {
                 lblMensaje.Text = "Ingrese un documento valido";
+                return;
+            }
+
+            if (!txtTelefono.Text.All(char.IsDigit))
+            {
+                lblMensaje.Text = "El telefono debe ser numerico";
                 return;
             }
 

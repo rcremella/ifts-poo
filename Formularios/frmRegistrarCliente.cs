@@ -33,11 +33,6 @@ namespace proyectoClub
                 txtApellido.Enabled = true;
                 txtTelefono.Enabled = true;
                 btnRegistrar.Enabled = true;
-                txtApellido.Text = "";
-                txtNombre.Text = "";
-                txtTelefono.Text = "";
-
-
             }
         }
         private void textBox1_Leave(object sender, EventArgs e)
@@ -119,11 +114,20 @@ namespace proyectoClub
 
             if (verificacion)
             {
-                persona.registrarPersona();
-                bloquearExistente(persona);
+                if (persona.registrarPersona())
+                {
+                    bloquearExistente(persona);
+                    lblMensaje.Text = "Usuario añadido correctamente";
+                }
+                else
+                {
+                    lblMensaje.Text = "Error al registrar el usuario";
+                }
             }
-
-            //mensaje de error , que complete los campos
+            else
+            {
+                lblMensaje.Text = "Complete los datos";
+            }
 
 
         }

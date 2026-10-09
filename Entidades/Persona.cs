@@ -65,7 +65,7 @@ namespace proyectoClub
 
         public bool verificarDatosCompletos()
         {
-            if (_apellido == null || _nombre == null || _telefono == null)
+            if (string.IsNullOrWhiteSpace(_apellido) || string.IsNullOrWhiteSpace(_nombre) || string.IsNullOrWhiteSpace(_telefono))
             {
                 return false;
             }

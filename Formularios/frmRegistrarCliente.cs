@@ -15,7 +15,7 @@ namespace proyectoClub
         {
             if (persona.validarExistencia())
             {
-                lblMensaje.Text = "El usuario ya existe";
+                lblMensaje.Text = "El socio ya se encuentra registrado";
 
                 txtApellido.Text = persona.Apellido;
                 txtNombre.Text = persona.Nombre;
@@ -48,7 +48,7 @@ namespace proyectoClub
             // TryParse no tira error si no es un numero, devuelve false
             if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
             {
-                lblMensaje.Text = "Ingrese un documento valido";
+                lblMensaje.Text = "Ingrese un documento válido";
                 return;
             }
 
@@ -73,14 +73,14 @@ namespace proyectoClub
 
             if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
             {
-                lblMensaje.Text = "Ingrese un documento valido";
+                lblMensaje.Text = "Ingrese un documento válido";
                 return;
             }
 
             // todos los caracteres tienen que ser numeros
             if (!txtTelefono.Text.All(char.IsDigit))
             {
-                lblMensaje.Text = "El telefono debe ser numerico";
+                lblMensaje.Text = "El teléfono debe ser numérico";
                 return;
             }
 
@@ -96,7 +96,7 @@ namespace proyectoClub
             {
                 if (!socio.registrarPersona())
                 {
-                    lblMensaje.Text = "Error al registrar el usuario";
+                    lblMensaje.Text = "Error al registrar el socio";
                     return;
                 }
 
@@ -107,11 +107,13 @@ namespace proyectoClub
 
                 if (clienteOk)
                 {
-                    lblMensaje.Text = socio.ObtenerDescripcion() + " registrado correctamente";
+                    // variable de tipo Persona con un objeto Socio: se ejecuta el override de Socio
+                    Persona persona = socio;
+                    lblMensaje.Text = persona.ObtenerDescripcion() + " registrado correctamente";
                 }
                 else
                 {
-                    lblMensaje.Text = "Se guardo la persona pero no se pudo registrar como socio";
+                    lblMensaje.Text = "Se guardó la persona pero no se pudo registrar como socio";
                 }
             }
             else

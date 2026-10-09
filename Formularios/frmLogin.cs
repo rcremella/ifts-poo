@@ -65,21 +65,20 @@ namespace proyectoClub
                 return;
             }
 
-            // si faltan los user secrets muestro el error
-            MySqlConnection myCon;
+            // si faltan los user secrets o falla MySQL muestro error de conexion (sin detalles de la cadena)
+            Usuario u;
+            bool logueado;
             try
             {
-                myCon = Conexion.Obtener();
+                MySqlConnection myCon = Conexion.Obtener();
+                u = new Usuario(myCon, nombreUsuario, clave);
+                logueado = u.ValidarLogin();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message, "Error de conexion");
+                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión");
                 return;
             }
-
-            Usuario u = new Usuario(myCon, nombreUsuario, clave);
-
-            bool logueado = u.ValidarLogin();
 
             if (logueado)
             {

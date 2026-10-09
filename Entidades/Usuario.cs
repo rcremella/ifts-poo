@@ -53,7 +53,8 @@ namespace proyectoClub
             catch (Exception ex)
             {
                 Console.WriteLine("Error en ValidarLogin: " + ex.Message);
-                return false;
+                // lo relanzo para que el login no lo confunda con una clave incorrecta
+                throw;
             }
             finally
             {

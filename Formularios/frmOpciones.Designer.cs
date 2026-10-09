@@ -44,7 +44,7 @@
             btnRegistrar.Name = "btnRegistrar";
             btnRegistrar.Size = new Size(183, 115);
             btnRegistrar.TabIndex = 1;
-            btnRegistrar.Text = "Registrar Persona";
+            btnRegistrar.Text = "Registrar Socio";
             btnRegistrar.UseVisualStyleBackColor = false;
             btnRegistrar.Click += button1_Click;
             // 

@@ -89,7 +89,7 @@
             lblTelefono.Name = "lblTelefono";
             lblTelefono.Size = new Size(53, 15);
             lblTelefono.TabIndex = 6;
-            lblTelefono.Text = "Télefono";
+            lblTelefono.Text = "Teléfono";
             // 
             // txtNombre
             // 
@@ -143,7 +143,7 @@
             chkAptoFisico.Name = "chkAptoFisico";
             chkAptoFisico.Size = new Size(85, 19);
             chkAptoFisico.TabIndex = 11;
-            chkAptoFisico.Text = "Apto Fisico";
+            chkAptoFisico.Text = "Apto físico";
             chkAptoFisico.UseVisualStyleBackColor = true;
             // 
             // frmRegistrarCliente
@@ -165,7 +165,7 @@
             Controls.Add(lblDocumento);
             Name = "frmRegistrarCliente";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "frmRegistrarCliente";
+            Text = "Registrar Socio";
             ResumeLayout(false);
             PerformLayout();
         }

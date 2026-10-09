@@ -9,9 +9,13 @@ namespace proyectoClub
         public int _documento { get; set; }
         public int _id = 0;
 
-        public string _nombre = "";
-        public string _apellido = "";
-        public string _telefono = "";
+        protected string _nombre = "";
+        protected string _apellido = "";
+        private string _telefono = "";
+
+        public string Nombre { get { return _nombre; } set { _nombre = value; } }
+        public string Apellido { get { return _apellido; } set { _apellido = value; } }
+        public string Telefono { get { return _telefono; } set { _telefono = value; } }
 
         public Persona(MySqlConnection conexion, int documento)
         {
@@ -62,6 +66,11 @@ namespace proyectoClub
             }
         }
 
+
+        public virtual string ObtenerDescripcion()
+        {
+            return "Persona: " + _nombre + " " + _apellido;
+        }
 
         public bool verificarDatosCompletos()
         {

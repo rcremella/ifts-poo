@@ -16,9 +16,9 @@ namespace proyectoClub
             {
                 lblMensaje.Text = "El usuario ya existe";
 
-                txtApellido.Text = persona._apellido;
-                txtNombre.Text = persona._nombre;
-                txtTelefono.Text = persona._telefono;
+                txtApellido.Text = persona.Apellido;
+                txtNombre.Text = persona.Nombre;
+                txtTelefono.Text = persona.Telefono;
 
                 txtDocumento.Enabled = false;
                 txtNombre.Enabled = false;
@@ -111,10 +111,10 @@ namespace proyectoClub
                 return;
             }
 
-            Persona persona = new Persona(myCon, documento);
-            persona._nombre = txtNombre.Text;
-            persona._apellido = txtApellido.Text;
-            persona._telefono = txtTelefono.Text;
+            Persona persona = new Socio(myCon, documento);
+            persona.Nombre = txtNombre.Text;
+            persona.Apellido = txtApellido.Text;
+            persona.Telefono = txtTelefono.Text;
 
             bool verificacion = persona.verificarDatosCompletos();
 
@@ -123,7 +123,7 @@ namespace proyectoClub
                 if (persona.registrarPersona())
                 {
                     bloquearExistente(persona);
-                    lblMensaje.Text = "Usuario añadido correctamente";
+                    lblMensaje.Text = persona.ObtenerDescripcion() + " registrado correctamente";
                 }
                 else
                 {

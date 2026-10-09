@@ -54,8 +54,12 @@ namespace proyectoClub
 
             bloquearExistente(socio);
 
-            socio.cargarAptoFisico();
-            chkAptoFisico.Checked = socio.AptoFisico;
+            // si ya existe muestro su apto fisico
+            if (socio._id > 0)
+            {
+                socio.cargarAptoFisico();
+                chkAptoFisico.Checked = socio.AptoFisico;
+            }
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
@@ -87,14 +91,24 @@ namespace proyectoClub
 
             if (verificacion)
             {
-                if (socio.registrarPersona() && socio.registrarCliente())
+                if (!socio.registrarPersona())
                 {
-                    bloquearExistente(socio);
+                    lblMensaje.Text = "Error al registrar el usuario";
+                    return;
+                }
+
+                bool clienteOk = socio.registrarCliente();
+
+                // la persona ya se guardo, bloqueo el formulario para que no se cargue dos veces
+                bloquearExistente(socio);
+
+                if (clienteOk)
+                {
                     lblMensaje.Text = socio.ObtenerDescripcion() + " registrado correctamente";
                 }
                 else
                 {
-                    lblMensaje.Text = "Error al registrar el usuario";
+                    lblMensaje.Text = "Se guardo la persona pero no se pudo registrar como socio";
                 }
             }
             else

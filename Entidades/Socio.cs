@@ -32,7 +32,7 @@ namespace proyectoClub
 
                 if (reader.Read() && reader["apto_fisico"] != DBNull.Value)
                 {
-                    _aptoFisico = (bool)reader["apto_fisico"];
+                    _aptoFisico = Convert.ToBoolean(reader["apto_fisico"]);
                 }
 
                 reader.Close();

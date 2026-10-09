@@ -65,7 +65,16 @@ namespace proyectoClub
                 return;
             }
 
-            MySqlConnection myCon = Conexion.Obtener();
+            MySqlConnection myCon;
+            try
+            {
+                myCon = Conexion.Obtener();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error de conexion");
+                return;
+            }
 
             Usuario u = new Usuario(myCon, nombreUsuario, clave);
 

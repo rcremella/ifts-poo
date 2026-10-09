@@ -41,7 +41,7 @@ namespace proyectoClub
                 if (reader.Read())
                 {
                     // si la encuentra cargo los datos de la persona
-                    _id = (int)reader["id"];
+                    _id = Convert.ToInt32(reader["id"]);
                     _nombre = reader["nombre"].ToString() ?? "";
                     _apellido = reader["apellido"].ToString() ?? "";
                     _telefono = reader["telefono"].ToString() ?? "";

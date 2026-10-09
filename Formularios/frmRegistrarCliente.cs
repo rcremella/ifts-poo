@@ -10,6 +10,7 @@ namespace proyectoClub
         }
 
 
+        // si ya existe bloquea los campos, si no los habilita
         private void bloquearExistente(Persona persona)
         {
             if (persona.validarExistencia())
@@ -44,6 +45,7 @@ namespace proyectoClub
 
             int documento;
 
+            // TryParse no tira error si no es un numero, devuelve false
             if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
             {
                 lblMensaje.Text = "Ingrese un documento valido";
@@ -54,7 +56,7 @@ namespace proyectoClub
 
             bloquearExistente(socio);
 
-            // si ya existe muestro su apto fisico
+            // si ya existe muestro su apto fisico (_id lo carga validarExistencia)
             if (socio._id > 0)
             {
                 socio.cargarAptoFisico();
@@ -75,6 +77,7 @@ namespace proyectoClub
                 return;
             }
 
+            // todos los caracteres tienen que ser numeros
             if (!txtTelefono.Text.All(char.IsDigit))
             {
                 lblMensaje.Text = "El telefono debe ser numerico";

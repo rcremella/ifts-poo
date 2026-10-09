@@ -2,12 +2,14 @@ using MySql.Data.MySqlClient;
 
 namespace proyectoClub
 {
+    // hereda de Persona
     internal class Socio : Persona
     {
         private bool _aptoFisico = false;
 
         public bool AptoFisico { get { return _aptoFisico; } set { _aptoFisico = value; } }
 
+        // base(...) llama al constructor de Persona
         public Socio(MySqlConnection conexion, int documento) : base(conexion, documento)
         {
         }
@@ -30,6 +32,7 @@ namespace proyectoClub
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
+                // DBNull = campo vacio en la base
                 if (reader.Read() && reader["apto_fisico"] != DBNull.Value)
                 {
                     _aptoFisico = Convert.ToBoolean(reader["apto_fisico"]);
@@ -48,6 +51,7 @@ namespace proyectoClub
             }
         }
 
+        // va despues de registrarPersona porque usa su _id
         public bool registrarCliente()
         {
             try

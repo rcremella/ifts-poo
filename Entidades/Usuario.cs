@@ -2,6 +2,7 @@
 
 namespace proyectoClub
 {
+    // el que entra al sistema, no es un socio
     public class Usuario
     {
         private readonly MySqlConnection _conexion;

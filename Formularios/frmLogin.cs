@@ -65,6 +65,7 @@ namespace proyectoClub
                 return;
             }
 
+            // si faltan los user secrets muestro el error
             MySqlConnection myCon;
             try
             {

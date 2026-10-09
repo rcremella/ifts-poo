@@ -4,6 +4,7 @@ namespace proyectoClub
 {
     internal class Persona
     {
+        // protected: tambien lo puede usar Socio
         protected readonly MySqlConnection _conexion;
 
         public int _documento { get; set; }
@@ -26,7 +27,6 @@ namespace proyectoClub
 
         public bool validarExistencia()
         {
-
             try
             {
                 _conexion.Open();
@@ -34,6 +34,7 @@ namespace proyectoClub
                 string query = "SELECT * FROM persona WHERE documento=@documento";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
+                // usar @parametros evita la inyeccion SQL
                 cmd.Parameters.AddWithValue("@documento", _documento.ToString());
 
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -60,12 +61,14 @@ namespace proyectoClub
             }
             finally
             {
+                // finally se ejecuta siempre, haya error o no
                 if (_conexion.State == System.Data.ConnectionState.Open)
                     _conexion.Close();
             }
         }
 
 
+        // virtual: Socio lo puede cambiar con override
         public virtual string ObtenerDescripcion()
         {
             return "Persona: " + _nombre + " " + _apellido;
@@ -82,7 +85,6 @@ namespace proyectoClub
 
         public bool registrarPersona()
         {
-
             try
             {
                 _conexion.Open();
@@ -95,6 +97,7 @@ namespace proyectoClub
                 cmd.Parameters.AddWithValue("@telefono", _telefono);
                 cmd.Parameters.AddWithValue("@documento", _documento);
 
+                // devuelve cuantas filas se insertaron
                 int filas = cmd.ExecuteNonQuery();
 
                 if (filas == 1)

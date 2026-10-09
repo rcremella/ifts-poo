@@ -10,6 +10,7 @@ namespace proyectoClub
 
         public static MySqlConnection Obtener()
         {
+            // ??= la lee solo la primera vez
             cadenaConexion ??= LeerCadenaConexion();
             return new MySqlConnection(cadenaConexion);
         }
@@ -22,6 +23,7 @@ namespace proyectoClub
                 .Build();
 
             var cadena = config.GetConnectionString("Club");
+
             if (string.IsNullOrEmpty(cadena))
                 throw new InvalidOperationException("Falta ConnectionStrings:Club en los secretos de usuario.");
             return cadena;

@@ -40,13 +40,11 @@ namespace proyectoClub
 
                 if (reader.Read())
                 {
-                    // Hay fila → el usuario existe y la clave es correcta
+                    // si la encuentra cargo los datos de la persona
                     _id = (int)reader["id"];
                     _nombre = reader["nombre"].ToString() ?? "";
                     _apellido = reader["apellido"].ToString() ?? "";
                     _telefono = reader["telefono"].ToString() ?? "";
-
-                    Console.WriteLine(_nombre);
 
                     reader.Close();
                     return true;
@@ -57,7 +55,7 @@ namespace proyectoClub
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error en ValidarLogin: " + ex.Message);
+                Console.WriteLine("Error en validarExistencia: " + ex.Message);
                 return false;
             }
             finally
@@ -97,13 +95,11 @@ namespace proyectoClub
                 cmd.Parameters.AddWithValue("@telefono", _telefono);
                 cmd.Parameters.AddWithValue("@documento", _documento);
 
-
-                //MySqlDataReader reader = cmd.ExecuteReader();
                 int filas = cmd.ExecuteNonQuery();
 
                 if (filas == 1)
                 {
-                    _id = (int)cmd.LastInsertedId; // id de la persona recién creada, lo usa Socio para la tabla cliente
+                    _id = (int)cmd.LastInsertedId; // guardo el id para despues cargarlo en cliente
                     Console.WriteLine("insertado correctamente");
 
                     return true;
@@ -123,11 +119,6 @@ namespace proyectoClub
                 if (_conexion.State == System.Data.ConnectionState.Open)
                     _conexion.Close();
             }
-
-
-
         }
-
-
     }
 }

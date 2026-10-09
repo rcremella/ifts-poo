@@ -5,7 +5,7 @@ namespace proyectoClub
 {
     internal static class Conexion
     {
-        // sale de los secretos de usuario ("ConnectionStrings:Club")
+        // la cadena de conexion se lee de los user secrets (ver README)
         private static string? cadenaConexion;
 
         public static MySqlConnection Obtener()

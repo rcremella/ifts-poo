@@ -13,7 +13,7 @@ namespace proyectoClub
 
         private void txtNombre_Text_Enter(object sender, EventArgs e)
         {
-            /* este evento se ejecuta cuand llega el fojo */
+            /* este evento se ejecuta cuando llega el foco */
             if (txtUsuario.Text == "Ingrese Nombre de Usuario")
             {
                 txtUsuario.Text = "";
@@ -23,7 +23,7 @@ namespace proyectoClub
 
         private void txtNombre_Leave(object sender, EventArgs e)
         {
-            /* este evento se ejecuta cuand llega el fojo */
+            /* este evento se ejecuta cuando se va el foco */
             if (txtUsuario.Text == "")
             {
                 txtUsuario.Text = "Ingrese Nombre de Usuario";

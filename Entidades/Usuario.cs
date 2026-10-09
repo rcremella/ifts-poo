@@ -13,19 +13,13 @@ namespace proyectoClub
         public string apellidoReal = "";
         public string funcionReal = "";
 
-
-
-
-
         public Usuario(MySqlConnection conexion, string nombre, string clave)
         {
             _conexion = conexion;
             NombreUsuario = nombre;
             ClaveUsuario = clave;
-
         }
 
-        // Ejemplo de método que usa la conexión
         public bool ValidarLogin()
         {
             try
@@ -43,7 +37,7 @@ namespace proyectoClub
 
                 if (reader.Read())
                 {
-                    // Hay fila → el usuario existe y la clave es correcta
+                    // si devuelve una fila el usuario y la clave son correctos
                     nombreReal = reader["nombre"].ToString() ?? "";
                     apellidoReal = reader["apellido"].ToString() ?? "";
                     funcionReal = reader["funcion"].ToString() ?? "";

@@ -24,6 +24,7 @@ namespace proyectoClub
                 txtNombre.Enabled = false;
                 txtApellido.Enabled = false;
                 txtTelefono.Enabled = false;
+                chkAptoFisico.Enabled = false;
                 btnRegistrar.Enabled = false;
             }
             else
@@ -32,6 +33,7 @@ namespace proyectoClub
                 txtNombre.Enabled = true;
                 txtApellido.Enabled = true;
                 txtTelefono.Enabled = true;
+                chkAptoFisico.Enabled = true;
                 btnRegistrar.Enabled = true;
             }
         }
@@ -51,9 +53,12 @@ namespace proyectoClub
 
             Console.WriteLine(documento);
 
-            Persona persona = new Persona(myCon, documento);
+            Socio socio = new Socio(myCon, documento);
 
-            bloquearExistente(persona);
+            bloquearExistente(socio);
+
+            socio.cargarAptoFisico();
+            chkAptoFisico.Checked = socio.AptoFisico;
 
             /*
                 if (persona.validarExistencia())
@@ -111,19 +116,20 @@ namespace proyectoClub
                 return;
             }
 
-            Persona persona = new Socio(myCon, documento);
-            persona.Nombre = txtNombre.Text;
-            persona.Apellido = txtApellido.Text;
-            persona.Telefono = txtTelefono.Text;
+            Socio socio = new Socio(myCon, documento);
+            socio.Nombre = txtNombre.Text;
+            socio.Apellido = txtApellido.Text;
+            socio.Telefono = txtTelefono.Text;
+            socio.AptoFisico = chkAptoFisico.Checked;
 
-            bool verificacion = persona.verificarDatosCompletos();
+            bool verificacion = socio.verificarDatosCompletos();
 
             if (verificacion)
             {
-                if (persona.registrarPersona())
+                if (socio.registrarPersona() && socio.registrarCliente())
                 {
-                    bloquearExistente(persona);
-                    lblMensaje.Text = persona.ObtenerDescripcion() + " registrado correctamente";
+                    bloquearExistente(socio);
+                    lblMensaje.Text = socio.ObtenerDescripcion() + " registrado correctamente";
                 }
                 else
                 {
@@ -149,6 +155,8 @@ namespace proyectoClub
             txtNombre.Enabled = true;
             txtApellido.Enabled = true;
             txtTelefono.Enabled = true;
+            chkAptoFisico.Checked = false;
+            chkAptoFisico.Enabled = true;
             btnRegistrar.Enabled = true;
 
             lblMensaje.Text = "Complete los datos";

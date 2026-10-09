@@ -39,6 +39,7 @@
             btnRegistrar = new Button();
             btnLimpiar = new Button();
             lblMensaje = new Label();
+            chkAptoFisico = new CheckBox();
             SuspendLayout();
             // 
             // lblDocumento
@@ -135,11 +136,22 @@
             lblMensaje.TabIndex = 10;
             lblMensaje.Text = "Complete los datos";
             // 
+            // chkAptoFisico
+            // 
+            chkAptoFisico.AutoSize = true;
+            chkAptoFisico.Location = new Point(224, 190);
+            chkAptoFisico.Name = "chkAptoFisico";
+            chkAptoFisico.Size = new Size(85, 19);
+            chkAptoFisico.TabIndex = 11;
+            chkAptoFisico.Text = "Apto Fisico";
+            chkAptoFisico.UseVisualStyleBackColor = true;
+            // 
             // frmRegistrarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(503, 220);
+            ClientSize = new Size(503, 231);
+            Controls.Add(chkAptoFisico);
             Controls.Add(lblMensaje);
             Controls.Add(btnLimpiar);
             Controls.Add(btnRegistrar);
@@ -171,5 +183,6 @@
         private Button btnRegistrar;
         private Button btnLimpiar;
         private Label lblMensaje;
+        private CheckBox chkAptoFisico;
     }
 }

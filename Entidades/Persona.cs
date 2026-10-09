@@ -4,7 +4,7 @@ namespace proyectoClub
 {
     internal class Persona
     {
-        private readonly MySqlConnection _conexion;
+        protected readonly MySqlConnection _conexion;
 
         public int _documento { get; set; }
         public int _id = 0;
@@ -41,6 +41,7 @@ namespace proyectoClub
                 if (reader.Read())
                 {
                     // Hay fila → el usuario existe y la clave es correcta
+                    _id = (int)reader["id"];
                     _nombre = reader["nombre"].ToString() ?? "";
                     _apellido = reader["apellido"].ToString() ?? "";
                     _telefono = reader["telefono"].ToString() ?? "";
@@ -102,6 +103,7 @@ namespace proyectoClub
 
                 if (filas == 1)
                 {
+                    _id = (int)cmd.LastInsertedId; // id de la persona recién creada, lo usa Socio para la tabla cliente
                     Console.WriteLine("insertado correctamente");
 
                     return true;

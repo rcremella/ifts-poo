@@ -38,6 +38,8 @@ namespace proyectoClub
                 btnRegistrar.Enabled = true;
             }
         }
+
+        // se ejecuta cuando el foco sale del campo documento
         private void textBox1_Leave(object sender, EventArgs e)
         {
             // verifico el dni, si ya existe se cargan sus datos y si no se habilita el registro
@@ -64,6 +66,7 @@ namespace proyectoClub
             }
         }
 
+        // primero se guarda en persona y despues en cliente, porque cliente necesita el id de la persona
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             // valido los datos antes de registrar
@@ -84,6 +87,7 @@ namespace proyectoClub
                 return;
             }
 
+            // cargo el objeto con lo que escribio la persona en el formulario
             Socio socio = new Socio(myCon, documento);
             socio.Nombre = txtNombre.Text;
             socio.Apellido = txtApellido.Text;
@@ -122,6 +126,7 @@ namespace proyectoClub
             }
         }
 
+        // deja el formulario como al principio para cargar otro socio
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtDocumento.Text = "";

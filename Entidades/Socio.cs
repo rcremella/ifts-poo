@@ -5,6 +5,7 @@ namespace proyectoClub
     // hereda de Persona
     internal class Socio : Persona
     {
+        // atributo propio de Socio, Persona no lo tiene
         private bool _aptoFisico = false;
 
         public bool AptoFisico { get { return _aptoFisico; } set { _aptoFisico = value; } }
@@ -14,11 +15,13 @@ namespace proyectoClub
         {
         }
 
+        // polimorfismo: misma firma que en Persona pero devuelve el texto de un socio
         public override string ObtenerDescripcion()
         {
             return "Socio: " + _nombre + " " + _apellido;
         }
 
+        // consulta la tabla cliente y guarda en _aptoFisico lo que figura en la base
         public void cargarAptoFisico()
         {
             try
@@ -64,6 +67,7 @@ namespace proyectoClub
                 cmd.Parameters.AddWithValue("@id_persona", _id);
                 cmd.Parameters.AddWithValue("@apto_fisico", _aptoFisico);
 
+                // ExecuteNonQuery devuelve las filas afectadas, si es 1 se inserto bien
                 int filas = cmd.ExecuteNonQuery();
 
                 return filas == 1;

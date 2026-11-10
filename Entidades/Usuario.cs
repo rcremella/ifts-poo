@@ -7,9 +7,11 @@ namespace proyectoClub
     {
         private readonly MySqlConnection _conexion;
 
+        // datos que escribe la persona en el login
         public string NombreUsuario { get; set; }
         public string ClaveUsuario { get; set; }
 
+        // datos reales del usuario, se completan solo si el login es correcto
         public string nombreReal = "";
         public string apellidoReal = "";
         public string funcionReal = "";
@@ -21,6 +23,7 @@ namespace proyectoClub
             ClaveUsuario = clave;
         }
 
+        // busca usuario y clave en la tabla usuario, devuelve true si coinciden
         public bool ValidarLogin()
         {
             try

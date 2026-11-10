@@ -2,6 +2,7 @@
 {
     public partial class frmOpcionesGestion : Form
     {
+        // el usuario que inicio sesion, viene desde el login
         private readonly Usuario _usuario;
 
         public frmOpcionesGestion(Usuario usuario)
@@ -9,9 +10,11 @@
             InitializeComponent();
             _usuario = usuario;
 
-            lblDescripcionUsuario.Text = "Usuario: " + _usuario.nombreReal + " " + _usuario.apellidoReal;
+            // muestro quien esta usando el sistema
+            lblDescripcionUsuario.Text ="Usuario: " + _usuario.nombreReal + " " + _usuario.apellidoReal;
         }
 
+        // este boton abre el formulario para registrar un socio nuevo
         private void button1_Click(object sender, EventArgs e)
         {
             Form formulario = new frmRegistrarCliente();

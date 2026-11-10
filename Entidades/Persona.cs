@@ -2,14 +2,16 @@
 
 namespace proyectoClub
 {
+    // clase base: tiene los datos y metodos que comparte cualquier persona del club
     internal class Persona
     {
         // protected: tambien lo puede usar Socio
         protected readonly MySqlConnection _conexion;
 
         public int _documento { get; set; }
-        public int _id = 0;
+        public int _id = 0; // 0 significa que todavia no se cargo o no existe en la base
 
+        // atributos privados/protegidos, afuera se accede por las propiedades de abajo (encapsulamiento)
         protected string _nombre = "";
         protected string _apellido = "";
         private string _telefono = "";
@@ -18,6 +20,7 @@ namespace proyectoClub
         public string Apellido { get { return _apellido; } set { _apellido = value; } }
         public string Telefono { get { return _telefono; } set { _telefono = value; } }
 
+        // el constructor recibe la conexion y el dni, el resto de los datos se cargan despues
         public Persona(MySqlConnection conexion, int documento)
         {
             _documento = documento;
@@ -25,6 +28,7 @@ namespace proyectoClub
         }
 
 
+        // busca el dni en la tabla persona, devuelve true si existe (y carga sus datos)
         public bool validarExistencia()
         {
             try
@@ -56,6 +60,7 @@ namespace proyectoClub
             }
             catch (Exception ex)
             {
+                // si falla la base lo muestro por consola y devuelvo false para que el programa no se caiga
                 Console.WriteLine("Error en validarExistencia: " + ex.Message);
                 return false;
             }
@@ -74,6 +79,7 @@ namespace proyectoClub
             return "Persona: " + _nombre + " " + _apellido;
         }
 
+        // devuelve false si falta nombre, apellido o telefono (IsNullOrWhiteSpace tambien detecta solo espacios)
         public bool verificarDatosCompletos()
         {
             if (string.IsNullOrWhiteSpace(_apellido) || string.IsNullOrWhiteSpace(_nombre) || string.IsNullOrWhiteSpace(_telefono))
@@ -83,6 +89,7 @@ namespace proyectoClub
             return true;
         }
 
+        // inserta la persona en la base, devuelve true si se guardo bien
         public bool registrarPersona()
         {
             try

@@ -13,7 +13,8 @@ namespace proyectoClub
 
         private void txtNombre_Text_Enter(object sender, EventArgs e)
         {
-            /* este evento se ejecuta cuando llega el foco */
+            // este evento se ejecuta cuando llega el foco
+            // si tiene el texto de ayuda lo borro para que pueda escribir
             if (txtUsuario.Text == "Ingrese Nombre de Usuario")
             {
                 txtUsuario.Text = "";
@@ -23,7 +24,8 @@ namespace proyectoClub
 
         private void txtNombre_Leave(object sender, EventArgs e)
         {
-            /* este evento se ejecuta cuando se va el foco */
+            // este evento se ejecuta cuando se va el foco
+            // si quedo vacio vuelvo a poner el texto de ayuda
             if (txtUsuario.Text == "")
             {
                 txtUsuario.Text = "Ingrese Nombre de Usuario";
@@ -33,6 +35,7 @@ namespace proyectoClub
 
         private void txtClave_Enter(object sender, EventArgs e)
         {
+            // igual que el usuario, pero ademas activo los asteriscos para ocultar la clave
             if (txtClave.Text == "Ingrese su contraseña")
             {
                 txtClave.Text = "";
@@ -43,6 +46,7 @@ namespace proyectoClub
 
         private void txtClave_Leave(object sender, EventArgs e)
         {
+            // si queda vacia saco los asteriscos para que se lea el texto de ayuda
             if (txtClave.Text == "")
             {
                 txtClave.Text = "Ingrese su contraseña";
@@ -53,6 +57,7 @@ namespace proyectoClub
 
         private void btnConectar_Click(object sender, EventArgs e)
         {
+            // tomo lo que escribio la persona en los campos
             String nombreUsuario = txtUsuario.Text;
             String clave = txtClave.Text;
 
@@ -80,6 +85,7 @@ namespace proyectoClub
                 return;
             }
 
+            // si los datos son correctos paso al menu, si no aviso con el label
             if (logueado)
             {
                 this.Hide(); // oculto el login mientras está abierto el menú

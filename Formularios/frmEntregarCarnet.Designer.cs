@@ -1,4 +1,4 @@
-﻿namespace proyectoClub.Formularios
+﻿namespace proyectoClub
 {
     partial class frmEntregarCarnet
     {
@@ -38,7 +38,7 @@
             lblCarnet = new Label();
             btnSalir = new Button();
             btnImprimir = new Button();
-            checkBox1 = new CheckBox();
+            chkEntregado = new CheckBox();
             lblMensaje = new Label();
             SuspendLayout();
             // 
@@ -132,16 +132,16 @@
             btnImprimir.Text = "IMPRIMIR CARNET";
             btnImprimir.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // chkEntregado
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox1.Location = new Point(87, 251);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(118, 29);
-            checkBox1.TabIndex = 10;
-            checkBox1.Text = "Entregado";
-            checkBox1.UseVisualStyleBackColor = true;
+            chkEntregado.AutoSize = true;
+            chkEntregado.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            chkEntregado.Location = new Point(87, 251);
+            chkEntregado.Name = "chkEntregado";
+            chkEntregado.Size = new Size(118, 29);
+            chkEntregado.TabIndex = 10;
+            chkEntregado.Text = "Entregado";
+            chkEntregado.UseVisualStyleBackColor = true;
             // 
             // lblMensaje
             // 
@@ -158,7 +158,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(lblMensaje);
-            Controls.Add(checkBox1);
+            Controls.Add(chkEntregado);
             Controls.Add(btnImprimir);
             Controls.Add(btnSalir);
             Controls.Add(txtCarnet);
@@ -187,7 +187,7 @@
         private Label lblCarnet;
         private Button btnSalir;
         private Button btnImprimir;
-        private CheckBox checkBox1;
+        private CheckBox chkEntregado;
         private Label lblMensaje;
     }
 }

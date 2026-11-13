@@ -1,4 +1,4 @@
-﻿namespace proyectoClub.Formularios
+﻿namespace proyectoClub
 {
     partial class frmPagar
     {

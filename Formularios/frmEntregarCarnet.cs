@@ -1,21 +1,14 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 
-namespace proyectoClub.Formularios
+namespace proyectoClub
 {
+    // formulario para entregar el carnet al socio
+    // se busca por dni y el checkbox marca si el carnet ya se entrego
     public partial class frmEntregarCarnet : Form
     {
         public frmEntregarCarnet()
         {
             InitializeComponent();
         }
-        
-
     }
 }

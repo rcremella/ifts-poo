@@ -1,6 +1,4 @@
-﻿using proyectoClub.Formularios;
-
-namespace proyectoClub
+﻿namespace proyectoClub
 {
     public partial class frmOpcionesGestion : Form
     {
@@ -17,30 +15,31 @@ namespace proyectoClub
         }
 
         // este boton abre el formulario para registrar un socio nuevo
-
-
         private void abrirRegistrarCliente(object sender, EventArgs e)
         {
             Form formulario = new frmRegistrarCliente();
             formulario.ShowDialog(); // llama al formulario instanciado de la forma MODAL
-
         }
 
-
+        // abre el formulario para entregar el carnet
         private void abrirEntregarCarnet(object sender, EventArgs e)
         {
             Form formulario = new frmEntregarCarnet();
-            formulario.ShowDialog(); // llama al formulario instanciado de la forma MODAL
+            formulario.ShowDialog();
         }
+
+        // abre el formulario para cobrar la cuota
         private void abrirCobrarCuota(object sender, EventArgs e)
         {
             Form formulario = new frmPagar();
-            formulario.ShowDialog(); // llama al formulario instanciado de la forma MODAL
+            formulario.ShowDialog();
         }
+
+        // abre el listado de vencimientos
         private void abrirListarVencimientos(object sender, EventArgs e)
         {
             Form formulario = new frmListarVencimientos();
-            formulario.ShowDialog(); // llama al formulario instanciado de la forma MODAL
+            formulario.ShowDialog();
         }
     }
 }

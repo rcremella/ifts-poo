@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace proyectoClub.Formularios
+﻿namespace proyectoClub
 {
+    // formulario que lista en una grilla los vencimientos de los socios
+    // desde aca tambien se pueden imprimir
     public partial class frmListarVencimientos : Form
     {
         public frmListarVencimientos()

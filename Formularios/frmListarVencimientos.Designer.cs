@@ -1,4 +1,4 @@
-﻿namespace proyectoClub.Formularios
+﻿namespace proyectoClub
 {
     partial class frmListarVencimientos
     {
@@ -31,10 +31,10 @@
             components = new System.ComponentModel.Container();
             btnImprimir = new Button();
             frmRegistrarClienteBindingSource = new BindingSource(components);
-            dataGridView1 = new DataGridView();
+            dgvVencimientos = new DataGridView();
             btnSalir = new Button();
             ((System.ComponentModel.ISupportInitialize)frmRegistrarClienteBindingSource).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvVencimientos).BeginInit();
             SuspendLayout();
             // 
             // btnImprimir
@@ -50,13 +50,13 @@
             // 
             frmRegistrarClienteBindingSource.DataSource = typeof(frmRegistrarCliente);
             // 
-            // dataGridView1
+            // dgvVencimientos
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(31, 52);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(717, 284);
-            dataGridView1.TabIndex = 11;
+            dgvVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvVencimientos.Location = new Point(31, 52);
+            dgvVencimientos.Name = "dgvVencimientos";
+            dgvVencimientos.Size = new Size(717, 284);
+            dgvVencimientos.TabIndex = 11;
             // 
             // btnSalir
             // 
@@ -73,12 +73,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(btnSalir);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvVencimientos);
             Controls.Add(btnImprimir);
             Name = "frmListarVencimientos";
-            Text = "Form1";
+            Text = "Listar Vencimientos";
             ((System.ComponentModel.ISupportInitialize)frmRegistrarClienteBindingSource).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvVencimientos).EndInit();
             ResumeLayout(false);
         }
 
@@ -86,7 +86,7 @@
 
         private Button btnImprimir;
         private BindingSource frmRegistrarClienteBindingSource;
-        private DataGridView dataGridView1;
+        private DataGridView dgvVencimientos;
         private Button btnSalir;
     }
 }

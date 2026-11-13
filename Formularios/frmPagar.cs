@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace proyectoClub.Formularios
+﻿namespace proyectoClub
 {
+    // formulario para cobrar la cuota a un socio
+    // se busca al socio por dni y se carga el importe que paga
     public partial class frmPagar : Form
     {
         public frmPagar()

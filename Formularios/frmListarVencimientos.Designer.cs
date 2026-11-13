@@ -28,12 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             btnImprimir = new Button();
-            frmRegistrarClienteBindingSource = new BindingSource(components);
             dgvVencimientos = new DataGridView();
             btnVolver = new Button();
-            ((System.ComponentModel.ISupportInitialize)frmRegistrarClienteBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvVencimientos).BeginInit();
             SuspendLayout();
             // 
@@ -45,10 +42,6 @@
             btnImprimir.TabIndex = 10;
             btnImprimir.Text = "IMPRIMIR VENCIMIENTOS";
             btnImprimir.UseVisualStyleBackColor = true;
-            // 
-            // frmRegistrarClienteBindingSource
-            // 
-            frmRegistrarClienteBindingSource.DataSource = typeof(frmRegistrarCliente);
             // 
             // dgvVencimientos
             // 
@@ -79,7 +72,6 @@
             Name = "frmListarVencimientos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Listar Vencimientos";
-            ((System.ComponentModel.ISupportInitialize)frmRegistrarClienteBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvVencimientos).EndInit();
             ResumeLayout(false);
         }
@@ -87,7 +79,6 @@
         #endregion
 
         private Button btnImprimir;
-        private BindingSource frmRegistrarClienteBindingSource;
         private DataGridView dgvVencimientos;
         private Button btnVolver;
     }

@@ -40,6 +40,7 @@
             btnLimpiar = new Button();
             lblMensaje = new Label();
             chkAptoFisico = new CheckBox();
+            btnVolver = new Button();
             SuspendLayout();
             // 
             // lblDocumento
@@ -109,7 +110,7 @@
             // 
             // btnRegistrar
             // 
-            btnRegistrar.Location = new Point(326, 95);
+            btnRegistrar.Location = new Point(366, 74);
             btnRegistrar.Name = "btnRegistrar";
             btnRegistrar.Size = new Size(75, 23);
             btnRegistrar.TabIndex = 8;
@@ -119,7 +120,7 @@
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Location = new Point(326, 124);
+            btnLimpiar.Location = new Point(366, 103);
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(75, 23);
             btnLimpiar.TabIndex = 9;
@@ -141,16 +142,27 @@
             chkAptoFisico.AutoSize = true;
             chkAptoFisico.Location = new Point(224, 190);
             chkAptoFisico.Name = "chkAptoFisico";
-            chkAptoFisico.Size = new Size(85, 19);
+            chkAptoFisico.Size = new Size(83, 19);
             chkAptoFisico.TabIndex = 11;
             chkAptoFisico.Text = "Apto físico";
             chkAptoFisico.UseVisualStyleBackColor = true;
+            // 
+            // btnVolver
+            // 
+            btnVolver.Location = new Point(366, 186);
+            btnVolver.Name = "btnVolver";
+            btnVolver.Size = new Size(75, 23);
+            btnVolver.TabIndex = 12;
+            btnVolver.Text = "VOLVER";
+            btnVolver.UseVisualStyleBackColor = true;
+            btnVolver.Click += btnVolver_Click;
             // 
             // frmRegistrarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(503, 231);
+            Controls.Add(btnVolver);
             Controls.Add(chkAptoFisico);
             Controls.Add(lblMensaje);
             Controls.Add(btnLimpiar);
@@ -184,5 +196,6 @@
         private Button btnLimpiar;
         private Label lblMensaje;
         private CheckBox chkAptoFisico;
+        private Button btnVolver;
     }
 }

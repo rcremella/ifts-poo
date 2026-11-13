@@ -67,9 +67,8 @@ namespace proyectoClub
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error: " + ex.Message);
                 return false;
             }
             finally
@@ -117,10 +116,9 @@ namespace proyectoClub
                 reader.Close();
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // si falla la base lo muestro por consola y devuelvo false para que el programa no se caiga
-                Console.WriteLine("Error en validarCarnet: " + ex.Message);
+                // si falla la base devuelvo false para que el programa no se caiga
                 return false;
             }
             finally

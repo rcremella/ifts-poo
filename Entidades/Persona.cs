@@ -79,10 +79,9 @@ namespace proyectoClub
                 reader.Close();
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // si falla la base lo muestro por consola y devuelvo false para que el programa no se caiga
-                Console.WriteLine("Error en validarExistencia: " + ex.Message);
+                // si falla la base devuelvo false para que el programa no se caiga
                 return false;
             }
             finally
@@ -131,18 +130,14 @@ namespace proyectoClub
                 if (filas == 1)
                 {
                     _id = (int)cmd.LastInsertedId; // guardo el id para despues cargarlo en cliente
-                    Console.WriteLine("insertado correctamente");
 
                     return true;
                 }
 
-                Console.WriteLine("Error en insertar");
-
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error: " + ex.Message);
                 return false;
             }
             finally

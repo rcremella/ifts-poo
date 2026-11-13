@@ -43,9 +43,8 @@ namespace proyectoClub
 
                 return filas == 1;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error: " + ex.Message);
                 return false;
             }
             finally

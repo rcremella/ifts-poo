@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnPagar = new Button();
+            btnCobrar = new Button();
             btnVolver = new Button();
             txtCarnet = new TextBox();
             lblCarnet = new Label();
@@ -43,14 +43,15 @@
             lblMensaje = new Label();
             SuspendLayout();
             // 
-            // btnPagar
+            // btnCobrar
             // 
-            btnPagar.Location = new Point(366, 71);
-            btnPagar.Name = "btnPagar";
-            btnPagar.Size = new Size(92, 23);
-            btnPagar.TabIndex = 20;
-            btnPagar.Text = "PAGAR";
-            btnPagar.UseVisualStyleBackColor = true;
+            btnCobrar.Enabled = false;
+            btnCobrar.Location = new Point(366, 71);
+            btnCobrar.Name = "btnCobrar";
+            btnCobrar.Size = new Size(92, 23);
+            btnCobrar.TabIndex = 20;
+            btnCobrar.Text = "COBRAR";
+            btnCobrar.UseVisualStyleBackColor = true;
             // 
             // btnVolver
             // 
@@ -122,6 +123,8 @@
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 12;
+            txtDocumento.KeyDown += txtDocumento_KeyDown;
+            txtDocumento.Leave += txtDocumento_Leave;
             // 
             // lblDocumento
             // 
@@ -168,7 +171,7 @@
             Controls.Add(lblMensaje);
             Controls.Add(txtImporte);
             Controls.Add(lblImporte);
-            Controls.Add(btnPagar);
+            Controls.Add(btnCobrar);
             Controls.Add(btnVolver);
             Controls.Add(txtCarnet);
             Controls.Add(lblCarnet);
@@ -186,7 +189,7 @@
         }
 
         #endregion
-        private Button btnPagar;
+        private Button btnCobrar;
         private Button btnVolver;
         private TextBox txtCarnet;
         private Label lblCarnet;

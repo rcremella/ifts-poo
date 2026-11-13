@@ -58,6 +58,8 @@
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 1;
+            txtDocumento.Leave += txtDocumento_Leave;
+            txtDocumento.KeyDown += txtDocumento_KeyDown;
             // 
             // txtApellido
             // 
@@ -125,6 +127,7 @@
             // 
             // btnImprimir
             // 
+            btnImprimir.Enabled = false;
             btnImprimir.Location = new Point(349, 71);
             btnImprimir.Name = "btnImprimir";
             btnImprimir.Size = new Size(142, 23);
@@ -135,6 +138,7 @@
             // chkEntregado
             // 
             chkEntregado.AutoSize = true;
+            chkEntregado.Enabled = false;
             chkEntregado.Font = new Font("Segoe UI", 9F);
             chkEntregado.Location = new Point(226, 187);
             chkEntregado.Name = "chkEntregado";

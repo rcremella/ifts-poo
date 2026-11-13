@@ -23,16 +23,23 @@ namespace proyectoClub
             {
                 _conexion.Open();
 
+                // el importe del no socio se toma de la tabla precio
                 string query = "INSERT INTO no_cliente(id_persona, importe) " +
-                    "values (@id_persona, (select importe from precio where detalle = 'no_socio'));" +
-                    "UPDATE persona SET apto_fisico = @apto_fisico WHERE id = @id_persona";
+                    "values (@id_persona, (select importe from precio where detalle = 'no_socio'))";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
                 cmd.Parameters.AddWithValue("@id_persona", _id);
-                cmd.Parameters.AddWithValue("@apto_fisico", AptoFisico);
+
+                // el apto fisico se guarda en persona, va en un comando aparte
+                // (si fueran los dos juntos ExecuteNonQuery sumaria las filas de ambos y nunca daria 1)
+                string queryUpdate = "UPDATE persona SET apto_fisico = @apto_fisico WHERE id = @id_persona";
+                MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, _conexion);
+                cmdUpdate.Parameters.AddWithValue("@apto_fisico", AptoFisico);
+                cmdUpdate.Parameters.AddWithValue("@id_persona", _id);
 
                 // ExecuteNonQuery devuelve las filas afectadas, si es 1 se inserto bien
                 int filas = cmd.ExecuteNonQuery();
+                cmdUpdate.ExecuteNonQuery();
 
                 return filas == 1;
             }

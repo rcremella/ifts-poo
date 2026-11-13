@@ -19,21 +19,25 @@ namespace proyectoClub
         // va despues de registrarPersona porque usa su _id
         public bool registrarCliente()
         {
+            // la transaccion agrupa las 2 escrituras: o se guardan las dos o ninguna
+            MySqlTransaction? transaccion = null;
+
             try
             {
                 _conexion.Open();
+                transaccion = _conexion.BeginTransaction();
 
                 // el importe del no socio se toma de la tabla precio
                 string query = "INSERT INTO no_cliente(id_persona, importe) " +
                     "values (@id_persona, (select importe from precio where detalle = 'no_socio'))";
 
-                MySqlCommand cmd = new MySqlCommand(query, _conexion);
+                MySqlCommand cmd = new MySqlCommand(query, _conexion, transaccion);
                 cmd.Parameters.AddWithValue("@id_persona", _id);
 
                 // el apto fisico se guarda en persona, va en un comando aparte
                 // (si fueran los dos juntos ExecuteNonQuery sumaria las filas de ambos y nunca daria 1)
                 string queryUpdate = "UPDATE persona SET apto_fisico = @apto_fisico WHERE id = @id_persona";
-                MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, _conexion);
+                MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, _conexion, transaccion);
                 cmdUpdate.Parameters.AddWithValue("@apto_fisico", AptoFisico);
                 cmdUpdate.Parameters.AddWithValue("@id_persona", _id);
 
@@ -41,10 +45,22 @@ namespace proyectoClub
                 int filas = cmd.ExecuteNonQuery();
                 cmdUpdate.ExecuteNonQuery();
 
-                return filas == 1;
+                if (filas == 1)
+                {
+                    transaccion.Commit(); // confirma los 2 cambios juntos
+                    return true;
+                }
+
+                transaccion.Rollback();
+                return false;
             }
             catch (Exception)
             {
+                // si algo fallo deshago lo que se haya guardado
+                if (transaccion != null)
+                {
+                    transaccion.Rollback();
+                }
                 return false;
             }
             finally

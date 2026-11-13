@@ -47,12 +47,28 @@ namespace proyectoClub
             }
 
             MySqlConnection myCon = Conexion.Obtener();
-            //Persona persona = new Persona(myCon, documento);
+
+            // primero veo si la persona existe y si es socio o no socio
+            Persona persona = new Persona(myCon, documento);
+
+            if (!persona.validarExistencia())
+            {
+                limpiarDatos("La persona no se encuentra registrada");
+                return;
+            }
+
+            // solo los socios tienen carnet
+            if (persona.tipo != "socio")
+            {
+                limpiarDatos("Los no socios no tienen carnet");
+                return;
+            }
+
             Socio socio = new Socio(myCon, documento);
 
             if (socio.validarCarnet())
             {
-                // la encontro: muestro sus datos y habilito el boton
+                // lo encontro: muestro sus datos y habilito el boton
                 txtNombre.Text = socio.Nombre;
                 txtApellido.Text = socio.Apellido;
                 txtCarnet.Text = socio.Carnet;
@@ -62,7 +78,7 @@ namespace proyectoClub
             }
             else
             {
-                limpiarDatos("La persona no se encuentra registrada");
+                limpiarDatos("El socio no tiene carnet registrado");
             }
         }
 

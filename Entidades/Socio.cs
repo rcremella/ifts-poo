@@ -29,17 +29,21 @@ namespace proyectoClub
         // va despues de registrarPersona porque usa su _id
         public bool registrarCliente()
         {
+            // la transaccion agrupa las 3 escrituras: o se guardan todas o no se guarda ninguna
+            MySqlTransaction? transaccion = null;
+
             try
             {
                 _conexion.Open();
+                transaccion = _conexion.BeginTransaction();
 
                 string query = "INSERT INTO cliente(id_persona, tipo) values (@id_persona, 'socio')";
 
-                MySqlCommand cmd = new MySqlCommand(query, _conexion);
+                MySqlCommand cmd = new MySqlCommand(query, _conexion, transaccion);
                 cmd.Parameters.AddWithValue("@id_persona", _id);
 
                 string queryUpdate = "UPDATE persona SET apto_fisico = @apto_fisico WHERE id = @id_persona";
-                MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, _conexion);
+                MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, _conexion, transaccion);
                 cmdUpdate.Parameters.AddWithValue("@apto_fisico", AptoFisico);
                 cmdUpdate.Parameters.AddWithValue("@id_persona", _id);
 
@@ -47,28 +51,30 @@ namespace proyectoClub
                 int filas = cmd.ExecuteNonQuery();
                 cmdUpdate.ExecuteNonQuery();
 
+                // el carnet necesita el id del cliente que se acaba de insertar
                 int idCliente = (int)cmd.LastInsertedId;
                 string queryCarnet = "INSERT INTO carnet(id_cliente) values (@id_cliente)";
 
-
-
-
-                MySqlCommand cmdCarnet = new MySqlCommand(queryCarnet, _conexion);
+                MySqlCommand cmdCarnet = new MySqlCommand(queryCarnet, _conexion, transaccion);
                 cmdCarnet.Parameters.AddWithValue("@id_cliente", idCliente);
                 int filasCarnet = cmdCarnet.ExecuteNonQuery();
 
+                if (filas == 1 && filasCarnet == 1)
+                {
+                    transaccion.Commit(); // confirma los 3 cambios juntos
+                    return true;
+                }
 
-
-
-                return filas == 1;
-
-
-
-
-
+                transaccion.Rollback();
+                return false;
             }
             catch (Exception)
             {
+                // si algo fallo deshago lo que se haya guardado
+                if (transaccion != null)
+                {
+                    transaccion.Rollback();
+                }
                 return false;
             }
             finally

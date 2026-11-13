@@ -15,6 +15,11 @@ namespace proyectoClub
 
         public bool Emitido { get { return _emitido; } set { _emitido = value; } }
 
+        // fecha en que se entrego el carnet, null si todavia no se entrego
+        private DateTime? _fechaEntrega = null;
+
+        public DateTime? FechaEntrega { get { return _fechaEntrega; } set { _fechaEntrega = value; } }
+
         // base(...) llama al constructor de Persona
         public Socio(MySqlConnection conexion, int documento) : base(conexion, documento)
         {
@@ -93,7 +98,7 @@ namespace proyectoClub
             {
                 _conexion.Open();
 
-                string query = "select p.id, p.nombre, p.apellido, 'socio' as tipo, ca.id as carnet, ca.emitido from cliente c " +
+                string query = "select p.id, p.nombre, p.apellido, 'socio' as tipo, ca.id as carnet, ca.emitido, ca.fecha_entrega from cliente c " +
                                 "inner join persona p on p.id = c.id_persona " +
                                 "inner join carnet ca on c.id = ca.id_cliente " +
                                 "where p.documento = @documento ";
@@ -115,6 +120,11 @@ namespace proyectoClub
                     // DBNull = campo vacio en la base, en ese caso queda en false
                     _emitido = reader["emitido"] != DBNull.Value && Convert.ToBoolean(reader["emitido"]);
 
+                    if (reader["fecha_entrega"] != DBNull.Value)
+                    {
+                        _fechaEntrega = Convert.ToDateTime(reader["fecha_entrega"]);
+                    }
+
                     reader.Close();
                     return true;
                 }
@@ -130,6 +140,44 @@ namespace proyectoClub
             finally
             {
                 // finally se ejecuta siempre, haya error o no
+                if (_conexion.State == System.Data.ConnectionState.Open)
+                    _conexion.Close();
+            }
+        }
+
+        // marca el carnet como entregado con la fecha de hoy, devuelve true si se guardo bien
+        // va despues de validarCarnet porque usa su _id
+        public bool entregarCarnet()
+        {
+            try
+            {
+                _conexion.Open();
+
+                // el carnet se busca a traves del cliente que corresponde a esta persona
+                string query = "UPDATE carnet SET emitido = 1, fecha_entrega = CURDATE() " +
+                               "WHERE id_cliente = (SELECT id FROM cliente WHERE id_persona = @id_persona)";
+
+                MySqlCommand cmd = new MySqlCommand(query, _conexion);
+                cmd.Parameters.AddWithValue("@id_persona", _id);
+
+                // ExecuteNonQuery devuelve las filas afectadas, si es 1 se actualizo bien
+                int filas = cmd.ExecuteNonQuery();
+
+                if (filas == 1)
+                {
+                    _emitido = true;
+                    _fechaEntrega = DateTime.Today;
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
                 if (_conexion.State == System.Data.ConnectionState.Open)
                     _conexion.Close();
             }

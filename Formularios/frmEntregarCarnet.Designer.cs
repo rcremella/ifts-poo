@@ -134,6 +134,7 @@
             btnImprimir.TabIndex = 9;
             btnImprimir.Text = "IMPRIMIR CARNET";
             btnImprimir.UseVisualStyleBackColor = true;
+            btnImprimir.Click += btnImprimir_Click;
             // 
             // chkEntregado
             // 

@@ -65,8 +65,23 @@ namespace proyectoClub
                 cboTipoPago.SelectedIndex = 0; // arranca en Efectivo
                 _idPersona = persona._id;
                 _personaEncontrada = true;
+
+                // el importe se completa solo con el precio de su tipo (socio o no socio), pero se puede corregir
+                Precio precio = new Precio(myCon);
+                decimal? importe = precio.obtenerImporte(persona.tipo);
+
+                if (importe != null)
+                {
+                    txtImporte.Text = importe.Value.ToString("0.##");
+                    lblMensaje.Text = "Verifique el importe y elija el tipo de pago";
+                }
+                else
+                {
+                    txtImporte.Text = "";
+                    lblMensaje.Text = "No hay precio cargado, ingrese el importe";
+                }
+
                 habilitarCobrar();
-                lblMensaje.Text = "Ingrese el importe a pagar";
             }
             else
             {

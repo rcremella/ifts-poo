@@ -6,6 +6,9 @@ namespace proyectoClub
     // se busca por dni y el checkbox marca si el carnet ya se entrego
     public partial class frmEntregarCarnet : Form
     {
+        // socio encontrado, es null mientras no haya uno valido
+        private Socio? _socio = null;
+
         public frmEntregarCarnet()
         {
             InitializeComponent();
@@ -73,6 +76,7 @@ namespace proyectoClub
                 txtApellido.Text = socio.Apellido;
                 txtCarnet.Text = socio.Carnet;
                 chkEntregado.Checked = socio.Emitido;
+                _socio = socio;
                 btnImprimir.Enabled = true;
                 lblMensaje.Text = "Persona encontrada";
             }
@@ -88,8 +92,51 @@ namespace proyectoClub
             txtNombre.Text = "";
             txtApellido.Text = "";
             txtCarnet.Text = "";
+            chkEntregado.Checked = false;
+            _socio = null;
             btnImprimir.Enabled = false;
             lblMensaje.Text = mensaje;
+        }
+
+        // entrega el carnet: lo marca como entregado en la base y muestra sus datos
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            // el boton solo esta habilitado con un socio encontrado, igual lo reviso por las dudas
+            if (_socio == null)
+            {
+                return;
+            }
+
+            // si ya se entrego antes, pregunto si se quiere volver a imprimir (no se cambia la fecha)
+            if (_socio.Emitido)
+            {
+                DialogResult respuesta = MessageBox.Show("El carnet ya fue entregado. ¿Desea imprimirlo de nuevo?",
+                                                         "Carnet ya entregado", MessageBoxButtons.YesNo);
+
+                if (respuesta == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                if (!_socio.entregarCarnet())
+                {
+                    lblMensaje.Text = "No se pudo registrar la entrega del carnet";
+                    return;
+                }
+
+                chkEntregado.Checked = true;
+                lblMensaje.Text = "Carnet entregado correctamente";
+            }
+
+            // la "impresion" es un resumen con los datos del carnet
+            string fecha = _socio.FechaEntrega.HasValue ? _socio.FechaEntrega.Value.ToString("dd/MM/yyyy") : "";
+
+            MessageBox.Show("Carnet N° " + _socio.Carnet + "\n" +
+                            "Socio: " + _socio.Nombre + " " + _socio.Apellido + "\n" +
+                            "Fecha de entrega: " + fecha,
+                            "Carnet");
         }
     }
 }

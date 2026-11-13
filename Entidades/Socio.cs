@@ -1,5 +1,4 @@
 using MySql.Data.MySqlClient;
-using Mysqlx.Crud;
 
 namespace proyectoClub
 {
@@ -11,9 +10,10 @@ namespace proyectoClub
 
         public string Carnet { get { return _carnet; } set { _carnet = value; } }
 
-        private string _emitido = "";
+        // true si el carnet ya se entrego (campo emitido de la tabla carnet)
+        private bool _emitido = false;
 
-        public string Emitido { get { return _emitido; } set { _emitido = value; } }    
+        public bool Emitido { get { return _emitido; } set { _emitido = value; } }
 
         // base(...) llama al constructor de Persona
         public Socio(MySqlConnection conexion, int documento) : base(conexion, documento)
@@ -85,8 +85,6 @@ namespace proyectoClub
             }
         }
 
-
-
         // busca al socio con su carnet (solo lo usa frmEntregarCarnet)
         // no es override: validarExistencia de Persona sigue buscando en socios y no socios
         public bool validarCarnet()
@@ -114,7 +112,8 @@ namespace proyectoClub
                     _apellido = reader["apellido"].ToString() ?? "";
                     tipo = reader["tipo"].ToString() ?? "";
                     _carnet = reader["carnet"].ToString() ?? "";
-                    _emitido = reader["emitido"].ToString() ?? "";
+                    // DBNull = campo vacio en la base, en ese caso queda en false
+                    _emitido = reader["emitido"] != DBNull.Value && Convert.ToBoolean(reader["emitido"]);
 
                     reader.Close();
                     return true;

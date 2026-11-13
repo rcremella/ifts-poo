@@ -57,11 +57,27 @@ Si falta el secreto, la aplicación lanza el error `Falta ConnectionStrings:Club
 ## Estructura
 
 - `Program.cs`: punto de entrada del sistema.
+- `Datos/Conexion.cs`: configuración de conexión a MySQL.
+
+### Formularios (`Formularios/`)
+
 - `frmLogin`: pantalla de inicio de sesión.
 - `frmOpciones`: menú principal.
-- `frmRegistrarCliente`: alta de socios.
-- `Persona.cs` y `Usuario.cs`: entidades del sistema.
-- `Conexion.cs`: configuración de conexión a MySQL.
+- `frmRegistrarCliente`: alta de socios y no socios.
+- `frmPagar`: cobro de la cuota (se busca a la persona por documento).
+- `frmEntregarCarnet`: búsqueda del carnet de un socio.
+- `frmListarVencimientos`: grilla con los socios que vencen hoy.
+
+### Entidades (`Entidades/`)
+
+- `Persona`: clase base con los datos de cualquier persona y el acceso a la tabla `persona`.
+- `Socio` y `noSocio`: heredan de `Persona`. Cada una guarda sus datos en su tabla (`cliente` y `no_cliente`) con `registrarCliente`.
+- `Usuario`: usuario del sistema, valida el login.
+- `Vencimiento`: consulta de los vencimientos del día.
+
+## Base de datos
+
+Las tablas que usa el sistema son `persona`, `cliente` (socios), `no_cliente`, `carnet`, `pago`, `precio` y `usuario`. El script de la carpeta `DB` puede estar desactualizado respecto a la base que usa el grupo, así que ante cualquier duda hay que confirmar el esquema real.
 
 ## Trabajo en grupo
 

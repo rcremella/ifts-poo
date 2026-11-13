@@ -72,7 +72,7 @@ namespace proyectoClub
                 txtNombre.Text = socio.Nombre;
                 txtApellido.Text = socio.Apellido;
                 txtCarnet.Text = socio.Carnet;
-                chkEntregado.Checked = socio.Emitido == "True";
+                chkEntregado.Checked = socio.Emitido;
                 btnImprimir.Enabled = true;
                 lblMensaje.Text = "Persona encontrada";
             }

@@ -36,8 +36,8 @@
             lblNombre = new Label();
             txtApellido = new TextBox();
             lblApellido = new Label();
-            txtDni = new TextBox();
-            lblDni = new Label();
+            txtDocumento = new TextBox();
+            lblDocumento = new Label();
             txtImporte = new TextBox();
             lblImporte = new Label();
             lblMensaje = new Label();
@@ -45,18 +45,18 @@
             // 
             // btnPagar
             // 
-            btnPagar.Location = new Point(362, 71);
+            btnPagar.Location = new Point(366, 71);
             btnPagar.Name = "btnPagar";
-            btnPagar.Size = new Size(75, 23);
+            btnPagar.Size = new Size(92, 23);
             btnPagar.TabIndex = 20;
             btnPagar.Text = "PAGAR";
             btnPagar.UseVisualStyleBackColor = true;
             // 
             // btnVolver
             // 
-            btnVolver.Location = new Point(362, 183);
+            btnVolver.Location = new Point(366, 186);
             btnVolver.Name = "btnVolver";
-            btnVolver.Size = new Size(75, 23);
+            btnVolver.Size = new Size(92, 23);
             btnVolver.TabIndex = 19;
             btnVolver.Text = "VOLVER";
             btnVolver.UseVisualStyleBackColor = true;
@@ -65,7 +65,7 @@
             // txtCarnet
             // 
             txtCarnet.Enabled = false;
-            txtCarnet.Location = new Point(119, 152);
+            txtCarnet.Location = new Point(122, 158);
             txtCarnet.Name = "txtCarnet";
             txtCarnet.Size = new Size(184, 23);
             txtCarnet.TabIndex = 18;
@@ -83,7 +83,7 @@
             // txtNombre
             // 
             txtNombre.Enabled = false;
-            txtNombre.Location = new Point(119, 127);
+            txtNombre.Location = new Point(122, 129);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(184, 23);
             txtNombre.TabIndex = 16;
@@ -101,7 +101,7 @@
             // txtApellido
             // 
             txtApellido.Enabled = false;
-            txtApellido.Location = new Point(119, 100);
+            txtApellido.Location = new Point(122, 100);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(184, 23);
             txtApellido.TabIndex = 14;
@@ -116,27 +116,27 @@
             lblApellido.TabIndex = 13;
             lblApellido.Text = "Apellido";
             // 
-            // txtDni
+            // txtDocumento
             // 
-            txtDni.Location = new Point(119, 71);
-            txtDni.Name = "txtDni";
-            txtDni.Size = new Size(184, 23);
-            txtDni.TabIndex = 12;
+            txtDocumento.Location = new Point(122, 71);
+            txtDocumento.Name = "txtDocumento";
+            txtDocumento.Size = new Size(184, 23);
+            txtDocumento.TabIndex = 12;
             // 
-            // lblDni
+            // lblDocumento
             // 
-            lblDni.AutoSize = true;
-            lblDni.Font = new Font("Segoe UI", 9F);
-            lblDni.Location = new Point(47, 74);
-            lblDni.Name = "lblDni";
-            lblDni.Size = new Size(68, 15);
-            lblDni.TabIndex = 11;
-            lblDni.Text = "Ingrese DNI";
+            lblDocumento.AutoSize = true;
+            lblDocumento.Font = new Font("Segoe UI", 9F);
+            lblDocumento.Location = new Point(47, 74);
+            lblDocumento.Name = "lblDocumento";
+            lblDocumento.Size = new Size(70, 15);
+            lblDocumento.TabIndex = 11;
+            lblDocumento.Text = "Documento";
             // 
             // txtImporte
             // 
             txtImporte.Enabled = false;
-            txtImporte.Location = new Point(119, 184);
+            txtImporte.Location = new Point(122, 187);
             txtImporte.Name = "txtImporte";
             txtImporte.Size = new Size(184, 23);
             txtImporte.TabIndex = 22;
@@ -145,7 +145,7 @@
             // 
             lblImporte.AutoSize = true;
             lblImporte.Font = new Font("Segoe UI", 9F);
-            lblImporte.Location = new Point(47, 187);
+            lblImporte.Location = new Point(47, 190);
             lblImporte.Name = "lblImporte";
             lblImporte.Size = new Size(49, 15);
             lblImporte.TabIndex = 21;
@@ -176,11 +176,11 @@
             Controls.Add(lblNombre);
             Controls.Add(txtApellido);
             Controls.Add(lblApellido);
-            Controls.Add(txtDni);
-            Controls.Add(lblDni);
+            Controls.Add(txtDocumento);
+            Controls.Add(lblDocumento);
             Name = "frmPagar";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Pagar";
+            Text = "Cobrar Cuota";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -194,8 +194,8 @@
         private Label lblNombre;
         private TextBox txtApellido;
         private Label lblApellido;
-        private TextBox txtDni;
-        private Label lblDni;
+        private TextBox txtDocumento;
+        private Label lblDocumento;
         private TextBox txtImporte;
         private Label lblImporte;
         private Label lblMensaje;

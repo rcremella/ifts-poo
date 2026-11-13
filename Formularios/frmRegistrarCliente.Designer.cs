@@ -112,7 +112,7 @@
             // 
             btnRegistrar.Location = new Point(366, 74);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.Size = new Size(75, 23);
+            btnRegistrar.Size = new Size(92, 23);
             btnRegistrar.TabIndex = 8;
             btnRegistrar.Text = "REGISTRAR";
             btnRegistrar.UseVisualStyleBackColor = true;
@@ -122,7 +122,7 @@
             // 
             btnLimpiar.Location = new Point(366, 103);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(75, 23);
+            btnLimpiar.Size = new Size(92, 23);
             btnLimpiar.TabIndex = 9;
             btnLimpiar.Text = "LIMPIAR";
             btnLimpiar.UseVisualStyleBackColor = true;
@@ -151,7 +151,7 @@
             // 
             btnVolver.Location = new Point(366, 186);
             btnVolver.Name = "btnVolver";
-            btnVolver.Size = new Size(75, 23);
+            btnVolver.Size = new Size(92, 23);
             btnVolver.TabIndex = 12;
             btnVolver.Text = "VOLVER";
             btnVolver.UseVisualStyleBackColor = true;

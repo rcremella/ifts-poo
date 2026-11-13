@@ -41,7 +41,7 @@
             // lblConexion
             // 
             lblConexion.AutoSize = true;
-            lblConexion.Location = new Point(151, 40);
+            lblConexion.Location = new Point(205, 36);
             lblConexion.Name = "lblConexion";
             lblConexion.Size = new Size(122, 15);
             lblConexion.TabIndex = 0;
@@ -50,26 +50,26 @@
             // lblNombre
             // 
             lblNombre.AutoSize = true;
-            lblNombre.Font = new Font("Segoe UI", 12F);
-            lblNombre.Location = new Point(31, 97);
+            lblNombre.Font = new Font("Segoe UI", 9F);
+            lblNombre.Location = new Point(88, 95);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(147, 21);
+            lblNombre.Size = new Size(110, 15);
             lblNombre.TabIndex = 1;
             lblNombre.Text = "Nombre de Usuario";
             // 
             // lblClave
             // 
             lblClave.AutoSize = true;
-            lblClave.Font = new Font("Segoe UI", 12F);
-            lblClave.Location = new Point(89, 131);
+            lblClave.Font = new Font("Segoe UI", 9F);
+            lblClave.Location = new Point(88, 124);
             lblClave.Name = "lblClave";
-            lblClave.Size = new Size(89, 21);
+            lblClave.Size = new Size(67, 15);
             lblClave.TabIndex = 2;
             lblClave.Text = "Contraseña";
             // 
             // txtUsuario
             // 
-            txtUsuario.Location = new Point(193, 99);
+            txtUsuario.Location = new Point(246, 92);
             txtUsuario.Name = "txtUsuario";
             txtUsuario.Size = new Size(172, 23);
             txtUsuario.TabIndex = 3;
@@ -79,7 +79,7 @@
             // 
             // txtClave
             // 
-            txtClave.Location = new Point(193, 131);
+            txtClave.Location = new Point(246, 121);
             txtClave.Name = "txtClave";
             txtClave.Size = new Size(172, 23);
             txtClave.TabIndex = 4;
@@ -96,7 +96,7 @@
             // 
             // btnConectar
             // 
-            btnConectar.Location = new Point(283, 183);
+            btnConectar.Location = new Point(336, 170);
             btnConectar.Name = "btnConectar";
             btnConectar.Size = new Size(82, 23);
             btnConectar.TabIndex = 5;
@@ -116,7 +116,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(397, 243);
+            ClientSize = new Size(503, 231);
             Controls.Add(lblResultado);
             Controls.Add(btnConectar);
             Controls.Add(txtClave);

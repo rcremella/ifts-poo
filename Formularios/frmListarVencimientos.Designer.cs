@@ -39,9 +39,9 @@
             // 
             // btnImprimir
             // 
-            btnImprimir.Location = new Point(525, 400);
+            btnImprimir.Location = new Point(474, 367);
             btnImprimir.Name = "btnImprimir";
-            btnImprimir.Size = new Size(142, 23);
+            btnImprimir.Size = new Size(176, 23);
             btnImprimir.TabIndex = 10;
             btnImprimir.Text = "IMPRIMIR VENCIMIENTOS";
             btnImprimir.UseVisualStyleBackColor = true;
@@ -60,9 +60,9 @@
             // 
             // btnVolver
             // 
-            btnVolver.Location = new Point(673, 400);
+            btnVolver.Location = new Point(656, 367);
             btnVolver.Name = "btnVolver";
-            btnVolver.Size = new Size(75, 23);
+            btnVolver.Size = new Size(92, 23);
             btnVolver.TabIndex = 20;
             btnVolver.Text = "VOLVER";
             btnVolver.UseVisualStyleBackColor = true;
@@ -72,7 +72,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 429);
             Controls.Add(btnVolver);
             Controls.Add(dgvVencimientos);
             Controls.Add(btnImprimir);

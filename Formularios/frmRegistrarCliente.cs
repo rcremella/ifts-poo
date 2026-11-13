@@ -1,5 +1,4 @@
 ﻿using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
 
 namespace proyectoClub
 {
@@ -151,7 +150,8 @@ namespace proyectoClub
 
             // cargo el objeto con lo que escribio la persona en el formulario
             // aca decido si va a ser socio o no socio, si es socio se guarda en la tabla cliente y si no en no_cliente
-            dynamic cliente;
+            // la variable es de tipo Persona y guarda un Socio o un noSocio (herencia)
+            Persona cliente;
 
             if (chkSocio.Checked)
             {
@@ -176,10 +176,11 @@ namespace proyectoClub
             {
                 if (!cliente.registrarPersona())
                 {
-                    lblMensaje.Text = "Error al registrar el socio";
+                    lblMensaje.Text = "Error al registrar la persona";
                     return;
                 }
 
+                // polimorfismo: se ejecuta el registrarCliente de Socio o el de noSocio segun el objeto
                 bool clienteOk = cliente.registrarCliente();
 
                 // la persona ya se guardo, bloqueo el formulario para que no se cargue dos veces
@@ -187,13 +188,12 @@ namespace proyectoClub
 
                 if (clienteOk)
                 {
-                    // variable de tipo Persona con un objeto Socio: se ejecuta el override de Socio
-                    Persona persona = cliente;
-                    lblMensaje.Text = persona.ObtenerDescripcion() + " registrado correctamente";
+                    // variable de tipo Persona con un objeto Socio o noSocio: se ejecuta el override que corresponda
+                    lblMensaje.Text = cliente.ObtenerDescripcion() + " registrado correctamente";
                 }
                 else
                 {
-                    lblMensaje.Text = "Se guardó la persona pero no se pudo registrar como socio";
+                    lblMensaje.Text = "Se guardó la persona pero no se pudo registrar como cliente";
                 }
             }
             else

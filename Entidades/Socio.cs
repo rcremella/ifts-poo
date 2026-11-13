@@ -26,8 +26,9 @@ namespace proyectoClub
             return "Socio: " + _nombre + " " + _apellido;
         }
 
+        // override de Persona: guarda al socio en la tabla cliente y le crea el carnet
         // va despues de registrarPersona porque usa su _id
-        public bool registrarCliente()
+        public override bool registrarCliente()
         {
             // la transaccion agrupa las 3 escrituras: o se guardan todas o no se guarda ninguna
             MySqlTransaction? transaccion = null;

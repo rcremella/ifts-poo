@@ -2,7 +2,7 @@
 
 namespace proyectoClub
 {
-    // hereda de Persona
+    // hereda de Persona: una persona que usa el club sin ser socio (no tiene carnet ni vencimiento)
     internal class noSocio : Persona
     {
         // base(...) llama al constructor de Persona
@@ -10,14 +10,15 @@ namespace proyectoClub
         {
         }
 
-        // polimorfismo: misma firma que en Persona pero devuelve el texto de un socio
+        // polimorfismo: misma firma que en Persona pero devuelve el texto de un no socio
         public override string ObtenerDescripcion()
         {
             return "No Socio: " + _nombre + " " + _apellido;
         }
 
+        // override de Persona: guarda al no socio en la tabla no_cliente
         // va despues de registrarPersona porque usa su _id
-        public bool registrarCliente()
+        public override bool registrarCliente()
         {
             // la transaccion agrupa las 2 escrituras: o se guardan las dos o ninguna
             MySqlTransaction? transaccion = null;

@@ -99,6 +99,13 @@ namespace proyectoClub
             return "Persona: " + _nombre + " " + _apellido;
         }
 
+        // virtual: cada tipo de persona guarda sus datos en su propia tabla (Socio en cliente, noSocio en no_cliente)
+        // en Persona no hace nada porque una persona sola no es cliente
+        public virtual bool registrarCliente()
+        {
+            return false;
+        }
+
         // devuelve false si falta nombre, apellido o telefono (IsNullOrWhiteSpace tambien detecta solo espacios)
         public bool verificarDatosCompletos()
         {

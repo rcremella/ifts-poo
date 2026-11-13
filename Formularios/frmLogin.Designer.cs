@@ -76,6 +76,7 @@
             txtUsuario.Text = "Ingrese Nombre de Usuario";
             txtUsuario.Enter += txtNombre_Text_Enter;
             txtUsuario.Leave += txtNombre_Leave;
+            txtUsuario.TextChanged += txtUsuario_TextChanged;
             // 
             // txtClave
             // 
@@ -86,6 +87,7 @@
             txtClave.Text = "Ingrese su contraseña";
             txtClave.Enter += txtClave_Enter;
             txtClave.Leave += txtClave_Leave;
+            txtClave.TextChanged += txtClave_TextChanged;
             // 
             // btnEnviar
             // 
@@ -96,6 +98,7 @@
             // 
             // btnConectar
             // 
+            btnConectar.Enabled = false;
             btnConectar.Location = new Point(336, 170);
             btnConectar.Name = "btnConectar";
             btnConectar.Size = new Size(82, 23);

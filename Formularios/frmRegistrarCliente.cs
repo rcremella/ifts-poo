@@ -40,7 +40,42 @@ namespace proyectoClub
         }
 
         // se ejecuta cuando el foco sale del campo documento
-        private void textBox1_Leave(object sender, EventArgs e)
+        private void txtDocumento_Leave(object sender, EventArgs e)
+        {
+            buscarDocumento();
+        }
+
+        // tambien se busca al apretar Enter dentro del campo documento
+        private void txtDocumento_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buscarDocumento();
+                e.SuppressKeyPress = true; // evita el sonido de Windows al apretar Enter
+            }
+        }
+
+        // si se modifica el documento ya verificado, hay que verificarlo de nuevo
+        private void txtDocumento_TextChanged(object sender, EventArgs e)
+        {
+            if (btnRegistrar.Enabled)
+            {
+                bloquearDatos();
+                lblMensaje.Text = "Ingrese el documento";
+            }
+        }
+
+        // bloquea los datos y el boton REGISTRAR hasta que el dni este verificado
+        private void bloquearDatos()
+        {
+            txtNombre.Enabled = false;
+            txtApellido.Enabled = false;
+            txtTelefono.Enabled = false;
+            chkAptoFisico.Enabled = false;
+            btnRegistrar.Enabled = false;
+        }
+
+        private void buscarDocumento()
         {
             // verifico el dni, si ya existe se cargan sus datos y si no se habilita el registro
             MySqlConnection myCon = Conexion.Obtener();
@@ -50,6 +85,7 @@ namespace proyectoClub
             // TryParse no tira error si no es un numero, devuelve false
             if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
             {
+                bloquearDatos();
                 lblMensaje.Text = "Ingrese un documento válido";
                 return;
             }
@@ -134,15 +170,12 @@ namespace proyectoClub
             txtApellido.Text = "";
             txtTelefono.Text = "";
 
+            // solo queda habilitado el documento, el resto se habilita al verificarlo
             txtDocumento.Enabled = true;
-            txtNombre.Enabled = true;
-            txtApellido.Enabled = true;
-            txtTelefono.Enabled = true;
             chkAptoFisico.Checked = false;
-            chkAptoFisico.Enabled = true;
-            btnRegistrar.Enabled = true;
+            bloquearDatos();
 
-            lblMensaje.Text = "Complete los datos";
+            lblMensaje.Text = "Ingrese el documento";
         }
 
         // cierra este formulario y se vuelve al menu (se abrio con ShowDialog)

@@ -6,6 +6,9 @@ namespace proyectoClub
     // se busca al socio por dni y se carga el importe que paga
     public partial class frmPagar : Form
     {
+        // es true solo cuando el documento ingresado existe en la base
+        private bool _personaEncontrada = false;
+
         public frmPagar()
         {
             InitializeComponent();
@@ -55,7 +58,8 @@ namespace proyectoClub
                 txtNombre.Text = persona.Nombre;
                 txtApellido.Text = persona.Apellido;
                 txtImporte.Enabled = true;
-                btnCobrar.Enabled = true;
+                _personaEncontrada = true;
+                habilitarCobrar();
                 lblMensaje.Text = "Ingrese el importe a pagar";
             }
             else
@@ -67,12 +71,30 @@ namespace proyectoClub
         // vacia los datos y deja el boton COBRAR deshabilitado
         private void limpiarDatos(string mensaje)
         {
+            _personaEncontrada = false;
             txtNombre.Text = "";
             txtApellido.Text = "";
             txtImporte.Text = "";
             txtImporte.Enabled = false;
             btnCobrar.Enabled = false;
             lblMensaje.Text = mensaje;
+        }
+
+        // cada vez que cambia el importe reviso si ya se puede cobrar
+        private void txtImporte_TextChanged(object sender, EventArgs e)
+        {
+            habilitarCobrar();
+        }
+
+        // COBRAR queda habilitado solo si hay una persona encontrada y un importe mayor a cero
+        private void habilitarCobrar()
+        {
+            decimal importe;
+
+            // TryParse no tira error si el texto no es un numero, devuelve false
+            bool importeOk = decimal.TryParse(txtImporte.Text, out importe) && importe > 0;
+
+            btnCobrar.Enabled = _personaEncontrada && importeOk;
         }
     }
 }

@@ -58,10 +58,13 @@
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 1;
-            txtDocumento.Leave += textBox1_Leave;
+            txtDocumento.Leave += txtDocumento_Leave;
+            txtDocumento.KeyDown += txtDocumento_KeyDown;
+            txtDocumento.TextChanged += txtDocumento_TextChanged;
             // 
             // txtApellido
             // 
+            txtApellido.Enabled = false;
             txtApellido.Location = new Point(122, 100);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(184, 23);
@@ -78,6 +81,7 @@
             // 
             // txtTelefono
             // 
+            txtTelefono.Enabled = false;
             txtTelefono.Location = new Point(122, 158);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(184, 23);
@@ -94,6 +98,7 @@
             // 
             // txtNombre
             // 
+            txtNombre.Enabled = false;
             txtNombre.Location = new Point(122, 129);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(184, 23);
@@ -110,6 +115,7 @@
             // 
             // btnRegistrar
             // 
+            btnRegistrar.Enabled = false;
             btnRegistrar.Location = new Point(366, 74);
             btnRegistrar.Name = "btnRegistrar";
             btnRegistrar.Size = new Size(92, 23);
@@ -135,11 +141,12 @@
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(109, 15);
             lblMensaje.TabIndex = 10;
-            lblMensaje.Text = "Complete los datos";
+            lblMensaje.Text = "Ingrese el documento";
             // 
             // chkAptoFisico
             // 
             chkAptoFisico.AutoSize = true;
+            chkAptoFisico.Enabled = false;
             chkAptoFisico.Location = new Point(224, 187);
             chkAptoFisico.Name = "chkAptoFisico";
             chkAptoFisico.Size = new Size(83, 19);

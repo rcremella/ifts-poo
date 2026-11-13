@@ -143,6 +143,7 @@
             txtImporte.Name = "txtImporte";
             txtImporte.Size = new Size(184, 23);
             txtImporte.TabIndex = 22;
+            txtImporte.TextChanged += txtImporte_TextChanged;
             // 
             // lblImporte
             // 

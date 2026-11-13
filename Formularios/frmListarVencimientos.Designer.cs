@@ -36,6 +36,7 @@
             // 
             // btnImprimir
             // 
+            btnImprimir.Enabled = false;
             btnImprimir.Location = new Point(474, 367);
             btnImprimir.Name = "btnImprimir";
             btnImprimir.Size = new Size(176, 23);

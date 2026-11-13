@@ -34,6 +34,9 @@ namespace proyectoClub
 
                 // DataSource enlaza la tabla con la grilla
                 dgvVencimientos.DataSource = tabla;
+
+                // IMPRIMIR queda habilitado solo si hay al menos un vencimiento para imprimir
+                btnImprimir.Enabled = tabla.Rows.Count > 0;
             }
             catch (Exception)
             {

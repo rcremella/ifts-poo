@@ -9,6 +9,9 @@ namespace proyectoClub
         // es true solo cuando el documento ingresado existe en la base
         private bool _personaEncontrada = false;
 
+        // id de la persona encontrada, lo necesita el pago para guardarse en la base
+        private int _idPersona = 0;
+
         public frmPagar()
         {
             InitializeComponent();
@@ -58,6 +61,9 @@ namespace proyectoClub
                 txtNombre.Text = persona.Nombre;
                 txtApellido.Text = persona.Apellido;
                 txtImporte.Enabled = true;
+                cboTipoPago.Enabled = true;
+                cboTipoPago.SelectedIndex = 0; // arranca en Efectivo
+                _idPersona = persona._id;
                 _personaEncontrada = true;
                 habilitarCobrar();
                 lblMensaje.Text = "Ingrese el importe a pagar";
@@ -72,10 +78,13 @@ namespace proyectoClub
         private void limpiarDatos(string mensaje)
         {
             _personaEncontrada = false;
+            _idPersona = 0;
             txtNombre.Text = "";
             txtApellido.Text = "";
             txtImporte.Text = "";
             txtImporte.Enabled = false;
+            cboTipoPago.SelectedIndex = -1; // sin seleccion
+            cboTipoPago.Enabled = false;
             btnCobrar.Enabled = false;
             lblMensaje.Text = mensaje;
         }
@@ -95,6 +104,46 @@ namespace proyectoClub
             bool importeOk = decimal.TryParse(txtImporte.Text, out importe) && importe > 0;
 
             btnCobrar.Enabled = _personaEncontrada && importeOk;
+        }
+
+        // guarda el pago en la base y deja el formulario listo para cobrar a otra persona
+        private void btnCobrar_Click(object sender, EventArgs e)
+        {
+            decimal importe;
+
+            // el boton ya esta habilitado solo con importe valido, igual lo reviso por las dudas
+            if (!decimal.TryParse(txtImporte.Text, out importe) || importe <= 0)
+            {
+                lblMensaje.Text = "Ingrese un importe válido";
+                return;
+            }
+
+            bool guardado;
+
+            // si faltan los user secrets o falla MySQL aviso con un mensaje (sin detalles de la cadena)
+            try
+            {
+                MySqlConnection myCon = Conexion.Obtener();
+                Pago pago = new Pago(myCon, _idPersona, importe, cboTipoPago.Text);
+                guardado = pago.registrar();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión");
+                return;
+            }
+
+            if (guardado)
+            {
+                // limpio todo para el proximo cobro
+                txtDocumento.Text = "";
+                limpiarDatos("Pago registrado correctamente");
+                txtDocumento.Focus();
+            }
+            else
+            {
+                lblMensaje.Text = "No se pudo registrar el pago";
+            }
         }
     }
 }

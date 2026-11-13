@@ -57,8 +57,25 @@ namespace proyectoClub
                 // la encontro: muestro sus datos y habilito el importe y el boton
                 txtNombre.Text = persona.Nombre;
                 txtApellido.Text = persona.Apellido;
-                txtImporte.Enabled = true;
+                //aca obtengo el tipo si es cliente creo el objeto cliente para traer el importe, si es no cliente creo el objeto no cliente para traer el importe
+                if(persona.tipo == "socio")
+                {
+                    Socio socio = new Socio(myCon, documento);
+                    socio.validarExistencia();
+                    txtImporte.Text = socio.Importe.ToString("0.00");
+                    txtCarnet.Text = socio.Carnet;
+                }
+                else if (persona.tipo == "no_socio")
+                {
+                    noSocio noSocio = new noSocio(myCon, documento);
+                    noSocio.validarExistencia();
+                    txtImporte.Text = noSocio.Importe.ToString("0.00");
+                    txtCarnet.Text = "";
+
+                }
+
                 _personaEncontrada = true;
+
                 habilitarCobrar();
                 lblMensaje.Text = "Ingrese el importe a pagar";
             }

@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 
 namespace proyectoClub
 {
@@ -7,6 +8,11 @@ namespace proyectoClub
     {
         // atributo propio de Socio, Persona no lo tiene
         private bool _aptoFisico = false;
+
+        private decimal _importe = 0; // atributo propio de Socio, Persona no lo tiene
+
+        public decimal Importe { get { return _importe; } set { _importe = value; } }
+
 
         public bool AptoFisico { get { return _aptoFisico; } set { _aptoFisico = value; } }
 
@@ -85,5 +91,72 @@ namespace proyectoClub
                     _conexion.Close();
             }
         }
+
+
+        public override bool validarExistencia()
+        {
+            try
+            {
+                _conexion.Open();
+
+                string query = "select p.*, c.id, id_persona, importe, 'no_socio' as tipo " +
+                                "from no_cliente c " +
+                                "inner join persona p on p.id = c.id_persona " +
+                                "inner join carnet c2 on c.id = c2.id_cliente where p.documento = @documento ";
+
+                MySqlCommand cmd = new MySqlCommand(query, _conexion);
+                // usar @parametros evita la inyeccion SQL
+                cmd.Parameters.AddWithValue("@documento", _documento.ToString());
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    // si la encuentra cargo los datos de la persona
+                    _id = Convert.ToInt32(reader["id"]);
+                    _nombre = reader["nombre"].ToString() ?? "";
+                    _apellido = reader["apellido"].ToString() ?? "";
+                    // _telefono = reader["telefono"].ToString() ?? "";
+                    _importe = reader["importe"] != DBNull.Value ? Convert.ToDecimal(reader["importe"]) : 0;
+                    _tipo = reader["tipo"].ToString() ?? "";
+                    _aptoFisico = reader["apto_fisico"] != DBNull.Value && Convert.ToBoolean(reader["apto_fisico"]);
+
+                    reader.Close();
+                    return true;
+                }
+
+                reader.Close();
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // si falla la base lo muestro por consola y devuelvo false para que el programa no se caiga
+                Console.WriteLine("Error en validarExistencia: " + ex.Message);
+                return false;
+            }
+            finally
+            {
+                // finally se ejecuta siempre, haya error o no
+                if (_conexion.State == System.Data.ConnectionState.Open)
+                    _conexion.Close();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

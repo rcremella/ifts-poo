@@ -7,12 +7,14 @@ namespace proyectoClub
     {
         // atributo propio de Socio, Persona no lo tiene
         private bool _aptoFisico = false;
+        private decimal _importe = 0; // atributo propio de Socio, Persona no lo tiene
 
         private string _carnet = ""; // atributo propio de Socio, Persona no lo tiene
 
         private bool _carnetEntregado = false; // atributo propio de Socio, Persona no lo tiene
 
         public bool AptoFisico { get { return _aptoFisico; } set { _aptoFisico = value; } }
+        public decimal Importe { get { return _importe; } set { _importe = value; } }
         public string Carnet { get { return _carnet; } set { _carnet = value; } }
         public bool CarnetEntregado { get { return _carnetEntregado; } set { _carnetEntregado = value; } }  
 
@@ -52,6 +54,7 @@ namespace proyectoClub
                     _nombre = reader["nombre"].ToString() ?? "";
                     _apellido = reader["apellido"].ToString() ?? "";
                     // _telefono = reader["telefono"].ToString() ?? "";
+                    _importe = reader["importe"] != DBNull.Value ? Convert.ToDecimal(reader["importe"]) : 0;    
                     _tipo = reader["tipo"].ToString() ?? "";
                     _aptoFisico = reader["apto_fisico"] != DBNull.Value && Convert.ToBoolean(reader["apto_fisico"]);
                     _carnet = reader["carnet"].ToString() ?? "";

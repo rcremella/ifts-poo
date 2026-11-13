@@ -55,6 +55,26 @@ namespace proyectoClub
             }
         }
 
+        // cada vez que cambia el texto de un campo reviso si ya se puede conectar
+        private void txtUsuario_TextChanged(object sender, EventArgs e)
+        {
+            habilitarConectar();
+        }
+
+        private void txtClave_TextChanged(object sender, EventArgs e)
+        {
+            habilitarConectar();
+        }
+
+        // CONECTAR queda habilitado solo si hay usuario y clave escritos (el texto de ayuda no cuenta)
+        private void habilitarConectar()
+        {
+            bool usuarioOk = !String.IsNullOrWhiteSpace(txtUsuario.Text) && txtUsuario.Text != "Ingrese Nombre de Usuario";
+            bool claveOk = !String.IsNullOrWhiteSpace(txtClave.Text) && txtClave.Text != "Ingrese su contraseña";
+
+            btnConectar.Enabled = usuarioOk && claveOk;
+        }
+
         private void btnConectar_Click(object sender, EventArgs e)
         {
             // tomo lo que escribio la persona en los campos

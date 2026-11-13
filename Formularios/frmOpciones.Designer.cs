@@ -46,12 +46,11 @@
             btnRegistrar.TabIndex = 1;
             btnRegistrar.Text = "Registrar Socio";
             btnRegistrar.UseVisualStyleBackColor = false;
-            btnRegistrar.Click += button1_Click;
+            btnRegistrar.Click += abrirRegistrarCliente;
             // 
             // btnCobrar
             // 
-            btnCobrar.BackColor = Color.LightGray;
-            btnCobrar.Enabled = false;
+            btnCobrar.BackColor = Color.Red;
             btnCobrar.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             btnCobrar.ForeColor = SystemColors.ButtonHighlight;
             btnCobrar.Location = new Point(471, 64);
@@ -60,11 +59,11 @@
             btnCobrar.TabIndex = 2;
             btnCobrar.Text = "Cobrar Cuota";
             btnCobrar.UseVisualStyleBackColor = false;
+            btnCobrar.Click += abrirCobrarCuota;
             // 
             // btnListarVto
             // 
-            btnListarVto.BackColor = Color.LightGray;
-            btnListarVto.Enabled = false;
+            btnListarVto.BackColor = Color.Red;
             btnListarVto.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             btnListarVto.ForeColor = SystemColors.ButtonHighlight;
             btnListarVto.Location = new Point(471, 234);
@@ -73,11 +72,11 @@
             btnListarVto.TabIndex = 4;
             btnListarVto.Text = "Listar Vencimientos";
             btnListarVto.UseVisualStyleBackColor = false;
+            btnListarVto.Click += abrirListarVencimientos;
             // 
             // btnCarnet
             // 
-            btnCarnet.BackColor = Color.LightGray;
-            btnCarnet.Enabled = false;
+            btnCarnet.BackColor = Color.Red;
             btnCarnet.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             btnCarnet.ForeColor = SystemColors.ButtonHighlight;
             btnCarnet.Location = new Point(148, 234);
@@ -86,6 +85,7 @@
             btnCarnet.TabIndex = 3;
             btnCarnet.Text = "Entregar Carnet";
             btnCarnet.UseVisualStyleBackColor = false;
+            btnCarnet.Click += abrirEntregarCarnet;
             // 
             // lblDescripcionUsuario
             // 

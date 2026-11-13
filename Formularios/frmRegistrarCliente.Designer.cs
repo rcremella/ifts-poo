@@ -40,6 +40,7 @@
             btnLimpiar = new Button();
             lblMensaje = new Label();
             chkAptoFisico = new CheckBox();
+            btnVolver = new Button();
             SuspendLayout();
             // 
             // lblDocumento
@@ -53,15 +54,18 @@
             // 
             // txtDocumento
             // 
-            txtDocumento.Location = new Point(122, 74);
+            txtDocumento.Location = new Point(122, 71);
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 1;
-            txtDocumento.Leave += textBox1_Leave;
+            txtDocumento.Leave += txtDocumento_Leave;
+            txtDocumento.KeyDown += txtDocumento_KeyDown;
+            txtDocumento.TextChanged += txtDocumento_TextChanged;
             // 
             // txtApellido
             // 
-            txtApellido.Location = new Point(122, 103);
+            txtApellido.Enabled = false;
+            txtApellido.Location = new Point(122, 100);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(184, 23);
             txtApellido.TabIndex = 3;
@@ -77,7 +81,8 @@
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(122, 161);
+            txtTelefono.Enabled = false;
+            txtTelefono.Location = new Point(122, 158);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(184, 23);
             txtTelefono.TabIndex = 7;
@@ -93,7 +98,8 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(122, 132);
+            txtNombre.Enabled = false;
+            txtNombre.Location = new Point(122, 129);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(184, 23);
             txtNombre.TabIndex = 5;
@@ -109,21 +115,22 @@
             // 
             // btnRegistrar
             // 
-            btnRegistrar.Location = new Point(326, 95);
+            btnRegistrar.Enabled = false;
+            btnRegistrar.Location = new Point(366, 74);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.Size = new Size(75, 23);
+            btnRegistrar.Size = new Size(92, 23);
             btnRegistrar.TabIndex = 8;
-            btnRegistrar.Text = "Registrar";
+            btnRegistrar.Text = "REGISTRAR";
             btnRegistrar.UseVisualStyleBackColor = true;
             btnRegistrar.Click += btnRegistrar_Click;
             // 
             // btnLimpiar
             // 
-            btnLimpiar.Location = new Point(326, 124);
+            btnLimpiar.Location = new Point(366, 103);
             btnLimpiar.Name = "btnLimpiar";
-            btnLimpiar.Size = new Size(75, 23);
+            btnLimpiar.Size = new Size(92, 23);
             btnLimpiar.TabIndex = 9;
-            btnLimpiar.Text = "Limpiar";
+            btnLimpiar.Text = "LIMPIAR";
             btnLimpiar.UseVisualStyleBackColor = true;
             btnLimpiar.Click += btnLimpiar_Click;
             // 
@@ -134,23 +141,35 @@
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(109, 15);
             lblMensaje.TabIndex = 10;
-            lblMensaje.Text = "Complete los datos";
+            lblMensaje.Text = "Ingrese el documento";
             // 
             // chkAptoFisico
             // 
             chkAptoFisico.AutoSize = true;
-            chkAptoFisico.Location = new Point(224, 190);
+            chkAptoFisico.Enabled = false;
+            chkAptoFisico.Location = new Point(224, 187);
             chkAptoFisico.Name = "chkAptoFisico";
-            chkAptoFisico.Size = new Size(85, 19);
+            chkAptoFisico.Size = new Size(83, 19);
             chkAptoFisico.TabIndex = 11;
             chkAptoFisico.Text = "Apto físico";
             chkAptoFisico.UseVisualStyleBackColor = true;
+            // 
+            // btnVolver
+            // 
+            btnVolver.Location = new Point(366, 186);
+            btnVolver.Name = "btnVolver";
+            btnVolver.Size = new Size(92, 23);
+            btnVolver.TabIndex = 12;
+            btnVolver.Text = "VOLVER";
+            btnVolver.UseVisualStyleBackColor = true;
+            btnVolver.Click += btnVolver_Click;
             // 
             // frmRegistrarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(503, 231);
+            Controls.Add(btnVolver);
             Controls.Add(chkAptoFisico);
             Controls.Add(lblMensaje);
             Controls.Add(btnLimpiar);
@@ -184,5 +203,6 @@
         private Button btnLimpiar;
         private Label lblMensaje;
         private CheckBox chkAptoFisico;
+        private Button btnVolver;
     }
 }

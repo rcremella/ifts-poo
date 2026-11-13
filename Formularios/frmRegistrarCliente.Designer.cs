@@ -70,6 +70,7 @@
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(184, 23);
             txtApellido.TabIndex = 3;
+            txtApellido.TextChanged += txtDatos_TextChanged;
             // 
             // lblApellido
             // 
@@ -87,6 +88,7 @@
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(184, 23);
             txtTelefono.TabIndex = 7;
+            txtTelefono.TextChanged += txtDatos_TextChanged;
             // 
             // lblTelefono
             // 
@@ -104,6 +106,7 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(184, 23);
             txtNombre.TabIndex = 5;
+            txtNombre.TextChanged += txtDatos_TextChanged;
             // 
             // lblNombre
             // 
@@ -154,6 +157,7 @@
             chkAptoFisico.TabIndex = 11;
             chkAptoFisico.Text = "Apto físico";
             chkAptoFisico.UseVisualStyleBackColor = true;
+            chkAptoFisico.CheckedChanged += chkAptoFisico_CheckedChanged;
             // 
             // btnVolver
             // 

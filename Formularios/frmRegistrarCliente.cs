@@ -5,6 +5,9 @@ namespace proyectoClub
 {
     public partial class frmRegistrarCliente : Form
     {
+        // es true solo cuando el documento se verifico y no existe en la base
+        private bool _documentoVerificado = false;
+
         public frmRegistrarCliente()
         {
             InitializeComponent();
@@ -24,24 +27,46 @@ namespace proyectoClub
                 chkSocio.Checked = persona.tipo == "socio";
                 chkAptoFisico.Checked = persona.AptoFisico;
 
+                // ya esta registrado: bloqueo todo, incluso el documento
                 txtDocumento.Enabled = false;
-                txtNombre.Enabled = false;
-                txtApellido.Enabled = false;
-                txtTelefono.Enabled = false;
-                chkAptoFisico.Enabled = false;
-                btnRegistrar.Enabled = false;
-                chkSocio.Enabled = false;
+                bloquearDatos();
             }
             else
             {
-                lblMensaje.Text = "Complete los datos";
+                lblMensaje.Text = "Complete todos los datos y marque el apto físico";
                 txtNombre.Enabled = true;
                 txtApellido.Enabled = true;
                 txtTelefono.Enabled = true;
                 chkAptoFisico.Enabled = true;
-                btnRegistrar.Enabled = true;
                 chkSocio.Enabled = true;
+
+                // REGISTRAR se habilita recien cuando tambien este marcado el apto fisico
+                _documentoVerificado = true;
+                habilitarRegistrar();
             }
+        }
+
+        // REGISTRAR queda habilitado solo con el documento verificado, nombre, apellido y telefono escritos
+        // y el apto fisico marcado (lo unico opcional es el check SOCIO)
+        private void habilitarRegistrar()
+        {
+            bool datosOk = !string.IsNullOrWhiteSpace(txtNombre.Text) &&
+                           !string.IsNullOrWhiteSpace(txtApellido.Text) &&
+                           !string.IsNullOrWhiteSpace(txtTelefono.Text);
+
+            btnRegistrar.Enabled = _documentoVerificado && datosOk && chkAptoFisico.Checked;
+        }
+
+        // cada vez que se marca o desmarca el apto fisico reviso si ya se puede registrar
+        private void chkAptoFisico_CheckedChanged(object sender, EventArgs e)
+        {
+            habilitarRegistrar();
+        }
+
+        // lo usan nombre, apellido y telefono: cada vez que cambia el texto reviso si ya se puede registrar
+        private void txtDatos_TextChanged(object sender, EventArgs e)
+        {
+            habilitarRegistrar();
         }
 
         // se ejecuta cuando el foco sale del campo documento
@@ -63,7 +88,7 @@ namespace proyectoClub
         // si se modifica el documento ya verificado, hay que verificarlo de nuevo
         private void txtDocumento_TextChanged(object sender, EventArgs e)
         {
-            if (btnRegistrar.Enabled)
+            if (_documentoVerificado)
             {
                 bloquearDatos();
                 lblMensaje.Text = "Ingrese el documento";
@@ -77,6 +102,7 @@ namespace proyectoClub
             txtApellido.Enabled = false;
             txtTelefono.Enabled = false;
             chkAptoFisico.Enabled = false;
+            _documentoVerificado = false;
             btnRegistrar.Enabled = false;
             chkSocio.Enabled = false;
         }

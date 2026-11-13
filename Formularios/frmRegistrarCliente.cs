@@ -187,6 +187,7 @@ namespace proyectoClub
             // solo queda habilitado el documento, el resto se habilita al verificarlo
             txtDocumento.Enabled = true;
             chkAptoFisico.Checked = false;
+            chkSocio.Checked = false;
             bloquearDatos();
 
             lblMensaje.Text = "Ingrese el documento";

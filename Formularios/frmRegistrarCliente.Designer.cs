@@ -54,7 +54,7 @@
             // 
             // txtDocumento
             // 
-            txtDocumento.Location = new Point(122, 74);
+            txtDocumento.Location = new Point(122, 71);
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 1;
@@ -62,7 +62,7 @@
             // 
             // txtApellido
             // 
-            txtApellido.Location = new Point(122, 103);
+            txtApellido.Location = new Point(122, 100);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(184, 23);
             txtApellido.TabIndex = 3;
@@ -78,7 +78,7 @@
             // 
             // txtTelefono
             // 
-            txtTelefono.Location = new Point(122, 161);
+            txtTelefono.Location = new Point(122, 158);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(184, 23);
             txtTelefono.TabIndex = 7;
@@ -94,7 +94,7 @@
             // 
             // txtNombre
             // 
-            txtNombre.Location = new Point(122, 132);
+            txtNombre.Location = new Point(122, 129);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(184, 23);
             txtNombre.TabIndex = 5;
@@ -114,7 +114,7 @@
             btnRegistrar.Name = "btnRegistrar";
             btnRegistrar.Size = new Size(75, 23);
             btnRegistrar.TabIndex = 8;
-            btnRegistrar.Text = "Registrar";
+            btnRegistrar.Text = "REGISTRAR";
             btnRegistrar.UseVisualStyleBackColor = true;
             btnRegistrar.Click += btnRegistrar_Click;
             // 
@@ -124,7 +124,7 @@
             btnLimpiar.Name = "btnLimpiar";
             btnLimpiar.Size = new Size(75, 23);
             btnLimpiar.TabIndex = 9;
-            btnLimpiar.Text = "Limpiar";
+            btnLimpiar.Text = "LIMPIAR";
             btnLimpiar.UseVisualStyleBackColor = true;
             btnLimpiar.Click += btnLimpiar_Click;
             // 
@@ -140,7 +140,7 @@
             // chkAptoFisico
             // 
             chkAptoFisico.AutoSize = true;
-            chkAptoFisico.Location = new Point(224, 190);
+            chkAptoFisico.Location = new Point(224, 187);
             chkAptoFisico.Name = "chkAptoFisico";
             chkAptoFisico.Size = new Size(83, 19);
             chkAptoFisico.TabIndex = 11;

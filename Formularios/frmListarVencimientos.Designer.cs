@@ -39,9 +39,9 @@
             // 
             // btnImprimir
             // 
-            btnImprimir.Location = new Point(470, 400);
+            btnImprimir.Location = new Point(525, 400);
             btnImprimir.Name = "btnImprimir";
-            btnImprimir.Size = new Size(176, 23);
+            btnImprimir.Size = new Size(142, 23);
             btnImprimir.TabIndex = 10;
             btnImprimir.Text = "IMPRIMIR VENCIMIENTOS";
             btnImprimir.UseVisualStyleBackColor = true;
@@ -65,8 +65,8 @@
             btnVolver.Size = new Size(75, 23);
             btnVolver.TabIndex = 20;
             btnVolver.Text = "VOLVER";
-            btnVolver.Click += btnVolver_Click;
             btnVolver.UseVisualStyleBackColor = true;
+            btnVolver.Click += btnVolver_Click;
             // 
             // frmListarVencimientos
             // 
@@ -77,6 +77,7 @@
             Controls.Add(dgvVencimientos);
             Controls.Add(btnImprimir);
             Name = "frmListarVencimientos";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Listar Vencimientos";
             ((System.ComponentModel.ISupportInitialize)frmRegistrarClienteBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvVencimientos).EndInit();

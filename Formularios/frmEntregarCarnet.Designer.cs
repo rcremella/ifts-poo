@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             lblDni = new Label();
-            txtDni = new TextBox();
+            txtDocumento = new TextBox();
             txtApellido = new TextBox();
             lblApellido = new Label();
             txtNombre = new TextBox();
@@ -39,6 +39,7 @@
             btnSalir = new Button();
             btnImprimir = new Button();
             checkBox1 = new CheckBox();
+            lblMensaje = new Label();
             SuspendLayout();
             // 
             // lblDni
@@ -51,12 +52,13 @@
             lblDni.TabIndex = 0;
             lblDni.Text = "Ingrese DNI del socio";
             // 
-            // txtDni
+            // txtDocumento
             // 
-            txtDni.Location = new Point(345, 46);
-            txtDni.Name = "txtDni";
-            txtDni.Size = new Size(310, 23);
-            txtDni.TabIndex = 1;
+            txtDocumento.Location = new Point(345, 46);
+            txtDocumento.Name = "txtDocumento";
+            txtDocumento.Size = new Size(310, 23);
+            txtDocumento.TabIndex = 1;
+            //txtDocumento.Leave += ingresarDni;
             // 
             // txtApellido
             // 
@@ -134,18 +136,28 @@
             // 
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox1.Location = new Point(537, 243);
+            checkBox1.Location = new Point(87, 251);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(118, 29);
             checkBox1.TabIndex = 10;
             checkBox1.Text = "Entregado";
             checkBox1.UseVisualStyleBackColor = true;
             // 
+            // lblMensaje
+            // 
+            lblMensaje.AutoSize = true;
+            lblMensaje.Location = new Point(330, 329);
+            lblMensaje.Name = "lblMensaje";
+            lblMensaje.Size = new Size(152, 15);
+            lblMensaje.TabIndex = 11;
+            lblMensaje.Text = "mensaje de error si existiera";
+            // 
             // frmEntregarCarnet
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(lblMensaje);
             Controls.Add(checkBox1);
             Controls.Add(btnImprimir);
             Controls.Add(btnSalir);
@@ -155,9 +167,8 @@
             Controls.Add(lblNombre);
             Controls.Add(txtApellido);
             Controls.Add(lblApellido);
-            Controls.Add(txtDni);
+            Controls.Add(txtDocumento);
             Controls.Add(lblDni);
-            Enabled = false;
             Name = "frmEntregarCarnet";
             Text = "Entregar Carnet";
             ResumeLayout(false);
@@ -167,7 +178,7 @@
         #endregion
 
         private Label lblDni;
-        private TextBox txtDni;
+        private TextBox txtDocumento;
         private TextBox txtApellido;
         private Label lblApellido;
         private TextBox txtNombre;
@@ -177,5 +188,6 @@
         private Button btnSalir;
         private Button btnImprimir;
         private CheckBox checkBox1;
+        private Label lblMensaje;
     }
 }

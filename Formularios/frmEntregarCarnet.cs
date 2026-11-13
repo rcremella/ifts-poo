@@ -47,13 +47,17 @@ namespace proyectoClub
             }
 
             MySqlConnection myCon = Conexion.Obtener();
-            Persona persona = new Persona(myCon, documento);
+            //Persona persona = new Persona(myCon, documento);
+            Socio socio = new Socio(myCon, documento);
 
-            if (persona.validarExistencia())
+            if (socio.validarExistencia())
             {
                 // la encontro: muestro sus datos y habilito el boton
-                txtNombre.Text = persona.Nombre;
-                txtApellido.Text = persona.Apellido;
+                txtNombre.Text = socio.Nombre;
+                txtApellido.Text = socio.Apellido;
+                txtCarnet.Text = socio.Carnet;
+                chkEntregado.Checked = socio.Emitido == "True";
+                Console.WriteLine("valor de emitido: " + socio.Emitido);
                 btnImprimir.Enabled = true;
                 lblMensaje.Text = "Persona encontrada";
             }

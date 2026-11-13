@@ -34,7 +34,7 @@ namespace proyectoClub
 
 
         // busca el dni en la tabla persona, devuelve true si existe (y carga sus datos)
-        public bool validarExistencia()
+        public virtual bool validarExistencia()
         {
             try
             {

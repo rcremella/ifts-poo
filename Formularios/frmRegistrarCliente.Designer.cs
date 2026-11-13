@@ -167,8 +167,8 @@
             // 
             // chkSocio
             // 
-            chkSocio.AutoCheck = false;
             chkSocio.AutoSize = true;
+            chkSocio.Enabled = false;
             chkSocio.Location = new Point(96, 190);
             chkSocio.Name = "chkSocio";
             chkSocio.Size = new Size(61, 19);

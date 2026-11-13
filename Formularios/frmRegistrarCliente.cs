@@ -21,7 +21,8 @@ namespace proyectoClub
                 txtApellido.Text = persona.Apellido;
                 txtNombre.Text = persona.Nombre;
                 txtTelefono.Text = persona.Telefono;
-                chkSocio.Checked = persona.tipo == "socio" ? true : false;
+                chkSocio.Checked = persona.tipo == "socio";
+                chkAptoFisico.Checked = persona.AptoFisico;
 
                 txtDocumento.Enabled = false;
                 txtNombre.Enabled = false;
@@ -95,16 +96,10 @@ namespace proyectoClub
                 return;
             }
 
-            Socio socio = new Socio(myCon, documento);
+            // uso Persona porque su validarExistencia busca tanto en socios como en no socios
+            Persona persona = new Persona(myCon, documento);
 
-            bloquearExistente(socio);
-
-            // si ya existe muestro su apto fisico (_id lo carga validarExistencia)
-            if (socio._id > 0)
-            {
-                socio.cargarAptoFisico();
-                chkAptoFisico.Checked = socio.AptoFisico;
-            }
+            bloquearExistente(persona);
         }
 
         // primero se guarda en persona y despues en cliente, porque cliente necesita el id de la persona

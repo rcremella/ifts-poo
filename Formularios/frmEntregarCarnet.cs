@@ -50,7 +50,7 @@ namespace proyectoClub
             //Persona persona = new Persona(myCon, documento);
             Socio socio = new Socio(myCon, documento);
 
-            if (socio.validarExistencia())
+            if (socio.validarCarnet())
             {
                 // la encontro: muestro sus datos y habilito el boton
                 txtNombre.Text = socio.Nombre;

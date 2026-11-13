@@ -6,11 +6,7 @@ namespace proyectoClub
     // hereda de Persona
     internal class Socio : Persona
     {
-        // atributo propio de Socio, Persona no lo tiene
-        private bool _aptoFisico = false;
-
-        public bool AptoFisico { get { return _aptoFisico; } set { _aptoFisico = value; } }
-
+        // atributos propios de Socio, Persona no los tiene
         private string _carnet = "";
 
         public string Carnet { get { return _carnet; } set { _carnet = value; } }
@@ -30,39 +26,6 @@ namespace proyectoClub
             return "Socio: " + _nombre + " " + _apellido;
         }
 
-        // consulta la tabla cliente y guarda en _aptoFisico lo que figura en la base
-        public void cargarAptoFisico()
-        {
-            try
-            {
-                _conexion.Open();
-
-                string query = "SELECT apto_fisico FROM persona WHERE id=@id_persona";
-
-                MySqlCommand cmd = new MySqlCommand(query, _conexion);
-                cmd.Parameters.AddWithValue("@id_persona", _id);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                // DBNull = campo vacio en la base
-                if (reader.Read() && reader["apto_fisico"] != DBNull.Value)
-                {
-                    _aptoFisico = Convert.ToBoolean(reader["apto_fisico"]);
-                }
-
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                if (_conexion.State == System.Data.ConnectionState.Open)
-                    _conexion.Close();
-            }
-        }
-
         // va despues de registrarPersona porque usa su _id
         public bool registrarCliente()
         {
@@ -77,7 +40,7 @@ namespace proyectoClub
 
                 string queryUpdate = "UPDATE persona SET apto_fisico = @apto_fisico WHERE id = @id_persona";
                 MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, _conexion);
-                cmdUpdate.Parameters.AddWithValue("@apto_fisico", _aptoFisico);
+                cmdUpdate.Parameters.AddWithValue("@apto_fisico", AptoFisico);
                 cmdUpdate.Parameters.AddWithValue("@id_persona", _id);
 
                 // ExecuteNonQuery devuelve las filas afectadas, si es 1 se inserto bien
@@ -118,13 +81,15 @@ namespace proyectoClub
 
 
 
-        public override bool validarExistencia()
+        // busca al socio con su carnet (solo lo usa frmEntregarCarnet)
+        // no es override: validarExistencia de Persona sigue buscando en socios y no socios
+        public bool validarCarnet()
         {
             try
             {
                 _conexion.Open();
 
-                string query = "select p.*, c.id, importe, 'socio' as tipo, ca.id as carnet, ca.emitido from cliente c " +
+                string query = "select p.id, p.nombre, p.apellido, 'socio' as tipo, ca.id as carnet, ca.emitido from cliente c " +
                                 "inner join persona p on p.id = c.id_persona " +
                                 "inner join carnet ca on c.id = ca.id_cliente " +
                                 "where p.documento = @documento ";
@@ -138,10 +103,9 @@ namespace proyectoClub
                 if (reader.Read())
                 {
                     // si la encuentra cargo los datos de la persona
-                    //id = Convert.ToInt32(reader["id"]);
+                    _id = Convert.ToInt32(reader["id"]);
                     _nombre = reader["nombre"].ToString() ?? "";
                     _apellido = reader["apellido"].ToString() ?? "";
-                    //telefono = reader["telefono"].ToString() ?? "";
                     tipo = reader["tipo"].ToString() ?? "";
                     _carnet = reader["carnet"].ToString() ?? "";
                     _emitido = reader["emitido"].ToString() ?? "";
@@ -156,7 +120,7 @@ namespace proyectoClub
             catch (Exception ex)
             {
                 // si falla la base lo muestro por consola y devuelvo false para que el programa no se caiga
-                Console.WriteLine("Error en validarExistencia: " + ex.Message);
+                Console.WriteLine("Error en validarCarnet: " + ex.Message);
                 return false;
             }
             finally

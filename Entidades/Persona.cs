@@ -16,7 +16,7 @@ namespace proyectoClub
         protected string _apellido = "";
         private string _telefono = "";
 
-        private string _tipo = ""; // socio o no_socio, lo uso para mostrarlo en el mensaje de validacion
+        public string _tipo = ""; // socio o no_socio, lo uso para mostrarlo en el mensaje de validacion
 
 
         public string Nombre { get { return _nombre; } set { _nombre = value; } }
@@ -34,16 +34,18 @@ namespace proyectoClub
 
 
         // busca el dni en la tabla persona, devuelve true si existe (y carga sus datos)
-        public bool validarExistencia()
+        public virtual bool validarExistencia()
         {
             try
             {
                 _conexion.Open();
 
-                string query = "select p.*, c.id, id_persona, importe, 'socio' as tipo from cliente c " +
-                                "inner join persona p on p.id = c.id_persona where p.documento = @documento " +
+                string query = "select p.*, c.id, id_persona, importe, 'socio' as tipo , c2.id as carnet , c2.emitido as emitido " +
+                                "from cliente c " +
+                                "inner join persona p on p.id = c.id_persona " +
+                                "inner join carnet c2 on c.id = c2.id_cliente where p.documento = @documento " +
                                 "union all " +
-                                "select p.*, nc.id, id_persona, importe, 'no_socio' as tipo from no_cliente nc " +
+                                "select p.*, nc.id, id_persona, importe, 'no_socio' as tipo , null, null from no_cliente nc " +
                                 "inner join persona p on p.id = nc.id_persona where p.documento = @documento";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
@@ -60,6 +62,8 @@ namespace proyectoClub
                     _apellido = reader["apellido"].ToString() ?? "";
                     _telefono = reader["telefono"].ToString() ?? "";
                     _tipo = reader["tipo"].ToString() ?? "";
+
+
 
                     reader.Close();
                     return true;

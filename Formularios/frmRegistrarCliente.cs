@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace proyectoClub
 {
@@ -30,6 +31,8 @@ namespace proyectoClub
                 chkAptoFisico.Enabled = false;
                 btnRegistrar.Enabled = false;
                 chkSocio.Enabled = false;
+
+               // Console.WriteLine($"persona.tipo: {persona.tipo}");
             }
             else
             {
@@ -95,6 +98,9 @@ namespace proyectoClub
                 return;
             }
 
+            /*
+
+
             Socio socio = new Socio(myCon, documento);
 
             bloquearExistente(socio);
@@ -105,6 +111,23 @@ namespace proyectoClub
                 socio.cargarAptoFisico();
                 chkAptoFisico.Checked = socio.AptoFisico;
             }
+
+            */
+
+            Persona persona = new Persona(myCon, documento);
+            bloquearExistente(persona);
+
+            Socio socio = new Socio(myCon, documento);
+            if (socio._id > 0)
+            {
+                socio.cargarAptoFisico();
+                chkAptoFisico.Checked = socio.AptoFisico;
+            }
+
+
+
+
+
         }
 
         // primero se guarda en persona y despues en cliente, porque cliente necesita el id de la persona

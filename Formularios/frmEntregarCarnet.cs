@@ -29,7 +29,7 @@ namespace proyectoClub
             if (e.KeyCode == Keys.Enter)
             {
                 buscarPersona();
-                e.SuppressKeyPress = true; // evita el sonido de Windows al apretar Enter
+
             }
         }
 
@@ -47,13 +47,19 @@ namespace proyectoClub
             }
 
             MySqlConnection myCon = Conexion.Obtener();
-            Persona persona = new Persona(myCon, documento);
+            Socio socio = new Socio(myCon, documento);
 
-            if (persona.validarExistencia())
+            if (socio.validarExistencia())
             {
                 // la encontro: muestro sus datos y habilito el boton
-                txtNombre.Text = persona.Nombre;
-                txtApellido.Text = persona.Apellido;
+                txtNombre.Text = socio.Nombre;
+                txtApellido.Text = socio.Apellido;
+                txtCarnet.Text = socio.Carnet;
+                chkEntregado.Checked = socio.CarnetEntregado;
+
+
+
+
                 btnImprimir.Enabled = true;
                 lblMensaje.Text = "Persona encontrada";
             }

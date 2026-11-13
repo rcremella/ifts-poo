@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 
 namespace proyectoClub
 {
@@ -20,6 +21,7 @@ namespace proyectoClub
                 txtApellido.Text = persona.Apellido;
                 txtNombre.Text = persona.Nombre;
                 txtTelefono.Text = persona.Telefono;
+                chkSocio.Checked = persona.tipo == "socio" ? true : false;
 
                 txtDocumento.Enabled = false;
                 txtNombre.Enabled = false;
@@ -27,6 +29,7 @@ namespace proyectoClub
                 txtTelefono.Enabled = false;
                 chkAptoFisico.Enabled = false;
                 btnRegistrar.Enabled = false;
+                chkSocio.Enabled = false;
             }
             else
             {
@@ -36,6 +39,7 @@ namespace proyectoClub
                 txtTelefono.Enabled = true;
                 chkAptoFisico.Enabled = true;
                 btnRegistrar.Enabled = true;
+                chkSocio.Enabled = true;
             }
         }
 
@@ -73,6 +77,7 @@ namespace proyectoClub
             txtTelefono.Enabled = false;
             chkAptoFisico.Enabled = false;
             btnRegistrar.Enabled = false;
+            chkSocio.Enabled = false;
         }
 
         private void buscarDocumento()
@@ -124,31 +129,45 @@ namespace proyectoClub
             }
 
             // cargo el objeto con lo que escribio la persona en el formulario
-            Socio socio = new Socio(myCon, documento);
-            socio.Nombre = txtNombre.Text;
-            socio.Apellido = txtApellido.Text;
-            socio.Telefono = txtTelefono.Text;
-            socio.AptoFisico = chkAptoFisico.Checked;
+            // aca decido si va a ser socio o no socio, si es socio se guarda en la tabla cliente y si no en no_cliente
+            dynamic cliente;
 
-            bool verificacion = socio.verificarDatosCompletos();
+            if (chkSocio.Checked)
+            {
+                cliente = new Socio(myCon, documento);
+            }
+            else
+            {
+                cliente = new noSocio(myCon, documento);
+            }
+
+
+            cliente.Nombre = txtNombre.Text;
+            cliente.Apellido = txtApellido.Text;
+            cliente.Telefono = txtTelefono.Text;
+            cliente.AptoFisico = chkAptoFisico.Checked;
+
+
+
+            bool verificacion = cliente.verificarDatosCompletos();
 
             if (verificacion)
             {
-                if (!socio.registrarPersona())
+                if (!cliente.registrarPersona())
                 {
                     lblMensaje.Text = "Error al registrar el socio";
                     return;
                 }
 
-                bool clienteOk = socio.registrarCliente();
+                bool clienteOk = cliente.registrarCliente();
 
                 // la persona ya se guardo, bloqueo el formulario para que no se cargue dos veces
-                bloquearExistente(socio);
+                bloquearExistente(cliente);
 
                 if (clienteOk)
                 {
                     // variable de tipo Persona con un objeto Socio: se ejecuta el override de Socio
-                    Persona persona = socio;
+                    Persona persona = cliente;
                     lblMensaje.Text = persona.ObtenerDescripcion() + " registrado correctamente";
                 }
                 else

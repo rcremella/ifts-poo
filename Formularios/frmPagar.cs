@@ -8,5 +8,11 @@
         {
             InitializeComponent();
         }
+
+        // cierra este formulario y se vuelve al menu (se abrio con ShowDialog)
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

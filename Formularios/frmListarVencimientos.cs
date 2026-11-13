@@ -18,6 +18,12 @@ namespace proyectoClub
             cargarGrilla();
         }
 
+        // cierra este formulario y se vuelve al menu (se abrio con ShowDialog)
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         // pide los vencimientos a la base y los muestra en la grilla
         private void cargarGrilla()
         {

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             btnPagar = new Button();
-            btnSalir = new Button();
+            btnVolver = new Button();
             txtCarnet = new TextBox();
             lblCarnet = new Label();
             txtNombre = new TextBox();
@@ -51,14 +51,15 @@
             btnPagar.Text = "PAGAR";
             btnPagar.UseVisualStyleBackColor = true;
             // 
-            // btnSalir
+            // btnVolver
             // 
-            btnSalir.Location = new Point(664, 389);
-            btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(75, 23);
-            btnSalir.TabIndex = 19;
-            btnSalir.Text = "SALIR";
-            btnSalir.UseVisualStyleBackColor = true;
+            btnVolver.Location = new Point(664, 389);
+            btnVolver.Name = "btnVolver";
+            btnVolver.Size = new Size(75, 23);
+            btnVolver.TabIndex = 19;
+            btnVolver.Text = "VOLVER";
+            btnVolver.Click += btnVolver_Click;
+            btnVolver.UseVisualStyleBackColor = true;
             // 
             // txtCarnet
             // 
@@ -157,7 +158,7 @@
             Controls.Add(txtImporte);
             Controls.Add(lblImporte);
             Controls.Add(btnPagar);
-            Controls.Add(btnSalir);
+            Controls.Add(btnVolver);
             Controls.Add(txtCarnet);
             Controls.Add(lblCarnet);
             Controls.Add(txtNombre);
@@ -174,7 +175,7 @@
 
         #endregion
         private Button btnPagar;
-        private Button btnSalir;
+        private Button btnVolver;
         private TextBox txtCarnet;
         private Label lblCarnet;
         private TextBox txtNombre;

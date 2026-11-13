@@ -32,7 +32,7 @@
             btnImprimir = new Button();
             frmRegistrarClienteBindingSource = new BindingSource(components);
             dgvVencimientos = new DataGridView();
-            btnSalir = new Button();
+            btnVolver = new Button();
             ((System.ComponentModel.ISupportInitialize)frmRegistrarClienteBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvVencimientos).BeginInit();
             SuspendLayout();
@@ -58,21 +58,22 @@
             dgvVencimientos.Size = new Size(717, 284);
             dgvVencimientos.TabIndex = 11;
             // 
-            // btnSalir
+            // btnVolver
             // 
-            btnSalir.Location = new Point(673, 400);
-            btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(75, 23);
-            btnSalir.TabIndex = 20;
-            btnSalir.Text = "SALIR";
-            btnSalir.UseVisualStyleBackColor = true;
+            btnVolver.Location = new Point(673, 400);
+            btnVolver.Name = "btnVolver";
+            btnVolver.Size = new Size(75, 23);
+            btnVolver.TabIndex = 20;
+            btnVolver.Text = "VOLVER";
+            btnVolver.Click += btnVolver_Click;
+            btnVolver.UseVisualStyleBackColor = true;
             // 
             // frmListarVencimientos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(btnSalir);
+            Controls.Add(btnVolver);
             Controls.Add(dgvVencimientos);
             Controls.Add(btnImprimir);
             Name = "frmListarVencimientos";
@@ -87,6 +88,6 @@
         private Button btnImprimir;
         private BindingSource frmRegistrarClienteBindingSource;
         private DataGridView dgvVencimientos;
-        private Button btnSalir;
+        private Button btnVolver;
     }
 }

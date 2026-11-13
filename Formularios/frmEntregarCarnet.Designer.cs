@@ -36,7 +36,7 @@
             lblNombre = new Label();
             txtCarnet = new TextBox();
             lblCarnet = new Label();
-            btnSalir = new Button();
+            btnVolver = new Button();
             btnImprimir = new Button();
             chkEntregado = new CheckBox();
             lblMensaje = new Label();
@@ -114,14 +114,15 @@
             lblCarnet.TabIndex = 6;
             lblCarnet.Text = "Carnet";
             // 
-            // btnSalir
+            // btnVolver
             // 
-            btnSalir.Location = new Point(689, 391);
-            btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(75, 23);
-            btnSalir.TabIndex = 8;
-            btnSalir.Text = "SALIR";
-            btnSalir.UseVisualStyleBackColor = true;
+            btnVolver.Location = new Point(689, 391);
+            btnVolver.Name = "btnVolver";
+            btnVolver.Size = new Size(75, 23);
+            btnVolver.TabIndex = 8;
+            btnVolver.Text = "VOLVER";
+            btnVolver.Click += btnVolver_Click;
+            btnVolver.UseVisualStyleBackColor = true;
             // 
             // btnImprimir
             // 
@@ -160,7 +161,7 @@
             Controls.Add(lblMensaje);
             Controls.Add(chkEntregado);
             Controls.Add(btnImprimir);
-            Controls.Add(btnSalir);
+            Controls.Add(btnVolver);
             Controls.Add(txtCarnet);
             Controls.Add(lblCarnet);
             Controls.Add(txtNombre);
@@ -185,7 +186,7 @@
         private Label lblNombre;
         private TextBox txtCarnet;
         private Label lblCarnet;
-        private Button btnSalir;
+        private Button btnVolver;
         private Button btnImprimir;
         private CheckBox chkEntregado;
         private Label lblMensaje;

@@ -74,9 +74,9 @@
             txtUsuario.Size = new Size(172, 23);
             txtUsuario.TabIndex = 3;
             txtUsuario.Text = "Ingrese Nombre de Usuario";
+            txtUsuario.TextChanged += txtUsuario_TextChanged;
             txtUsuario.Enter += txtNombre_Text_Enter;
             txtUsuario.Leave += txtNombre_Leave;
-            txtUsuario.TextChanged += txtUsuario_TextChanged;
             // 
             // txtClave
             // 
@@ -85,9 +85,9 @@
             txtClave.Size = new Size(172, 23);
             txtClave.TabIndex = 4;
             txtClave.Text = "Ingrese su contraseña";
+            txtClave.TextChanged += txtClave_TextChanged;
             txtClave.Enter += txtClave_Enter;
             txtClave.Leave += txtClave_Leave;
-            txtClave.TextChanged += txtClave_TextChanged;
             // 
             // btnEnviar
             // 
@@ -110,7 +110,7 @@
             // lblResultado
             // 
             lblResultado.AutoSize = true;
-            lblResultado.Location = new Point(151, 170);
+            lblResultado.Location = new Point(88, 174);
             lblResultado.Name = "lblResultado";
             lblResultado.Size = new Size(0, 15);
             lblResultado.TabIndex = 6;

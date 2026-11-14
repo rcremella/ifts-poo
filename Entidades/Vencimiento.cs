@@ -38,9 +38,8 @@ namespace proyectoClub
                 reader.Close();
                 return tabla;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error en listarVencimientosDeHoy: " + ex.Message);
                 // lo relanzo para que el formulario avise que no se pudo conectar
                 throw;
             }

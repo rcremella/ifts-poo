@@ -11,7 +11,7 @@ namespace proyectoClub
             this.AcceptButton = btnConectar; // al apretar Enter en cualquier campo se ejecuta CONECTAR
         }
 
-        private void txtNombre_Text_Enter(object sender, EventArgs e)
+        private void txtUsuario_Enter(object sender, EventArgs e)
         {
             // este evento se ejecuta cuando llega el foco
             // si tiene el texto de ayuda lo borro para que pueda escribir
@@ -22,7 +22,7 @@ namespace proyectoClub
             }
         }
 
-        private void txtNombre_Leave(object sender, EventArgs e)
+        private void txtUsuario_Leave(object sender, EventArgs e)
         {
             // este evento se ejecuta cuando se va el foco
             // si quedo vacio vuelvo a poner el texto de ayuda

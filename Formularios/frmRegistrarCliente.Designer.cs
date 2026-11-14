@@ -41,6 +41,7 @@
             lblMensaje = new Label();
             chkAptoFisico = new CheckBox();
             btnVolver = new Button();
+            chkSocio = new CheckBox();
             SuspendLayout();
             // 
             // lblDocumento
@@ -58,9 +59,9 @@
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 1;
-            txtDocumento.Leave += txtDocumento_Leave;
-            txtDocumento.KeyDown += txtDocumento_KeyDown;
             txtDocumento.TextChanged += txtDocumento_TextChanged;
+            txtDocumento.KeyDown += txtDocumento_KeyDown;
+            txtDocumento.Leave += txtDocumento_Leave;
             // 
             // txtApellido
             // 
@@ -69,6 +70,7 @@
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(184, 23);
             txtApellido.TabIndex = 3;
+            txtApellido.TextChanged += txtDatos_TextChanged;
             // 
             // lblApellido
             // 
@@ -86,13 +88,14 @@
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(184, 23);
             txtTelefono.TabIndex = 7;
+            txtTelefono.TextChanged += txtDatos_TextChanged;
             // 
             // lblTelefono
             // 
             lblTelefono.AutoSize = true;
             lblTelefono.Location = new Point(47, 161);
             lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(53, 15);
+            lblTelefono.Size = new Size(52, 15);
             lblTelefono.TabIndex = 6;
             lblTelefono.Text = "Teléfono";
             // 
@@ -103,6 +106,7 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(184, 23);
             txtNombre.TabIndex = 5;
+            txtNombre.TextChanged += txtDatos_TextChanged;
             // 
             // lblNombre
             // 
@@ -139,7 +143,7 @@
             lblMensaje.AutoSize = true;
             lblMensaje.Location = new Point(122, 36);
             lblMensaje.Name = "lblMensaje";
-            lblMensaje.Size = new Size(109, 15);
+            lblMensaje.Size = new Size(122, 15);
             lblMensaje.TabIndex = 10;
             lblMensaje.Text = "Ingrese el documento";
             // 
@@ -153,6 +157,7 @@
             chkAptoFisico.TabIndex = 11;
             chkAptoFisico.Text = "Apto físico";
             chkAptoFisico.UseVisualStyleBackColor = true;
+            chkAptoFisico.CheckedChanged += chkAptoFisico_CheckedChanged;
             // 
             // btnVolver
             // 
@@ -164,11 +169,23 @@
             btnVolver.UseVisualStyleBackColor = true;
             btnVolver.Click += btnVolver_Click;
             // 
+            // chkSocio
+            // 
+            chkSocio.AutoSize = true;
+            chkSocio.Enabled = false;
+            chkSocio.Location = new Point(96, 190);
+            chkSocio.Name = "chkSocio";
+            chkSocio.Size = new Size(61, 19);
+            chkSocio.TabIndex = 13;
+            chkSocio.Text = "SOCIO";
+            chkSocio.UseVisualStyleBackColor = true;
+            // 
             // frmRegistrarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(503, 231);
+            Controls.Add(chkSocio);
             Controls.Add(btnVolver);
             Controls.Add(chkAptoFisico);
             Controls.Add(lblMensaje);
@@ -204,5 +221,6 @@
         private Label lblMensaje;
         private CheckBox chkAptoFisico;
         private Button btnVolver;
+        private CheckBox chkSocio;
     }
 }

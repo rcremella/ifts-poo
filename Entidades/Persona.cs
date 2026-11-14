@@ -16,9 +16,18 @@ namespace proyectoClub
         protected string _apellido = "";
         private string _telefono = "";
 
+        private string _tipo = ""; // socio o no_socio, lo uso para mostrarlo en el mensaje de validacion
+
+        // el apto fisico esta en la tabla persona, asi que lo tienen tanto socios como no socios
+        private bool _aptoFisico = false;
+
         public string Nombre { get { return _nombre; } set { _nombre = value; } }
         public string Apellido { get { return _apellido; } set { _apellido = value; } }
         public string Telefono { get { return _telefono; } set { _telefono = value; } }
+
+        public string tipo { get { return _tipo; } set { _tipo = value; } }
+
+        public bool AptoFisico { get { return _aptoFisico; } set { _aptoFisico = value; } }
 
         // el constructor recibe la conexion y el dni, el resto de los datos se cargan despues
         public Persona(MySqlConnection conexion, int documento)
@@ -29,13 +38,18 @@ namespace proyectoClub
 
 
         // busca el dni en la tabla persona, devuelve true si existe (y carga sus datos)
-        public bool validarExistencia()
+        public virtual bool validarExistencia()
         {
             try
             {
                 _conexion.Open();
 
-                string query = "SELECT * FROM persona WHERE documento=@documento";
+                // busca en las dos tablas (socios y no socios), como el documento es unico solo va a traer una fila
+                string query = "select p.id, p.nombre, p.apellido, p.documento, p.telefono, p.apto_fisico, 'socio' as tipo from cliente c " +
+                                "inner join persona p on p.id = c.id_persona where p.documento = @documento " +
+                                "union all " +
+                                "select p.id, p.nombre, p.apellido, p.documento, p.telefono, p.apto_fisico, 'no_socio' as tipo from no_cliente nc " +
+                                "inner join persona p on p.id = nc.id_persona where p.documento = @documento";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
                 // usar @parametros evita la inyeccion SQL
@@ -50,6 +64,13 @@ namespace proyectoClub
                     _nombre = reader["nombre"].ToString() ?? "";
                     _apellido = reader["apellido"].ToString() ?? "";
                     _telefono = reader["telefono"].ToString() ?? "";
+                    _tipo = reader["tipo"].ToString() ?? "";
+
+                    // DBNull = campo vacio en la base, en ese caso queda en false
+                    if (reader["apto_fisico"] != DBNull.Value)
+                    {
+                        _aptoFisico = Convert.ToBoolean(reader["apto_fisico"]);
+                    }
 
                     reader.Close();
                     return true;
@@ -58,10 +79,9 @@ namespace proyectoClub
                 reader.Close();
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // si falla la base lo muestro por consola y devuelvo false para que el programa no se caiga
-                Console.WriteLine("Error en validarExistencia: " + ex.Message);
+                // si falla la base devuelvo false para que el programa no se caiga
                 return false;
             }
             finally
@@ -77,6 +97,13 @@ namespace proyectoClub
         public virtual string ObtenerDescripcion()
         {
             return "Persona: " + _nombre + " " + _apellido;
+        }
+
+        // virtual: cada tipo de persona guarda sus datos en su propia tabla (Socio en cliente, noSocio en no_cliente)
+        // en Persona no hace nada porque una persona sola no es cliente
+        public virtual bool registrarCliente()
+        {
+            return false;
         }
 
         // devuelve false si falta nombre, apellido o telefono (IsNullOrWhiteSpace tambien detecta solo espacios)
@@ -110,18 +137,14 @@ namespace proyectoClub
                 if (filas == 1)
                 {
                     _id = (int)cmd.LastInsertedId; // guardo el id para despues cargarlo en cliente
-                    Console.WriteLine("insertado correctamente");
 
                     return true;
                 }
 
-                Console.WriteLine("Error en insertar");
-
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error: " + ex.Message);
                 return false;
             }
             finally

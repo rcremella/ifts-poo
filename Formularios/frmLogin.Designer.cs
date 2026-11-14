@@ -33,7 +33,6 @@
             lblClave = new Label();
             txtUsuario = new TextBox();
             txtClave = new TextBox();
-            btnEnviar = new Button();
             btnConectar = new Button();
             lblResultado = new Label();
             SuspendLayout();
@@ -75,8 +74,8 @@
             txtUsuario.TabIndex = 3;
             txtUsuario.Text = "Ingrese Nombre de Usuario";
             txtUsuario.TextChanged += txtUsuario_TextChanged;
-            txtUsuario.Enter += txtNombre_Text_Enter;
-            txtUsuario.Leave += txtNombre_Leave;
+            txtUsuario.Enter += txtUsuario_Enter;
+            txtUsuario.Leave += txtUsuario_Leave;
             // 
             // txtClave
             // 
@@ -88,13 +87,6 @@
             txtClave.TextChanged += txtClave_TextChanged;
             txtClave.Enter += txtClave_Enter;
             txtClave.Leave += txtClave_Leave;
-            // 
-            // btnEnviar
-            // 
-            btnEnviar.Location = new Point(0, 0);
-            btnEnviar.Name = "btnEnviar";
-            btnEnviar.Size = new Size(75, 23);
-            btnEnviar.TabIndex = 0;
             // 
             // btnConectar
             // 
@@ -141,7 +133,6 @@
         private Label lblClave;
         private TextBox txtUsuario;
         private TextBox txtClave;
-        private Button btnEnviar;
         private Button btnConectar;
         private Label lblResultado;
     }

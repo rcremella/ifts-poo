@@ -6,6 +6,9 @@ namespace proyectoClub
     // se busca por dni y el checkbox marca si el carnet ya se entrego
     public partial class frmEntregarCarnet : Form
     {
+        // socio encontrado, es null mientras no haya uno valido
+        private Socio? _socio = null;
+
         public frmEntregarCarnet()
         {
             InitializeComponent();
@@ -47,19 +50,39 @@ namespace proyectoClub
             }
 
             MySqlConnection myCon = Conexion.Obtener();
+
+            // primero veo si la persona existe y si es socio o no socio
             Persona persona = new Persona(myCon, documento);
 
-            if (persona.validarExistencia())
+            if (!persona.validarExistencia())
             {
-                // la encontro: muestro sus datos y habilito el boton
-                txtNombre.Text = persona.Nombre;
-                txtApellido.Text = persona.Apellido;
+                limpiarDatos("La persona no se encuentra registrada");
+                return;
+            }
+
+            // solo los socios tienen carnet
+            if (persona.tipo != "socio")
+            {
+                limpiarDatos("Los no socios no tienen carnet");
+                return;
+            }
+
+            Socio socio = new Socio(myCon, documento);
+
+            if (socio.validarCarnet())
+            {
+                // lo encontro: muestro sus datos y habilito el boton
+                txtNombre.Text = socio.Nombre;
+                txtApellido.Text = socio.Apellido;
+                txtCarnet.Text = socio.Carnet;
+                chkEntregado.Checked = socio.Emitido;
+                _socio = socio;
                 btnImprimir.Enabled = true;
                 lblMensaje.Text = "Persona encontrada";
             }
             else
             {
-                limpiarDatos("La persona no se encuentra registrada");
+                limpiarDatos("El socio no tiene carnet registrado");
             }
         }
 
@@ -69,8 +92,27 @@ namespace proyectoClub
             txtNombre.Text = "";
             txtApellido.Text = "";
             txtCarnet.Text = "";
+            chkEntregado.Checked = false;
+            _socio = null;
             btnImprimir.Enabled = false;
             lblMensaje.Text = mensaje;
+        }
+
+        // abre la credencial del socio, desde ahi se imprime y se registra la entrega
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            // el boton solo esta habilitado con un socio encontrado, igual lo reviso por las dudas
+            if (_socio == null)
+            {
+                return;
+            }
+
+            // se abre de forma MODAL y le paso el documento para que traiga los datos
+            frmCredencial credencial = new frmCredencial(_socio._documento);
+            credencial.ShowDialog();
+
+            // al volver busco de nuevo, asi el check "entregado" queda actualizado
+            buscarPersona();
         }
     }
 }

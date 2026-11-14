@@ -41,6 +41,8 @@
             txtImporte = new TextBox();
             lblImporte = new Label();
             lblMensaje = new Label();
+            lblTipoPago = new Label();
+            cboTipoPago = new ComboBox();
             SuspendLayout();
             // 
             // btnCobrar
@@ -52,10 +54,11 @@
             btnCobrar.TabIndex = 20;
             btnCobrar.Text = "COBRAR";
             btnCobrar.UseVisualStyleBackColor = true;
+            btnCobrar.Click += btnCobrar_Click;
             // 
             // btnVolver
             // 
-            btnVolver.Location = new Point(366, 186);
+            btnVolver.Location = new Point(366, 216);
             btnVolver.Name = "btnVolver";
             btnVolver.Size = new Size(92, 23);
             btnVolver.TabIndex = 19;
@@ -66,7 +69,7 @@
             // txtCarnet
             // 
             txtCarnet.Enabled = false;
-            txtCarnet.Location = new Point(122, 158);
+            txtCarnet.Location = new Point(137, 158);
             txtCarnet.Name = "txtCarnet";
             txtCarnet.Size = new Size(184, 23);
             txtCarnet.TabIndex = 18;
@@ -84,7 +87,7 @@
             // txtNombre
             // 
             txtNombre.Enabled = false;
-            txtNombre.Location = new Point(122, 129);
+            txtNombre.Location = new Point(137, 129);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(184, 23);
             txtNombre.TabIndex = 16;
@@ -102,7 +105,7 @@
             // txtApellido
             // 
             txtApellido.Enabled = false;
-            txtApellido.Location = new Point(122, 100);
+            txtApellido.Location = new Point(137, 100);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(184, 23);
             txtApellido.TabIndex = 14;
@@ -119,7 +122,7 @@
             // 
             // txtDocumento
             // 
-            txtDocumento.Location = new Point(122, 71);
+            txtDocumento.Location = new Point(137, 71);
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 12;
@@ -139,7 +142,7 @@
             // txtImporte
             // 
             txtImporte.Enabled = false;
-            txtImporte.Location = new Point(122, 187);
+            txtImporte.Location = new Point(137, 187);
             txtImporte.Name = "txtImporte";
             txtImporte.Size = new Size(184, 23);
             txtImporte.TabIndex = 22;
@@ -158,17 +161,40 @@
             // lblMensaje
             // 
             lblMensaje.AutoSize = true;
-            lblMensaje.Location = new Point(122, 36);
+            lblMensaje.Location = new Point(137, 36);
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(109, 15);
             lblMensaje.TabIndex = 23;
             lblMensaje.Text = "Complete los datos";
             // 
+            // lblTipoPago
+            // 
+            lblTipoPago.AutoSize = true;
+            lblTipoPago.Font = new Font("Segoe UI", 9F);
+            lblTipoPago.Location = new Point(47, 219);
+            lblTipoPago.Name = "lblTipoPago";
+            lblTipoPago.Size = new Size(77, 15);
+            lblTipoPago.TabIndex = 24;
+            lblTipoPago.Text = "Tipo de pago";
+            // 
+            // cboTipoPago
+            // 
+            cboTipoPago.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboTipoPago.Enabled = false;
+            cboTipoPago.FormattingEnabled = true;
+            cboTipoPago.Items.AddRange(new object[] { "Efectivo", "Tarjeta", "Transferencia" });
+            cboTipoPago.Location = new Point(137, 216);
+            cboTipoPago.Name = "cboTipoPago";
+            cboTipoPago.Size = new Size(184, 23);
+            cboTipoPago.TabIndex = 25;
+            // 
             // frmPagar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(503, 231);
+            ClientSize = new Size(503, 260);
+            Controls.Add(cboTipoPago);
+            Controls.Add(lblTipoPago);
             Controls.Add(lblMensaje);
             Controls.Add(txtImporte);
             Controls.Add(lblImporte);
@@ -203,5 +229,7 @@
         private TextBox txtImporte;
         private Label lblImporte;
         private Label lblMensaje;
+        private Label lblTipoPago;
+        private ComboBox cboTipoPago;
     }
 }

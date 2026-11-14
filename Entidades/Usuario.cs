@@ -53,9 +53,8 @@ namespace proyectoClub
                 reader.Close();
                 return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error en ValidarLogin: " + ex.Message);
                 // lo relanzo para que el login no lo confunda con una clave incorrecta
                 throw;
             }

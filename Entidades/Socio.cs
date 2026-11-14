@@ -5,10 +5,20 @@ namespace proyectoClub
     // hereda de Persona
     internal class Socio : Persona
     {
-        // atributo propio de Socio, Persona no lo tiene
-        private bool _aptoFisico = false;
+        // atributos propios de Socio, Persona no los tiene
+        private string _carnet = "";
 
-        public bool AptoFisico { get { return _aptoFisico; } set { _aptoFisico = value; } }
+        public string Carnet { get { return _carnet; } set { _carnet = value; } }
+
+        // true si el carnet ya se entrego (campo emitido de la tabla carnet)
+        private bool _emitido = false;
+
+        public bool Emitido { get { return _emitido; } set { _emitido = value; } }
+
+        // fecha en que se entrego el carnet, null si todavia no se entrego
+        private DateTime? _fechaEntrega = null;
+
+        public DateTime? FechaEntrega { get { return _fechaEntrega; } set { _fechaEntrega = value; } }
 
         // base(...) llama al constructor de Persona
         public Socio(MySqlConnection conexion, int documento) : base(conexion, documento)
@@ -21,60 +31,56 @@ namespace proyectoClub
             return "Socio: " + _nombre + " " + _apellido;
         }
 
-        // consulta la tabla cliente y guarda en _aptoFisico lo que figura en la base
-        public void cargarAptoFisico()
-        {
-            try
-            {
-                _conexion.Open();
-
-                string query = "SELECT apto_fisico FROM cliente WHERE id_persona=@id_persona";
-
-                MySqlCommand cmd = new MySqlCommand(query, _conexion);
-                cmd.Parameters.AddWithValue("@id_persona", _id);
-
-                MySqlDataReader reader = cmd.ExecuteReader();
-
-                // DBNull = campo vacio en la base
-                if (reader.Read() && reader["apto_fisico"] != DBNull.Value)
-                {
-                    _aptoFisico = Convert.ToBoolean(reader["apto_fisico"]);
-                }
-
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-            }
-            finally
-            {
-                if (_conexion.State == System.Data.ConnectionState.Open)
-                    _conexion.Close();
-            }
-        }
-
+        // override de Persona: guarda al socio en la tabla cliente y le crea el carnet
         // va despues de registrarPersona porque usa su _id
-        public bool registrarCliente()
+        public override bool registrarCliente()
         {
+            // la transaccion agrupa las 3 escrituras: o se guardan todas o no se guarda ninguna
+            MySqlTransaction? transaccion = null;
+
             try
             {
                 _conexion.Open();
+                transaccion = _conexion.BeginTransaction();
 
-                string query = "INSERT INTO cliente(id_persona, tipo, apto_fisico) values (@id_persona, 'socio', @apto_fisico)";
+                string query = "INSERT INTO cliente(id_persona, tipo) values (@id_persona, 'socio')";
 
-                MySqlCommand cmd = new MySqlCommand(query, _conexion);
+                MySqlCommand cmd = new MySqlCommand(query, _conexion, transaccion);
                 cmd.Parameters.AddWithValue("@id_persona", _id);
-                cmd.Parameters.AddWithValue("@apto_fisico", _aptoFisico);
+
+                string queryUpdate = "UPDATE persona SET apto_fisico = @apto_fisico WHERE id = @id_persona";
+                MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, _conexion, transaccion);
+                cmdUpdate.Parameters.AddWithValue("@apto_fisico", AptoFisico);
+                cmdUpdate.Parameters.AddWithValue("@id_persona", _id);
 
                 // ExecuteNonQuery devuelve las filas afectadas, si es 1 se inserto bien
                 int filas = cmd.ExecuteNonQuery();
+                cmdUpdate.ExecuteNonQuery();
 
-                return filas == 1;
+                // el carnet necesita el id del cliente que se acaba de insertar
+                int idCliente = (int)cmd.LastInsertedId;
+                string queryCarnet = "INSERT INTO carnet(id_cliente) values (@id_cliente)";
+
+                MySqlCommand cmdCarnet = new MySqlCommand(queryCarnet, _conexion, transaccion);
+                cmdCarnet.Parameters.AddWithValue("@id_cliente", idCliente);
+                int filasCarnet = cmdCarnet.ExecuteNonQuery();
+
+                if (filas == 1 && filasCarnet == 1)
+                {
+                    transaccion.Commit(); // confirma los 3 cambios juntos
+                    return true;
+                }
+
+                transaccion.Rollback();
+                return false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                // si algo fallo deshago lo que se haya guardado
+                if (transaccion != null)
+                {
+                    transaccion.Rollback();
+                }
                 return false;
             }
             finally
@@ -83,5 +89,100 @@ namespace proyectoClub
                     _conexion.Close();
             }
         }
+
+        // busca al socio con su carnet (solo lo usa frmEntregarCarnet)
+        // no es override: validarExistencia de Persona sigue buscando en socios y no socios
+        public bool validarCarnet()
+        {
+            try
+            {
+                _conexion.Open();
+
+                string query = "select p.id, p.nombre, p.apellido, 'socio' as tipo, ca.id as carnet, ca.emitido, ca.fecha_entrega from cliente c " +
+                                "inner join persona p on p.id = c.id_persona " +
+                                "inner join carnet ca on c.id = ca.id_cliente " +
+                                "where p.documento = @documento ";
+
+                MySqlCommand cmd = new MySqlCommand(query, _conexion);
+                // usar @parametros evita la inyeccion SQL
+                cmd.Parameters.AddWithValue("@documento", _documento.ToString());
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    // si la encuentra cargo los datos de la persona
+                    _id = Convert.ToInt32(reader["id"]);
+                    _nombre = reader["nombre"].ToString() ?? "";
+                    _apellido = reader["apellido"].ToString() ?? "";
+                    tipo = reader["tipo"].ToString() ?? "";
+                    _carnet = reader["carnet"].ToString() ?? "";
+                    // DBNull = campo vacio en la base, en ese caso queda en false
+                    _emitido = reader["emitido"] != DBNull.Value && Convert.ToBoolean(reader["emitido"]);
+
+                    if (reader["fecha_entrega"] != DBNull.Value)
+                    {
+                        _fechaEntrega = Convert.ToDateTime(reader["fecha_entrega"]);
+                    }
+
+                    reader.Close();
+                    return true;
+                }
+
+                reader.Close();
+                return false;
+            }
+            catch (Exception)
+            {
+                // si falla la base devuelvo false para que el programa no se caiga
+                return false;
+            }
+            finally
+            {
+                // finally se ejecuta siempre, haya error o no
+                if (_conexion.State == System.Data.ConnectionState.Open)
+                    _conexion.Close();
+            }
+        }
+
+        // marca el carnet como entregado con la fecha de hoy, devuelve true si se guardo bien
+        // va despues de validarCarnet porque usa su _id
+        public bool entregarCarnet()
+        {
+            try
+            {
+                _conexion.Open();
+
+                // el carnet se busca a traves del cliente que corresponde a esta persona
+                string query = "UPDATE carnet SET emitido = 1, fecha_entrega = CURDATE() " +
+                               "WHERE id_cliente = (SELECT id FROM cliente WHERE id_persona = @id_persona)";
+
+                MySqlCommand cmd = new MySqlCommand(query, _conexion);
+                cmd.Parameters.AddWithValue("@id_persona", _id);
+
+                // ExecuteNonQuery devuelve las filas afectadas, si es 1 se actualizo bien
+                int filas = cmd.ExecuteNonQuery();
+
+                if (filas == 1)
+                {
+                    _emitido = true;
+                    _fechaEntrega = DateTime.Today;
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            finally
+            {
+                if (_conexion.State == System.Data.ConnectionState.Open)
+                    _conexion.Close();
+            }
+        }
+
+
     }
 }

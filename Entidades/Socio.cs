@@ -134,8 +134,9 @@ namespace proyectoClub
             }
             catch (Exception)
             {
-                // si falla la base devuelvo false para que el programa no se caiga
-                return false;
+                // lo relanzo para que el formulario avise que fallo la base
+                // si devolviera false se confundiria con "el socio no tiene carnet"
+                throw;
             }
             finally
             {

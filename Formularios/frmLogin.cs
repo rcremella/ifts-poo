@@ -101,7 +101,7 @@ namespace proyectoClub
             }
             catch (Exception)
             {
-                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión");
+                Mensajes.errorConexion();
                 return;
             }
 

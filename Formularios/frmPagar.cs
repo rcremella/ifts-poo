@@ -57,6 +57,21 @@ namespace proyectoClub
                 return;
             }
 
+            // si falla la base no es lo mismo que "no encontrada", por eso se avisa aparte
+            try
+            {
+                cargarPersona(documento);
+            }
+            catch (Exception)
+            {
+                limpiarDatos("No se pudo consultar la base de datos");
+                Mensajes.errorConexion();
+            }
+        }
+
+        // trae a la persona de la base y completa el formulario, si falla la base tira una excepcion
+        private void cargarPersona(int documento)
+        {
             MySqlConnection myCon = Conexion.Obtener();
             Persona persona = new Persona(myCon, documento);
 
@@ -220,7 +235,7 @@ namespace proyectoClub
             }
             catch (Exception)
             {
-                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión");
+                Mensajes.errorConexion();
                 return;
             }
 

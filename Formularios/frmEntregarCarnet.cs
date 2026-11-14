@@ -48,6 +48,21 @@ namespace proyectoClub
                 return;
             }
 
+            // si falla la base no es lo mismo que "no encontrada", por eso se avisa aparte
+            try
+            {
+                cargarSocio(documento);
+            }
+            catch (Exception)
+            {
+                limpiarDatos("No se pudo consultar la base de datos");
+                Mensajes.errorConexion();
+            }
+        }
+
+        // trae al socio de la base y completa el formulario, si falla la base tira una excepcion
+        private void cargarSocio(int documento)
+        {
             MySqlConnection myCon = Conexion.Obtener();
 
             // primero veo si la persona existe y si es socio o no socio

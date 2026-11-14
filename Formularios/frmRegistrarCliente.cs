@@ -109,8 +109,6 @@ namespace proyectoClub
         private void buscarDocumento()
         {
             // verifico el dni, si ya existe se cargan sus datos y si no se habilita el registro
-            MySqlConnection myCon = Conexion.Obtener();
-
             int documento;
 
             if (!Validador.documentoValido(txtDocumento.Text, out documento))
@@ -120,14 +118,41 @@ namespace proyectoClub
                 return;
             }
 
-            // uso Persona porque su validarExistencia busca tanto en socios como en no socios
-            Persona persona = new Persona(myCon, documento);
+            // si falla la base no es lo mismo que "no existe", por eso se avisa aparte
+            try
+            {
+                MySqlConnection myCon = Conexion.Obtener();
 
-            bloquearExistente(persona);
+                // uso Persona porque su validarExistencia busca tanto en socios como en no socios
+                Persona persona = new Persona(myCon, documento);
+
+                bloquearExistente(persona);
+            }
+            catch (Exception)
+            {
+                // sin la base no se puede verificar, queda bloqueado hasta reintentar
+                bloquearDatos();
+                lblMensaje.Text = "No se pudo consultar la base de datos";
+                Mensajes.errorConexion();
+            }
+        }
+
+        // el boton REGISTRAR: si falla la base se avisa con un mensaje en lugar de cerrar el programa
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                registrarCliente();
+            }
+            catch (Exception)
+            {
+                lblMensaje.Text = "No se pudo consultar la base de datos";
+                Mensajes.errorConexion();
+            }
         }
 
         // primero se guarda en persona y despues en cliente, porque cliente necesita el id de la persona
-        private void btnRegistrar_Click(object sender, EventArgs e)
+        private void registrarCliente()
         {
             // valido los datos antes de registrar
             MySqlConnection myCon = Conexion.Obtener();

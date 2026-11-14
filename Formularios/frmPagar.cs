@@ -66,6 +66,19 @@ namespace proyectoClub
                 _idPersona = persona._id;
                 _personaEncontrada = true;
 
+                // solo los socios tienen carnet, a los no socios les queda vacio
+                txtCarnet.Text = "";
+
+                if (persona.tipo == "socio")
+                {
+                    Socio socio = new Socio(myCon, documento);
+
+                    if (socio.validarCarnet())
+                    {
+                        txtCarnet.Text = socio.Carnet;
+                    }
+                }
+
                 // el importe se completa solo con el precio de su tipo (socio o no socio), pero se puede corregir
                 Precio precio = new Precio(myCon);
                 decimal? importe = precio.obtenerImporte(persona.tipo);
@@ -73,7 +86,9 @@ namespace proyectoClub
                 if (importe != null)
                 {
                     txtImporte.Text = importe.Value.ToString("0.##");
-                    lblMensaje.Text = "Verifique el importe y elija el tipo de pago";
+                    // aclaro que significa el importe: el socio paga una cuota mensual y el no socio por dia
+                    string detalle = persona.tipo == "socio" ? "Cuota mensual de socio" : "Importe diario de no socio";
+                    lblMensaje.Text = detalle + ", verifique el importe";
                 }
                 else
                 {
@@ -96,6 +111,7 @@ namespace proyectoClub
             _idPersona = 0;
             txtNombre.Text = "";
             txtApellido.Text = "";
+            txtCarnet.Text = "";
             txtImporte.Text = "";
             txtImporte.Enabled = false;
             cboTipoPago.SelectedIndex = -1; // sin seleccion

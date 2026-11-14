@@ -43,6 +43,8 @@
             lblMensaje = new Label();
             lblTipoPago = new Label();
             cboTipoPago = new ComboBox();
+            lblCuotas = new Label();
+            cboCuotas = new ComboBox();
             SuspendLayout();
             // 
             // btnCobrar
@@ -58,7 +60,7 @@
             // 
             // btnVolver
             // 
-            btnVolver.Location = new Point(366, 216);
+            btnVolver.Location = new Point(366, 245);
             btnVolver.Name = "btnVolver";
             btnVolver.Size = new Size(92, 23);
             btnVolver.TabIndex = 19;
@@ -161,7 +163,7 @@
             // lblMensaje
             // 
             lblMensaje.AutoSize = true;
-            lblMensaje.Location = new Point(137, 36);
+            lblMensaje.Location = new Point(47, 31);
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(109, 15);
             lblMensaje.TabIndex = 23;
@@ -182,17 +184,41 @@
             cboTipoPago.DropDownStyle = ComboBoxStyle.DropDownList;
             cboTipoPago.Enabled = false;
             cboTipoPago.FormattingEnabled = true;
-            cboTipoPago.Items.AddRange(new object[] { "Efectivo", "Tarjeta", "Transferencia" });
+            cboTipoPago.Items.AddRange(new object[] { "Efectivo (10% off)", "Tarjeta de crédito", "Transferencia" });
             cboTipoPago.Location = new Point(137, 216);
             cboTipoPago.Name = "cboTipoPago";
             cboTipoPago.Size = new Size(184, 23);
             cboTipoPago.TabIndex = 25;
+            cboTipoPago.SelectedIndexChanged += cboTipoPago_SelectedIndexChanged;
+            // 
+            // lblCuotas
+            // 
+            lblCuotas.AutoSize = true;
+            lblCuotas.Font = new Font("Segoe UI", 9F);
+            lblCuotas.Location = new Point(47, 248);
+            lblCuotas.Name = "lblCuotas";
+            lblCuotas.Size = new Size(44, 15);
+            lblCuotas.TabIndex = 26;
+            lblCuotas.Text = "Cuotas";
+            // 
+            // cboCuotas
+            // 
+            cboCuotas.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboCuotas.Enabled = false;
+            cboCuotas.FormattingEnabled = true;
+            cboCuotas.Items.AddRange(new object[] { "1 cuota", "3 cuotas", "6 cuotas" });
+            cboCuotas.Location = new Point(137, 245);
+            cboCuotas.Name = "cboCuotas";
+            cboCuotas.Size = new Size(184, 23);
+            cboCuotas.TabIndex = 27;
             // 
             // frmPagar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(503, 260);
+            ClientSize = new Size(503, 290);
+            Controls.Add(cboCuotas);
+            Controls.Add(lblCuotas);
             Controls.Add(cboTipoPago);
             Controls.Add(lblTipoPago);
             Controls.Add(lblMensaje);
@@ -231,5 +257,7 @@
         private Label lblMensaje;
         private Label lblTipoPago;
         private ComboBox cboTipoPago;
+        private Label lblCuotas;
+        private ComboBox cboCuotas;
     }
 }

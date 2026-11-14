@@ -95,7 +95,7 @@
             lblTelefono.AutoSize = true;
             lblTelefono.Location = new Point(47, 161);
             lblTelefono.Name = "lblTelefono";
-            lblTelefono.Size = new Size(52, 15);
+            lblTelefono.Size = new Size(53, 15);
             lblTelefono.TabIndex = 6;
             lblTelefono.Text = "Teléfono";
             // 
@@ -141,7 +141,7 @@
             // lblMensaje
             // 
             lblMensaje.AutoSize = true;
-            lblMensaje.Location = new Point(122, 36);
+            lblMensaje.Location = new Point(47, 31);
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(122, 15);
             lblMensaje.TabIndex = 10;

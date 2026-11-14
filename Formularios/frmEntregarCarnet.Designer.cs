@@ -58,8 +58,8 @@
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 1;
-            txtDocumento.Leave += txtDocumento_Leave;
             txtDocumento.KeyDown += txtDocumento_KeyDown;
+            txtDocumento.Leave += txtDocumento_Leave;
             // 
             // txtApellido
             // 
@@ -151,7 +151,7 @@
             // lblMensaje
             // 
             lblMensaje.AutoSize = true;
-            lblMensaje.Location = new Point(122, 36);
+            lblMensaje.Location = new Point(47, 31);
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(109, 15);
             lblMensaje.TabIndex = 11;

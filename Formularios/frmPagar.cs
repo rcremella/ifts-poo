@@ -12,6 +12,12 @@ namespace proyectoClub
         // id de la persona encontrada, lo necesita el pago para guardarse en la base
         private int _idPersona = 0;
 
+        // precio de la tabla precio segun el tipo de la persona, es null si no hay uno cargado
+        private decimal? _precioBase = null;
+
+        // si se paga en efectivo se descuenta el 10% del importe
+        private const decimal DescuentoEfectivo = 0.10m;
+
         public frmPagar()
         {
             InitializeComponent();
@@ -83,9 +89,12 @@ namespace proyectoClub
                 Precio precio = new Precio(myCon);
                 decimal? importe = precio.obtenerImporte(persona.tipo);
 
+                _precioBase = importe;
+
                 if (importe != null)
                 {
-                    txtImporte.Text = importe.Value.ToString("0.##");
+                    // arranca en efectivo, asi que ya viene con el descuento
+                    calcularImporte();
                     // aclaro que significa el importe: el socio paga una cuota mensual y el no socio por dia
                     string detalle = persona.tipo == "socio" ? "Cuota mensual de socio" : "Importe diario de no socio";
                     lblMensaje.Text = detalle + ", verifique el importe";
@@ -109,6 +118,7 @@ namespace proyectoClub
         {
             _personaEncontrada = false;
             _idPersona = 0;
+            _precioBase = null;
             txtNombre.Text = "";
             txtApellido.Text = "";
             txtCarnet.Text = "";
@@ -118,6 +128,36 @@ namespace proyectoClub
             cboTipoPago.Enabled = false;
             btnCobrar.Enabled = false;
             lblMensaje.Text = mensaje;
+        }
+
+        // las cuotas solo se eligen con tarjeta de credito, y el importe depende de como se paga
+        private void cboTipoPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool conTarjeta = cboTipoPago.SelectedIndex == 1;
+
+            cboCuotas.Enabled = conTarjeta;
+            cboCuotas.SelectedIndex = conTarjeta ? 0 : -1; // con tarjeta arranca en 1 cuota
+
+            calcularImporte();
+        }
+
+        // pone en el importe el precio de la tabla, con descuento si se paga en efectivo
+        // si no hay precio cargado no toca lo que escribio el usuario
+        private void calcularImporte()
+        {
+            if (_precioBase == null || cboTipoPago.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            decimal importe = _precioBase.Value;
+
+            if (cboTipoPago.SelectedIndex == 0)
+            {
+                importe = importe - importe * DescuentoEfectivo;
+            }
+
+            txtImporte.Text = importe.ToString("0.##");
         }
 
         // cada vez que cambia el importe reviso si ya se puede cobrar
@@ -155,7 +195,20 @@ namespace proyectoClub
             try
             {
                 MySqlConnection myCon = Conexion.Obtener();
-                Pago pago = new Pago(myCon, _idPersona, importe, cboTipoPago.Text);
+                // lo que se guarda en la base: "Efectivo", "Transferencia" o "Tarjeta - 3 cuotas"
+                // (el texto del combo de efectivo trae el "10% off", por eso no se usa directo)
+                string tipoPago = cboTipoPago.Text;
+
+                if (cboTipoPago.SelectedIndex == 0)
+                {
+                    tipoPago = "Efectivo";
+                }
+                else if (cboTipoPago.SelectedIndex == 1)
+                {
+                    tipoPago = "Tarjeta - " + cboCuotas.Text;
+                }
+
+                Pago pago = new Pago(myCon, _idPersona, importe, tipoPago);
                 guardado = pago.registrar();
             }
             catch (Exception)

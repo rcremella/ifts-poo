@@ -130,6 +130,14 @@ namespace proyectoClub
             lblMensaje.Text = mensaje;
         }
 
+        // deja el formulario como al principio para cobrar a otra persona
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtDocumento.Text = "";
+            limpiarDatos("Ingrese el documento");
+            txtDocumento.Focus();
+        }
+
         // las cuotas solo se eligen con tarjeta de credito, y el importe depende de como se paga
         private void cboTipoPago_SelectedIndexChanged(object sender, EventArgs e)
         {

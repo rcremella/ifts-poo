@@ -30,6 +30,7 @@
         {
             btnCobrar = new Button();
             btnVolver = new Button();
+            btnLimpiar = new Button();
             txtCarnet = new TextBox();
             lblCarnet = new Label();
             txtNombre = new TextBox();
@@ -67,9 +68,19 @@
             btnVolver.Text = "VOLVER";
             btnVolver.UseVisualStyleBackColor = true;
             btnVolver.Click += btnVolver_Click;
-            // 
+            //
+            // btnLimpiar
+            //
+            btnLimpiar.Location = new Point(366, 103);
+            btnLimpiar.Name = "btnLimpiar";
+            btnLimpiar.Size = new Size(92, 23);
+            btnLimpiar.TabIndex = 28;
+            btnLimpiar.Text = "LIMPIAR";
+            btnLimpiar.UseVisualStyleBackColor = true;
+            btnLimpiar.Click += btnLimpiar_Click;
+            //
             // txtCarnet
-            // 
+            //
             txtCarnet.Enabled = false;
             txtCarnet.Location = new Point(137, 158);
             txtCarnet.Name = "txtCarnet";
@@ -226,6 +237,7 @@
             Controls.Add(lblImporte);
             Controls.Add(btnCobrar);
             Controls.Add(btnVolver);
+            Controls.Add(btnLimpiar);
             Controls.Add(txtCarnet);
             Controls.Add(lblCarnet);
             Controls.Add(txtNombre);
@@ -244,6 +256,7 @@
         #endregion
         private Button btnCobrar;
         private Button btnVolver;
+        private Button btnLimpiar;
         private TextBox txtCarnet;
         private Label lblCarnet;
         private TextBox txtNombre;

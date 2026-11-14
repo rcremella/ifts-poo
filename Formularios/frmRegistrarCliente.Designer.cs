@@ -55,7 +55,7 @@
             // 
             // txtDocumento
             // 
-            txtDocumento.Location = new Point(122, 71);
+            txtDocumento.Location = new Point(137, 71);
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 1;
@@ -66,7 +66,7 @@
             // txtApellido
             // 
             txtApellido.Enabled = false;
-            txtApellido.Location = new Point(122, 100);
+            txtApellido.Location = new Point(137, 100);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(184, 23);
             txtApellido.TabIndex = 3;
@@ -84,7 +84,7 @@
             // txtTelefono
             // 
             txtTelefono.Enabled = false;
-            txtTelefono.Location = new Point(122, 158);
+            txtTelefono.Location = new Point(137, 158);
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(184, 23);
             txtTelefono.TabIndex = 7;
@@ -102,7 +102,7 @@
             // txtNombre
             // 
             txtNombre.Enabled = false;
-            txtNombre.Location = new Point(122, 129);
+            txtNombre.Location = new Point(137, 129);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(184, 23);
             txtNombre.TabIndex = 5;
@@ -151,7 +151,7 @@
             // 
             chkAptoFisico.AutoSize = true;
             chkAptoFisico.Enabled = false;
-            chkAptoFisico.Location = new Point(224, 187);
+            chkAptoFisico.Location = new Point(238, 186);
             chkAptoFisico.Name = "chkAptoFisico";
             chkAptoFisico.Size = new Size(83, 19);
             chkAptoFisico.TabIndex = 11;
@@ -173,11 +173,11 @@
             // 
             chkSocio.AutoSize = true;
             chkSocio.Enabled = false;
-            chkSocio.Location = new Point(96, 190);
+            chkSocio.Location = new Point(137, 186);
             chkSocio.Name = "chkSocio";
-            chkSocio.Size = new Size(61, 19);
+            chkSocio.Size = new Size(55, 19);
             chkSocio.TabIndex = 13;
-            chkSocio.Text = "SOCIO";
+            chkSocio.Text = "Socio";
             chkSocio.UseVisualStyleBackColor = true;
             // 
             // frmRegistrarCliente

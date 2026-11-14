@@ -90,7 +90,7 @@ namespace proyectoClub
             }
         }
 
-        // busca al socio con su carnet (solo lo usa frmEntregarCarnet)
+        // busca al socio con su carnet (solo lo usa FrmEntregarCarnet)
         // no es override: validarExistencia de Persona sigue buscando en socios y no socios
         public bool validarCarnet()
         {

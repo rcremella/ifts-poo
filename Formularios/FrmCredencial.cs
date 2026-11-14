@@ -3,8 +3,8 @@ using MySql.Data.MySqlClient;
 namespace proyectoClub
 {
     // credencial del socio: se muestra con sus datos y al imprimir se registra la entrega del carnet en la base
-    // es un formulario distinto al que lo genera (frmEntregarCarnet)
-    public partial class frmCredencial : Form
+    // es un formulario distinto al que lo genera (FrmEntregarCarnet)
+    public partial class FrmCredencial : Form
     {
         // documento del socio, llega desde el formulario que abre la credencial
         private readonly int _documento;
@@ -12,14 +12,14 @@ namespace proyectoClub
         // socio con los datos del carnet, es null mientras no se haya encontrado
         private Socio? _socio = null;
 
-        public frmCredencial(int documento)
+        public FrmCredencial(int documento)
         {
             InitializeComponent();
             _documento = documento;
         }
 
         // los datos se traen de la base cuando se abre el formulario (evento Load)
-        private void frmCredencial_Load(object sender, EventArgs e)
+        private void FrmCredencial_Load(object sender, EventArgs e)
         {
             btnImprimir.Enabled = false;
 

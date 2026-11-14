@@ -4,12 +4,12 @@ namespace proyectoClub
 {
     // formulario para entregar el carnet al socio
     // se busca por dni y el checkbox marca si el carnet ya se entrego
-    public partial class frmEntregarCarnet : Form
+    public partial class FrmEntregarCarnet : Form
     {
         // socio encontrado, es null mientras no haya uno valido
         private Socio? _socio = null;
 
-        public frmEntregarCarnet()
+        public FrmEntregarCarnet()
         {
             InitializeComponent();
         }
@@ -122,7 +122,7 @@ namespace proyectoClub
             }
 
             // se abre de forma MODAL y le paso el documento para que traiga los datos
-            frmCredencial credencial = new frmCredencial(_socio.Documento);
+            FrmCredencial credencial = new FrmCredencial(_socio.Documento);
             credencial.ShowDialog();
 
             // al volver busco de nuevo, asi el check "entregado" queda actualizado

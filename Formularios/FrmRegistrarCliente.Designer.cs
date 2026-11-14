@@ -1,6 +1,6 @@
 ﻿namespace proyectoClub
 {
-    partial class frmEntregarCarnet
+    partial class FrmRegistrarCliente
     {
         /// <summary>
         /// Required designer variable.
@@ -32,20 +32,21 @@
             txtDocumento = new TextBox();
             txtApellido = new TextBox();
             lblApellido = new Label();
+            txtTelefono = new TextBox();
+            lblTelefono = new Label();
             txtNombre = new TextBox();
             lblNombre = new Label();
-            txtCarnet = new TextBox();
-            lblCarnet = new Label();
-            btnVolver = new Button();
-            btnImprimir = new Button();
-            chkEntregado = new CheckBox();
+            btnRegistrar = new Button();
+            btnLimpiar = new Button();
             lblMensaje = new Label();
+            chkAptoFisico = new CheckBox();
+            btnVolver = new Button();
+            chkSocio = new CheckBox();
             SuspendLayout();
             // 
             // lblDocumento
             // 
             lblDocumento.AutoSize = true;
-            lblDocumento.Font = new Font("Segoe UI", 9F);
             lblDocumento.Location = new Point(47, 74);
             lblDocumento.Name = "lblDocumento";
             lblDocumento.Size = new Size(70, 15);
@@ -58,6 +59,7 @@
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 1;
+            txtDocumento.TextChanged += txtDocumento_TextChanged;
             txtDocumento.KeyDown += txtDocumento_KeyDown;
             txtDocumento.Leave += txtDocumento_Leave;
             // 
@@ -68,16 +70,34 @@
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(184, 23);
             txtApellido.TabIndex = 3;
+            txtApellido.TextChanged += txtDatos_TextChanged;
             // 
             // lblApellido
             // 
             lblApellido.AutoSize = true;
-            lblApellido.Font = new Font("Segoe UI", 9F);
             lblApellido.Location = new Point(47, 103);
             lblApellido.Name = "lblApellido";
             lblApellido.Size = new Size(51, 15);
             lblApellido.TabIndex = 2;
             lblApellido.Text = "Apellido";
+            // 
+            // txtTelefono
+            // 
+            txtTelefono.Enabled = false;
+            txtTelefono.Location = new Point(137, 158);
+            txtTelefono.Name = "txtTelefono";
+            txtTelefono.Size = new Size(184, 23);
+            txtTelefono.TabIndex = 7;
+            txtTelefono.TextChanged += txtDatos_TextChanged;
+            // 
+            // lblTelefono
+            // 
+            lblTelefono.AutoSize = true;
+            lblTelefono.Location = new Point(47, 161);
+            lblTelefono.Name = "lblTelefono";
+            lblTelefono.Size = new Size(53, 15);
+            lblTelefono.TabIndex = 6;
+            lblTelefono.Text = "Teléfono";
             // 
             // txtNombre
             // 
@@ -86,97 +106,102 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(184, 23);
             txtNombre.TabIndex = 5;
+            txtNombre.TextChanged += txtDatos_TextChanged;
             // 
             // lblNombre
             // 
             lblNombre.AutoSize = true;
-            lblNombre.Font = new Font("Segoe UI", 9F);
             lblNombre.Location = new Point(47, 132);
             lblNombre.Name = "lblNombre";
             lblNombre.Size = new Size(51, 15);
             lblNombre.TabIndex = 4;
             lblNombre.Text = "Nombre";
             // 
-            // txtCarnet
+            // btnRegistrar
             // 
-            txtCarnet.Enabled = false;
-            txtCarnet.Location = new Point(137, 158);
-            txtCarnet.Name = "txtCarnet";
-            txtCarnet.Size = new Size(184, 23);
-            txtCarnet.TabIndex = 7;
+            btnRegistrar.Enabled = false;
+            btnRegistrar.Location = new Point(366, 74);
+            btnRegistrar.Name = "btnRegistrar";
+            btnRegistrar.Size = new Size(92, 23);
+            btnRegistrar.TabIndex = 8;
+            btnRegistrar.Text = "REGISTRAR";
+            btnRegistrar.UseVisualStyleBackColor = true;
+            btnRegistrar.Click += btnRegistrar_Click;
             // 
-            // lblCarnet
+            // btnLimpiar
             // 
-            lblCarnet.AutoSize = true;
-            lblCarnet.Font = new Font("Segoe UI", 9F);
-            lblCarnet.Location = new Point(47, 161);
-            lblCarnet.Name = "lblCarnet";
-            lblCarnet.Size = new Size(42, 15);
-            lblCarnet.TabIndex = 6;
-            lblCarnet.Text = "Carnet";
-            // 
-            // btnVolver
-            // 
-            btnVolver.Location = new Point(399, 183);
-            btnVolver.Name = "btnVolver";
-            btnVolver.Size = new Size(92, 23);
-            btnVolver.TabIndex = 8;
-            btnVolver.Text = "VOLVER";
-            btnVolver.UseVisualStyleBackColor = true;
-            btnVolver.Click += btnVolver_Click;
-            // 
-            // btnImprimir
-            // 
-            btnImprimir.Enabled = false;
-            btnImprimir.Location = new Point(349, 71);
-            btnImprimir.Name = "btnImprimir";
-            btnImprimir.Size = new Size(142, 23);
-            btnImprimir.TabIndex = 9;
-            btnImprimir.Text = "IMPRIMIR CARNET";
-            btnImprimir.UseVisualStyleBackColor = true;
-            btnImprimir.Click += btnImprimir_Click;
-            // 
-            // chkEntregado
-            // 
-            chkEntregado.AutoSize = true;
-            chkEntregado.Enabled = false;
-            chkEntregado.Font = new Font("Segoe UI", 9F);
-            chkEntregado.Location = new Point(241, 187);
-            chkEntregado.Name = "chkEntregado";
-            chkEntregado.Size = new Size(80, 19);
-            chkEntregado.TabIndex = 10;
-            chkEntregado.Text = "Entregado";
-            chkEntregado.UseVisualStyleBackColor = true;
+            btnLimpiar.Location = new Point(366, 103);
+            btnLimpiar.Name = "btnLimpiar";
+            btnLimpiar.Size = new Size(92, 23);
+            btnLimpiar.TabIndex = 9;
+            btnLimpiar.Text = "LIMPIAR";
+            btnLimpiar.UseVisualStyleBackColor = true;
+            btnLimpiar.Click += btnLimpiar_Click;
             // 
             // lblMensaje
             // 
             lblMensaje.AutoSize = true;
             lblMensaje.Location = new Point(47, 31);
             lblMensaje.Name = "lblMensaje";
-            lblMensaje.Size = new Size(109, 15);
-            lblMensaje.TabIndex = 11;
-            lblMensaje.Text = "Complete los datos";
+            lblMensaje.Size = new Size(122, 15);
+            lblMensaje.TabIndex = 10;
+            lblMensaje.Text = "Ingrese el documento";
             // 
-            // frmEntregarCarnet
+            // chkAptoFisico
+            // 
+            chkAptoFisico.AutoSize = true;
+            chkAptoFisico.Enabled = false;
+            chkAptoFisico.Location = new Point(238, 186);
+            chkAptoFisico.Name = "chkAptoFisico";
+            chkAptoFisico.Size = new Size(83, 19);
+            chkAptoFisico.TabIndex = 11;
+            chkAptoFisico.Text = "Apto físico";
+            chkAptoFisico.UseVisualStyleBackColor = true;
+            chkAptoFisico.CheckedChanged += chkAptoFisico_CheckedChanged;
+            // 
+            // btnVolver
+            // 
+            btnVolver.Location = new Point(366, 186);
+            btnVolver.Name = "btnVolver";
+            btnVolver.Size = new Size(92, 23);
+            btnVolver.TabIndex = 12;
+            btnVolver.Text = "VOLVER";
+            btnVolver.UseVisualStyleBackColor = true;
+            btnVolver.Click += btnVolver_Click;
+            // 
+            // chkSocio
+            // 
+            chkSocio.AutoSize = true;
+            chkSocio.Enabled = false;
+            chkSocio.Location = new Point(137, 186);
+            chkSocio.Name = "chkSocio";
+            chkSocio.Size = new Size(55, 19);
+            chkSocio.TabIndex = 13;
+            chkSocio.Text = "Socio";
+            chkSocio.UseVisualStyleBackColor = true;
+            // 
+            // FrmRegistrarCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(503, 231);
-            Controls.Add(lblMensaje);
-            Controls.Add(chkEntregado);
-            Controls.Add(btnImprimir);
+            Controls.Add(chkSocio);
             Controls.Add(btnVolver);
-            Controls.Add(txtCarnet);
-            Controls.Add(lblCarnet);
+            Controls.Add(chkAptoFisico);
+            Controls.Add(lblMensaje);
+            Controls.Add(btnLimpiar);
+            Controls.Add(btnRegistrar);
+            Controls.Add(txtTelefono);
+            Controls.Add(lblTelefono);
             Controls.Add(txtNombre);
             Controls.Add(lblNombre);
             Controls.Add(txtApellido);
             Controls.Add(lblApellido);
             Controls.Add(txtDocumento);
             Controls.Add(lblDocumento);
-            Name = "frmEntregarCarnet";
+            Name = "FrmRegistrarCliente";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Entregar Carnet";
+            Text = "Registrar Socio";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -187,13 +212,15 @@
         private TextBox txtDocumento;
         private TextBox txtApellido;
         private Label lblApellido;
+        private TextBox txtTelefono;
+        private Label lblTelefono;
         private TextBox txtNombre;
         private Label lblNombre;
-        private TextBox txtCarnet;
-        private Label lblCarnet;
-        private Button btnVolver;
-        private Button btnImprimir;
-        private CheckBox chkEntregado;
+        private Button btnRegistrar;
+        private Button btnLimpiar;
         private Label lblMensaje;
+        private CheckBox chkAptoFisico;
+        private Button btnVolver;
+        private CheckBox chkSocio;
     }
 }

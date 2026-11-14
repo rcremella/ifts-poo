@@ -1,6 +1,6 @@
 ﻿namespace proyectoClub
 {
-    partial class frmListarVencimientos
+    partial class FrmListarVencimientos
     {
         /// <summary>
         /// Required designer variable.
@@ -51,14 +51,14 @@
             btnVolver.UseVisualStyleBackColor = true;
             btnVolver.Click += btnVolver_Click;
             // 
-            // frmListarVencimientos
+            // FrmListarVencimientos
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 429);
             Controls.Add(btnVolver);
             Controls.Add(dgvVencimientos);
-            Name = "frmListarVencimientos";
+            Name = "FrmListarVencimientos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Listar Vencimientos";
             ((System.ComponentModel.ISupportInitialize)dgvVencimientos).EndInit();

@@ -4,7 +4,7 @@ namespace proyectoClub
 {
     // formulario para cobrar la cuota a un socio
     // se busca al socio por dni y se carga el importe que paga
-    public partial class frmPagar : Form
+    public partial class FrmPagar : Form
     {
         // es true solo cuando el documento ingresado existe en la base
         private bool _personaEncontrada = false;
@@ -18,7 +18,7 @@ namespace proyectoClub
         // si se paga en efectivo se descuenta el 10% del importe
         private const decimal DescuentoEfectivo = 0.10m;
 
-        public frmPagar()
+        public FrmPagar()
         {
             InitializeComponent();
         }

@@ -63,12 +63,12 @@ Si falta el secreto, la aplicación lanza el error `Falta ConnectionStrings:Club
 
 ### Formularios (`Formularios/`)
 
-- `frmLogin`: pantalla de inicio de sesión.
-- `frmOpciones`: menú principal.
-- `frmRegistrarCliente`: alta de socios y no socios.
-- `frmPagar`: cobro de la cuota (se busca a la persona por documento).
-- `frmEntregarCarnet`: búsqueda del carnet de un socio.
-- `frmListarVencimientos`: grilla con los socios que vencen hoy o ya tienen la cuota vencida.
+- `FrmLogin`: pantalla de inicio de sesión.
+- `FrmOpciones`: menú principal.
+- `FrmRegistrarCliente`: alta de socios y no socios.
+- `FrmPagar`: cobro de la cuota (se busca a la persona por documento).
+- `FrmEntregarCarnet`: búsqueda del carnet de un socio.
+- `FrmListarVencimientos`: grilla con los socios que vencen hoy o ya tienen la cuota vencida.
 
 ### Entidades (`Entidades/`)
 

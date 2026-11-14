@@ -1,6 +1,6 @@
 namespace proyectoClub
 {
-    partial class frmCredencial
+    partial class FrmCredencial
     {
         /// <summary>
         /// Required designer variable.
@@ -205,7 +205,7 @@ namespace proyectoClub
             btnVolver.UseVisualStyleBackColor = true;
             btnVolver.Click += btnVolver_Click;
             // 
-            // frmCredencial
+            // FrmCredencial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -214,10 +214,10 @@ namespace proyectoClub
             Controls.Add(btnImprimir);
             Controls.Add(lblMensaje);
             Controls.Add(pnlCredencial);
-            Name = "frmCredencial";
+            Name = "FrmCredencial";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Credencial de socio";
-            Load += frmCredencial_Load;
+            Load += FrmCredencial_Load;
             pnlCredencial.ResumeLayout(false);
             pnlCredencial.PerformLayout();
             pnlEncabezado.ResumeLayout(false);

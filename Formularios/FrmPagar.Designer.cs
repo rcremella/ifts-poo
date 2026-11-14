@@ -1,6 +1,6 @@
 ﻿namespace proyectoClub
 {
-    partial class frmPagar
+    partial class FrmPagar
     {
         /// <summary>
         /// Required designer variable.
@@ -223,7 +223,7 @@
             cboCuotas.Size = new Size(184, 23);
             cboCuotas.TabIndex = 27;
             // 
-            // frmPagar
+            // FrmPagar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -246,7 +246,7 @@
             Controls.Add(lblApellido);
             Controls.Add(txtDocumento);
             Controls.Add(lblDocumento);
-            Name = "frmPagar";
+            Name = "FrmPagar";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Cobrar Cuota";
             ResumeLayout(false);

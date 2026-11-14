@@ -37,12 +37,12 @@
             // 
             // btnRegistrar
             // 
-            btnRegistrar.BackColor = Color.Red;
+            btnRegistrar.BackColor = SystemColors.Window;
             btnRegistrar.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            btnRegistrar.ForeColor = SystemColors.ButtonHighlight;
-            btnRegistrar.Location = new Point(148, 64);
+            btnRegistrar.ForeColor = SystemColors.WindowText;
+            btnRegistrar.Location = new Point(93, 81);
             btnRegistrar.Name = "btnRegistrar";
-            btnRegistrar.Size = new Size(183, 115);
+            btnRegistrar.Size = new Size(251, 115);
             btnRegistrar.TabIndex = 1;
             btnRegistrar.Text = "Registrar Socio";
             btnRegistrar.UseVisualStyleBackColor = false;
@@ -50,12 +50,12 @@
             // 
             // btnCobrar
             // 
-            btnCobrar.BackColor = Color.Red;
+            btnCobrar.BackColor = SystemColors.Window;
             btnCobrar.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            btnCobrar.ForeColor = SystemColors.ButtonHighlight;
-            btnCobrar.Location = new Point(471, 64);
+            btnCobrar.ForeColor = SystemColors.WindowText;
+            btnCobrar.Location = new Point(446, 81);
             btnCobrar.Name = "btnCobrar";
-            btnCobrar.Size = new Size(183, 115);
+            btnCobrar.Size = new Size(251, 115);
             btnCobrar.TabIndex = 2;
             btnCobrar.Text = "Cobrar Cuota";
             btnCobrar.UseVisualStyleBackColor = false;
@@ -63,12 +63,12 @@
             // 
             // btnListarVto
             // 
-            btnListarVto.BackColor = Color.Red;
+            btnListarVto.BackColor = SystemColors.Window;
             btnListarVto.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            btnListarVto.ForeColor = SystemColors.ButtonHighlight;
-            btnListarVto.Location = new Point(471, 234);
+            btnListarVto.ForeColor = SystemColors.WindowText;
+            btnListarVto.Location = new Point(446, 234);
             btnListarVto.Name = "btnListarVto";
-            btnListarVto.Size = new Size(183, 115);
+            btnListarVto.Size = new Size(251, 115);
             btnListarVto.TabIndex = 4;
             btnListarVto.Text = "Listar Vencimientos";
             btnListarVto.UseVisualStyleBackColor = false;
@@ -76,12 +76,12 @@
             // 
             // btnCarnet
             // 
-            btnCarnet.BackColor = Color.Red;
+            btnCarnet.BackColor = SystemColors.Window;
             btnCarnet.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            btnCarnet.ForeColor = SystemColors.ButtonHighlight;
-            btnCarnet.Location = new Point(148, 234);
+            btnCarnet.ForeColor = SystemColors.WindowText;
+            btnCarnet.Location = new Point(93, 234);
             btnCarnet.Name = "btnCarnet";
-            btnCarnet.Size = new Size(183, 115);
+            btnCarnet.Size = new Size(251, 115);
             btnCarnet.TabIndex = 3;
             btnCarnet.Text = "Entregar Carnet";
             btnCarnet.UseVisualStyleBackColor = false;
@@ -92,9 +92,9 @@
             lblDescripcionUsuario.AutoSize = true;
             lblDescripcionUsuario.Location = new Point(21, 9);
             lblDescripcionUsuario.Name = "lblDescripcionUsuario";
-            lblDescripcionUsuario.Size = new Size(53, 15);
+            lblDescripcionUsuario.Size = new Size(72, 15);
             lblDescripcionUsuario.TabIndex = 5;
-            lblDescripcionUsuario.Text = "Usuario: ";
+            lblDescripcionUsuario.Text = "Bienvenido, ";
             // 
             // FrmOpciones
             // 

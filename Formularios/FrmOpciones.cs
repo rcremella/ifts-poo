@@ -11,7 +11,7 @@
             _usuario = usuario;
 
             // muestro quien esta usando el sistema
-            lblDescripcionUsuario.Text = "Usuario: " + _usuario.nombreReal + " " + _usuario.apellidoReal;
+            lblDescripcionUsuario.Text = "Bienvenido, " + _usuario.nombreReal + " " + _usuario.apellidoReal;
         }
 
         // este boton abre el formulario para registrar un socio nuevo

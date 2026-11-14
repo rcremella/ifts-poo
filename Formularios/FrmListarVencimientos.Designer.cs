@@ -35,15 +35,16 @@
             // 
             // dgvVencimientos
             // 
+            dgvVencimientos.BackgroundColor = SystemColors.Control;
             dgvVencimientos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvVencimientos.Location = new Point(31, 52);
+            dgvVencimientos.Location = new Point(31, 51);
             dgvVencimientos.Name = "dgvVencimientos";
-            dgvVencimientos.Size = new Size(717, 284);
+            dgvVencimientos.Size = new Size(717, 310);
             dgvVencimientos.TabIndex = 11;
             // 
             // btnVolver
             // 
-            btnVolver.Location = new Point(656, 367);
+            btnVolver.Location = new Point(656, 391);
             btnVolver.Name = "btnVolver";
             btnVolver.Size = new Size(92, 23);
             btnVolver.TabIndex = 20;
@@ -55,7 +56,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 429);
+            ClientSize = new Size(800, 450);
             Controls.Add(btnVolver);
             Controls.Add(dgvVencimientos);
             Name = "FrmListarVencimientos";

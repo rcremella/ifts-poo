@@ -14,7 +14,6 @@ namespace proyectoClub
         // datos reales del usuario, se completan solo si el login es correcto
         public string nombreReal = "";
         public string apellidoReal = "";
-        public string funcionReal = "";
 
         public Usuario(MySqlConnection conexion, string nombre, string clave)
         {
@@ -30,7 +29,7 @@ namespace proyectoClub
             {
                 _conexion.Open();
 
-                string query = "SELECT nombre, apellido, funcion FROM usuario " +
+                string query = "SELECT nombre, apellido FROM usuario " +
                                "WHERE nombreUsuario=@user AND clave=@pass";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
@@ -44,7 +43,6 @@ namespace proyectoClub
                     // si devuelve una fila el usuario y la clave son correctos
                     nombreReal = reader["nombre"].ToString() ?? "";
                     apellidoReal = reader["apellido"].ToString() ?? "";
-                    funcionReal = reader["funcion"].ToString() ?? "";
 
                     reader.Close();
                     return true;

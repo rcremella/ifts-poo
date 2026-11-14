@@ -28,21 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnImprimir = new Button();
             dgvVencimientos = new DataGridView();
             btnVolver = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvVencimientos).BeginInit();
             SuspendLayout();
-            // 
-            // btnImprimir
-            // 
-            btnImprimir.Enabled = false;
-            btnImprimir.Location = new Point(474, 367);
-            btnImprimir.Name = "btnImprimir";
-            btnImprimir.Size = new Size(176, 23);
-            btnImprimir.TabIndex = 10;
-            btnImprimir.Text = "IMPRIMIR VENCIMIENTOS";
-            btnImprimir.UseVisualStyleBackColor = true;
             // 
             // dgvVencimientos
             // 
@@ -69,7 +58,6 @@
             ClientSize = new Size(800, 429);
             Controls.Add(btnVolver);
             Controls.Add(dgvVencimientos);
-            Controls.Add(btnImprimir);
             Name = "frmListarVencimientos";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Listar Vencimientos";
@@ -79,7 +67,6 @@
 
         #endregion
 
-        private Button btnImprimir;
         private DataGridView dgvVencimientos;
         private Button btnVolver;
     }

@@ -4,12 +4,12 @@ namespace proyectoClub
 {
     // formulario para entregar el carnet al socio
     // se busca por dni y el checkbox marca si el carnet ya se entrego
-    public partial class frmEntregarCarnet : Form
+    public partial class FrmEntregarCarnet : Form
     {
         // socio encontrado, es null mientras no haya uno valido
         private Socio? _socio = null;
 
-        public frmEntregarCarnet()
+        public FrmEntregarCarnet()
         {
             InitializeComponent();
         }
@@ -42,13 +42,27 @@ namespace proyectoClub
         {
             int documento;
 
-            // mismas validaciones que en el registro de socios
-            if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
+            if (!Validador.documentoValido(txtDocumento.Text, out documento))
             {
                 limpiarDatos("Ingrese un documento válido");
                 return;
             }
 
+            // si falla la base no es lo mismo que "no encontrada", por eso se avisa aparte
+            try
+            {
+                cargarSocio(documento);
+            }
+            catch (Exception)
+            {
+                limpiarDatos("No se pudo consultar la base de datos");
+                Mensajes.errorConexion();
+            }
+        }
+
+        // trae al socio de la base y completa el formulario, si falla la base tira una excepcion
+        private void cargarSocio(int documento)
+        {
             MySqlConnection myCon = Conexion.Obtener();
 
             // primero veo si la persona existe y si es socio o no socio
@@ -79,6 +93,13 @@ namespace proyectoClub
                 _socio = socio;
                 btnImprimir.Enabled = true;
                 lblMensaje.Text = "Persona encontrada";
+
+                // no se entrega el carnet si la cuota no esta paga (si ya lo tiene entregado se puede ver igual)
+                if (!socio.Emitido && !socio.CuotaActiva())
+                {
+                    btnImprimir.Enabled = false;
+                    lblMensaje.Text = "La cuota no está paga, no se puede entregar el carnet";
+                }
             }
             else
             {
@@ -108,7 +129,7 @@ namespace proyectoClub
             }
 
             // se abre de forma MODAL y le paso el documento para que traiga los datos
-            frmCredencial credencial = new frmCredencial(_socio._documento);
+            FrmCredencial credencial = new FrmCredencial(_socio.Documento);
             credencial.ShowDialog();
 
             // al volver busco de nuevo, asi el check "entregado" queda actualizado

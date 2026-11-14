@@ -4,7 +4,7 @@ namespace proyectoClub
 {
     // formulario para cobrar la cuota a un socio
     // se busca al socio por dni y se carga el importe que paga
-    public partial class frmPagar : Form
+    public partial class FrmPagar : Form
     {
         // es true solo cuando el documento ingresado existe en la base
         private bool _personaEncontrada = false;
@@ -12,7 +12,16 @@ namespace proyectoClub
         // id de la persona encontrada, lo necesita el pago para guardarse en la base
         private int _idPersona = 0;
 
-        public frmPagar()
+        // hasta cuando tiene paga la cuota el socio encontrado, es null si nunca pago o si es no socio
+        private DateTime? _fechaVto = null;
+
+        // precio de la tabla precio segun el tipo de la persona, es null si no hay uno cargado
+        private decimal? _precioBase = null;
+
+        // si se paga en efectivo se descuenta el 10% del importe
+        private const decimal DescuentoEfectivo = 0.10m;
+
+        public FrmPagar()
         {
             InitializeComponent();
         }
@@ -45,13 +54,27 @@ namespace proyectoClub
         {
             int documento;
 
-            // mismas validaciones que en el registro de socios
-            if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
+            if (!Validador.documentoValido(txtDocumento.Text, out documento))
             {
                 limpiarDatos("Ingrese un documento válido");
                 return;
             }
 
+            // si falla la base no es lo mismo que "no encontrada", por eso se avisa aparte
+            try
+            {
+                cargarPersona(documento);
+            }
+            catch (Exception)
+            {
+                limpiarDatos("No se pudo consultar la base de datos");
+                Mensajes.errorConexion();
+            }
+        }
+
+        // trae a la persona de la base y completa el formulario, si falla la base tira una excepcion
+        private void cargarPersona(int documento)
+        {
             MySqlConnection myCon = Conexion.Obtener();
             Persona persona = new Persona(myCon, documento);
 
@@ -63,7 +86,8 @@ namespace proyectoClub
                 txtImporte.Enabled = true;
                 cboTipoPago.Enabled = true;
                 cboTipoPago.SelectedIndex = 0; // arranca en Efectivo
-                _idPersona = persona._id;
+                _idPersona = persona.Id;
+                _fechaVto = persona.FechaVto;
                 _personaEncontrada = true;
 
                 // solo los socios tienen carnet, a los no socios les queda vacio
@@ -83,9 +107,12 @@ namespace proyectoClub
                 Precio precio = new Precio(myCon);
                 decimal? importe = precio.obtenerImporte(persona.tipo);
 
+                _precioBase = importe;
+
                 if (importe != null)
                 {
-                    txtImporte.Text = importe.Value.ToString("0.##");
+                    // arranca en efectivo, asi que ya viene con el descuento
+                    calcularImporte();
                     // aclaro que significa el importe: el socio paga una cuota mensual y el no socio por dia
                     string detalle = persona.tipo == "socio" ? "Cuota mensual de socio" : "Importe diario de no socio";
                     lblMensaje.Text = detalle + ", verifique el importe";
@@ -109,6 +136,8 @@ namespace proyectoClub
         {
             _personaEncontrada = false;
             _idPersona = 0;
+            _fechaVto = null;
+            _precioBase = null;
             txtNombre.Text = "";
             txtApellido.Text = "";
             txtCarnet.Text = "";
@@ -118,6 +147,44 @@ namespace proyectoClub
             cboTipoPago.Enabled = false;
             btnCobrar.Enabled = false;
             lblMensaje.Text = mensaje;
+        }
+
+        // deja el formulario como al principio para cobrar a otra persona
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            txtDocumento.Text = "";
+            limpiarDatos("Ingrese el documento");
+            txtDocumento.Focus();
+        }
+
+        // las cuotas solo se eligen con tarjeta de credito, y el importe depende de como se paga
+        private void cboTipoPago_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool conTarjeta = cboTipoPago.SelectedIndex == 1;
+
+            cboCuotas.Enabled = conTarjeta;
+            cboCuotas.SelectedIndex = conTarjeta ? 0 : -1; // con tarjeta arranca en 1 cuota
+
+            calcularImporte();
+        }
+
+        // pone en el importe el precio de la tabla, con descuento si se paga en efectivo
+        // si no hay precio cargado no toca lo que escribio el usuario
+        private void calcularImporte()
+        {
+            if (_precioBase == null || cboTipoPago.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            decimal importe = _precioBase.Value;
+
+            if (cboTipoPago.SelectedIndex == 0)
+            {
+                importe = importe - importe * DescuentoEfectivo;
+            }
+
+            txtImporte.Text = importe.ToString("0.##");
         }
 
         // cada vez que cambia el importe reviso si ya se puede cobrar
@@ -149,18 +216,47 @@ namespace proyectoClub
                 return;
             }
 
+            // si ya tiene la cuota paga por adelantado, confirmo antes de cobrar otro mes
+            // (evita cobrar dos veces por error, el mes nuevo se suma al vencimiento que ya tiene)
+            if (_fechaVto != null && _fechaVto.Value.Date > DateTime.Today)
+            {
+                DialogResult respuesta = MessageBox.Show(
+                    "La cuota ya está paga hasta el " + _fechaVto.Value.ToString("dd/MM/yyyy") + ". ¿Cobrar otro mes igual?",
+                    "Cuota al día", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             bool guardado;
+            DateTime? nuevoVto = null; // lo completa el pago si es un socio
 
             // si faltan los user secrets o falla MySQL aviso con un mensaje (sin detalles de la cadena)
             try
             {
                 MySqlConnection myCon = Conexion.Obtener();
-                Pago pago = new Pago(myCon, _idPersona, importe, cboTipoPago.Text);
+                // lo que se guarda en la base: "Efectivo", "Transferencia" o "Tarjeta - 3 cuotas"
+                // (el texto del combo de efectivo trae el "10% off", por eso no se usa directo)
+                string tipoPago = cboTipoPago.Text;
+
+                if (cboTipoPago.SelectedIndex == 0)
+                {
+                    tipoPago = "Efectivo";
+                }
+                else if (cboTipoPago.SelectedIndex == 1)
+                {
+                    tipoPago = "Tarjeta - " + cboCuotas.Text;
+                }
+
+                Pago pago = new Pago(myCon, _idPersona, importe, tipoPago);
                 guardado = pago.registrar();
+                nuevoVto = pago.NuevoVencimiento;
             }
             catch (Exception)
             {
-                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión");
+                Mensajes.errorConexion();
                 return;
             }
 
@@ -168,7 +264,15 @@ namespace proyectoClub
             {
                 // limpio todo para el proximo cobro
                 txtDocumento.Text = "";
-                limpiarDatos("Pago registrado correctamente");
+                // a los socios les aviso hasta cuando queda paga la cuota
+                string mensaje = "Pago registrado correctamente";
+
+                if (nuevoVto != null)
+                {
+                    mensaje += ", vence el " + nuevoVto.Value.ToString("dd/MM/yyyy");
+                }
+
+                limpiarDatos(mensaje);
                 txtDocumento.Focus();
             }
             else

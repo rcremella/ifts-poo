@@ -14,7 +14,7 @@ namespace proyectoClub
         }
 
         // busca el importe segun el tipo de persona ("socio" o "no_socio")
-        // devuelve null si no hay precio cargado o si falla la base
+        // devuelve null si no hay precio cargado, si falla la base se relanza el error
         public decimal? obtenerImporte(string tipo)
         {
             try
@@ -41,7 +41,8 @@ namespace proyectoClub
             }
             catch (Exception)
             {
-                return null;
+                // lo relanzo para que el formulario avise que fallo la base
+                throw;
             }
             finally
             {

@@ -1,6 +1,6 @@
 namespace proyectoClub
 {
-    partial class frmCredencial
+    partial class FrmCredencial
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@ namespace proyectoClub
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCredencial));
             pnlCredencial = new Panel();
             pnlEncabezado = new Panel();
             lblClub = new Label();
@@ -102,9 +103,11 @@ namespace proyectoClub
             // 
             pbFoto.BackColor = Color.Gainsboro;
             pbFoto.BorderStyle = BorderStyle.FixedSingle;
+            pbFoto.Image = (Image)resources.GetObject("pbFoto.Image");
             pbFoto.Location = new Point(16, 72);
             pbFoto.Name = "pbFoto";
             pbFoto.Size = new Size(90, 116);
+            pbFoto.SizeMode = PictureBoxSizeMode.Zoom;
             pbFoto.TabIndex = 1;
             pbFoto.TabStop = false;
             // 
@@ -180,7 +183,7 @@ namespace proyectoClub
             // lblMensaje
             // 
             lblMensaje.AutoSize = true;
-            lblMensaje.Location = new Point(20, 245);
+            lblMensaje.Location = new Point(20, 240);
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(0, 15);
             lblMensaje.TabIndex = 1;
@@ -205,7 +208,7 @@ namespace proyectoClub
             btnVolver.UseVisualStyleBackColor = true;
             btnVolver.Click += btnVolver_Click;
             // 
-            // frmCredencial
+            // FrmCredencial
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -214,10 +217,10 @@ namespace proyectoClub
             Controls.Add(btnImprimir);
             Controls.Add(lblMensaje);
             Controls.Add(pnlCredencial);
-            Name = "frmCredencial";
+            Name = "FrmCredencial";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Credencial de socio";
-            Load += frmCredencial_Load;
+            Load += FrmCredencial_Load;
             pnlCredencial.ResumeLayout(false);
             pnlCredencial.PerformLayout();
             pnlEncabezado.ResumeLayout(false);

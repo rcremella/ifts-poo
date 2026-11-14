@@ -32,7 +32,7 @@ namespace proyectoClub
         }
 
         // override de Persona: guarda al socio en la tabla cliente y le crea el carnet
-        // va despues de registrarPersona porque usa su _id
+        // va despues de registrarPersona porque usa su Id
         public override bool registrarCliente()
         {
             // la transaccion agrupa las 3 escrituras: o se guardan todas o no se guarda ninguna
@@ -46,12 +46,12 @@ namespace proyectoClub
                 string query = "INSERT INTO cliente(id_persona, tipo) values (@id_persona, 'socio')";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion, transaccion);
-                cmd.Parameters.AddWithValue("@id_persona", _id);
+                cmd.Parameters.AddWithValue("@id_persona", Id);
 
                 string queryUpdate = "UPDATE persona SET apto_fisico = @apto_fisico WHERE id = @id_persona";
                 MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, _conexion, transaccion);
                 cmdUpdate.Parameters.AddWithValue("@apto_fisico", AptoFisico);
-                cmdUpdate.Parameters.AddWithValue("@id_persona", _id);
+                cmdUpdate.Parameters.AddWithValue("@id_persona", Id);
 
                 // ExecuteNonQuery devuelve las filas afectadas, si es 1 se inserto bien
                 int filas = cmd.ExecuteNonQuery();
@@ -90,7 +90,7 @@ namespace proyectoClub
             }
         }
 
-        // busca al socio con su carnet (solo lo usa frmEntregarCarnet)
+        // busca al socio con su carnet (solo lo usa FrmEntregarCarnet)
         // no es override: validarExistencia de Persona sigue buscando en socios y no socios
         public bool validarCarnet()
         {
@@ -98,21 +98,21 @@ namespace proyectoClub
             {
                 _conexion.Open();
 
-                string query = "select p.id, p.nombre, p.apellido, 'socio' as tipo, ca.id as carnet, ca.emitido, ca.fecha_entrega from cliente c " +
+                string query = "select p.id, p.nombre, p.apellido, 'socio' as tipo, ca.id as carnet, ca.emitido, ca.fecha_entrega, c.fechaVto as fecha_vto from cliente c " +
                                 "inner join persona p on p.id = c.id_persona " +
                                 "inner join carnet ca on c.id = ca.id_cliente " +
                                 "where p.documento = @documento ";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
                 // usar @parametros evita la inyeccion SQL
-                cmd.Parameters.AddWithValue("@documento", _documento.ToString());
+                cmd.Parameters.AddWithValue("@documento", Documento.ToString());
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
                 {
                     // si la encuentra cargo los datos de la persona
-                    _id = Convert.ToInt32(reader["id"]);
+                    Id = Convert.ToInt32(reader["id"]);
                     _nombre = reader["nombre"].ToString() ?? "";
                     _apellido = reader["apellido"].ToString() ?? "";
                     tipo = reader["tipo"].ToString() ?? "";
@@ -125,6 +125,12 @@ namespace proyectoClub
                         _fechaEntrega = Convert.ToDateTime(reader["fecha_entrega"]);
                     }
 
+                    // si nunca pago el vencimiento queda en null
+                    if (reader["fecha_vto"] != DBNull.Value)
+                    {
+                        FechaVto = Convert.ToDateTime(reader["fecha_vto"]);
+                    }
+
                     reader.Close();
                     return true;
                 }
@@ -134,8 +140,9 @@ namespace proyectoClub
             }
             catch (Exception)
             {
-                // si falla la base devuelvo false para que el programa no se caiga
-                return false;
+                // lo relanzo para que el formulario avise que fallo la base
+                // si devolviera false se confundiria con "el socio no tiene carnet"
+                throw;
             }
             finally
             {
@@ -145,8 +152,17 @@ namespace proyectoClub
             }
         }
 
+        // la cuota esta activa si el vencimiento es hoy o una fecha futura
+        // si nunca pago (null) o ya vencio, no esta activa
+        // va despues de validarCarnet porque usa su FechaVto
+        public bool CuotaActiva()
+        {
+            return FechaVto != null && FechaVto.Value.Date >= DateTime.Today;
+        }
+
         // marca el carnet como entregado con la fecha de hoy, devuelve true si se guardo bien
-        // va despues de validarCarnet porque usa su _id
+        // solo se entrega si la cuota esta activa (si no, la consulta no encuentra el cliente y no cambia nada)
+        // va despues de validarCarnet porque usa su Id
         public bool entregarCarnet()
         {
             try
@@ -155,10 +171,10 @@ namespace proyectoClub
 
                 // el carnet se busca a traves del cliente que corresponde a esta persona
                 string query = "UPDATE carnet SET emitido = 1, fecha_entrega = CURDATE() " +
-                               "WHERE id_cliente = (SELECT id FROM cliente WHERE id_persona = @id_persona)";
+                               "WHERE id_cliente = (SELECT id FROM cliente WHERE id_persona = @id_persona AND fechaVto >= CURDATE())";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
-                cmd.Parameters.AddWithValue("@id_persona", _id);
+                cmd.Parameters.AddWithValue("@id_persona", Id);
 
                 // ExecuteNonQuery devuelve las filas afectadas, si es 1 se actualizo bien
                 int filas = cmd.ExecuteNonQuery();

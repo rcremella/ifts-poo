@@ -1,6 +1,6 @@
 ﻿namespace proyectoClub
 {
-    partial class frmEntregarCarnet
+    partial class FrmEntregarCarnet
     {
         /// <summary>
         /// Required designer variable.
@@ -54,17 +54,17 @@
             // 
             // txtDocumento
             // 
-            txtDocumento.Location = new Point(122, 71);
+            txtDocumento.Location = new Point(137, 71);
             txtDocumento.Name = "txtDocumento";
             txtDocumento.Size = new Size(184, 23);
             txtDocumento.TabIndex = 1;
-            txtDocumento.Leave += txtDocumento_Leave;
             txtDocumento.KeyDown += txtDocumento_KeyDown;
+            txtDocumento.Leave += txtDocumento_Leave;
             // 
             // txtApellido
             // 
             txtApellido.Enabled = false;
-            txtApellido.Location = new Point(122, 100);
+            txtApellido.Location = new Point(137, 100);
             txtApellido.Name = "txtApellido";
             txtApellido.Size = new Size(184, 23);
             txtApellido.TabIndex = 3;
@@ -82,7 +82,7 @@
             // txtNombre
             // 
             txtNombre.Enabled = false;
-            txtNombre.Location = new Point(122, 129);
+            txtNombre.Location = new Point(137, 129);
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(184, 23);
             txtNombre.TabIndex = 5;
@@ -100,7 +100,7 @@
             // txtCarnet
             // 
             txtCarnet.Enabled = false;
-            txtCarnet.Location = new Point(122, 158);
+            txtCarnet.Location = new Point(137, 158);
             txtCarnet.Name = "txtCarnet";
             txtCarnet.Size = new Size(184, 23);
             txtCarnet.TabIndex = 7;
@@ -141,7 +141,7 @@
             chkEntregado.AutoSize = true;
             chkEntregado.Enabled = false;
             chkEntregado.Font = new Font("Segoe UI", 9F);
-            chkEntregado.Location = new Point(226, 187);
+            chkEntregado.Location = new Point(241, 187);
             chkEntregado.Name = "chkEntregado";
             chkEntregado.Size = new Size(80, 19);
             chkEntregado.TabIndex = 10;
@@ -151,13 +151,13 @@
             // lblMensaje
             // 
             lblMensaje.AutoSize = true;
-            lblMensaje.Location = new Point(122, 36);
+            lblMensaje.Location = new Point(47, 31);
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(109, 15);
             lblMensaje.TabIndex = 11;
             lblMensaje.Text = "Complete los datos";
             // 
-            // frmEntregarCarnet
+            // FrmEntregarCarnet
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -174,7 +174,7 @@
             Controls.Add(lblApellido);
             Controls.Add(txtDocumento);
             Controls.Add(lblDocumento);
-            Name = "frmEntregarCarnet";
+            Name = "FrmEntregarCarnet";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Entregar Carnet";
             ResumeLayout(false);

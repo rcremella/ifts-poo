@@ -4,9 +4,9 @@ namespace proyectoClub
 {
     // formulario que lista en una grilla los vencimientos de los socios
     // desde aca tambien se pueden imprimir
-    public partial class frmListarVencimientos : Form
+    public partial class FrmListarVencimientos : Form
     {
-        public frmListarVencimientos()
+        public FrmListarVencimientos()
         {
             InitializeComponent();
 
@@ -30,17 +30,14 @@ namespace proyectoClub
             try
             {
                 Vencimiento vencimiento = new Vencimiento(Conexion.Obtener());
-                DataTable tabla = vencimiento.listarVencimientosDeHoy();
+                DataTable tabla = vencimiento.listarVencimientos();
 
                 // DataSource enlaza la tabla con la grilla
                 dgvVencimientos.DataSource = tabla;
-
-                // IMPRIMIR queda habilitado solo si hay al menos un vencimiento para imprimir
-                btnImprimir.Enabled = tabla.Rows.Count > 0;
             }
             catch (Exception)
             {
-                MessageBox.Show("No se pudo conectar con la base de datos", "Error de conexión");
+                Mensajes.errorConexion();
             }
         }
     }

@@ -16,6 +16,9 @@ namespace proyectoClub
         public decimal Importe { get { return _importe; } set { _importe = value; } }
         public string TipoPago { get { return _tipoPago; } set { _tipoPago = value; } }
 
+        // hasta cuando queda paga la cuota despues de registrar el pago (null si es no socio)
+        public DateTime? NuevoVencimiento { get; private set; }
+
         // el constructor recibe la conexion y los datos del pago
         public Pago(MySqlConnection conexion, int idPersona, decimal importe, string tipoPago)
         {
@@ -25,7 +28,7 @@ namespace proyectoClub
             _tipoPago = tipoPago;
         }
 
-        // guarda el pago con la fecha de hoy y, si la persona es socio, corre su vencimiento un mes
+        // guarda el pago con la fecha de hoy y, si la persona es socio, le suma un mes a su vencimiento
         // devuelve true si se guardo bien
         public bool registrar()
         {
@@ -45,9 +48,11 @@ namespace proyectoClub
                 cmd.Parameters.AddWithValue("@importe", _importe);
                 cmd.Parameters.AddWithValue("@tipo_pago", _tipoPago);
 
-                // el vencimiento es la fecha del pago + 1 mes
+                // el pago es por adelantado: se suma 1 mes al vencimiento que ya tiene, asi no pierde dias
+                // si ya estaba vencido o nunca pago (null) el mes se cuenta desde hoy
+                // GREATEST se queda con la fecha mayor, COALESCE reemplaza el null por hoy
                 // si la persona es no socio no tiene fila en cliente, entonces no se modifica nada
-                string queryVto = "UPDATE cliente SET fechaVto = DATE_ADD(CURDATE(), INTERVAL 1 MONTH) " +
+                string queryVto = "UPDATE cliente SET fechaVto = DATE_ADD(GREATEST(COALESCE(fechaVto, CURDATE()), CURDATE()), INTERVAL 1 MONTH) " +
                                   "WHERE id_persona = @id_persona";
 
                 MySqlCommand cmdVto = new MySqlCommand(queryVto, _conexion, transaccion);
@@ -59,7 +64,18 @@ namespace proyectoClub
 
                 if (filas == 1)
                 {
+                    // leo el vencimiento nuevo antes de confirmar, para mostrarlo en el formulario
+                    MySqlCommand cmdLeer = new MySqlCommand("SELECT fechaVto FROM cliente WHERE id_persona = @id_persona", _conexion, transaccion);
+                    cmdLeer.Parameters.AddWithValue("@id_persona", _idPersona);
+                    object? vto = cmdLeer.ExecuteScalar();
+
                     transaccion.Commit(); // confirma los dos cambios juntos
+
+                    // ExecuteScalar devuelve null si no hay fila (no socio) o DBNull si el campo esta vacio
+                    if (vto != null && vto != DBNull.Value)
+                    {
+                        NuevoVencimiento = Convert.ToDateTime(vto);
+                    }
                     return true;
                 }
 

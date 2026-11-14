@@ -58,22 +58,27 @@ Si falta el secreto, la aplicación lanza el error `Falta ConnectionStrings:Club
 
 - `Program.cs`: punto de entrada del sistema.
 - `Datos/Conexion.cs`: configuración de conexión a MySQL.
+- `Datos/Validador.cs`: validación del documento, compartida por los formularios.
+- `Datos/Mensajes.cs`: aviso de error de conexión, compartido por los formularios.
 
 ### Formularios (`Formularios/`)
 
-- `frmLogin`: pantalla de inicio de sesión.
-- `frmOpciones`: menú principal.
-- `frmRegistrarCliente`: alta de socios y no socios.
-- `frmPagar`: cobro de la cuota (se busca a la persona por documento).
-- `frmEntregarCarnet`: búsqueda del carnet de un socio.
-- `frmListarVencimientos`: grilla con los socios que vencen hoy.
+- `FrmLogin`: pantalla de inicio de sesión.
+- `FrmOpciones`: menú principal.
+- `FrmRegistrarCliente`: alta de socios y no socios.
+- `FrmPagar`: cobro de la cuota (se busca a la persona por documento).
+- `FrmEntregarCarnet`: búsqueda del carnet de un socio. Solo se entrega si la cuota está paga.
+- `FrmCredencial`: credencial del socio. IMPRIMIR la guarda como imagen y registra la entrega del carnet; si ya estaba entregado pasa a REIMPRIMIR, que solo vuelve a guardar la imagen.
+- `FrmListarVencimientos`: grilla con los socios que vencen hoy o ya tienen la cuota vencida.
 
 ### Entidades (`Entidades/`)
 
 - `Persona`: clase base con los datos de cualquier persona y el acceso a la tabla `persona`.
 - `Socio` y `noSocio`: heredan de `Persona`. Cada una guarda sus datos en su tabla (`cliente` y `no_cliente`) con `registrarCliente`.
+- `Pago`: guarda el pago en la tabla `pago` y le suma un mes al vencimiento del socio.
+- `Precio`: consulta el precio de la cuota en la tabla `precio`.
 - `Usuario`: usuario del sistema, valida el login.
-- `Vencimiento`: consulta de los vencimientos del día.
+- `Vencimiento`: consulta de los vencimientos de hoy y los atrasados.
 
 ## Base de datos
 

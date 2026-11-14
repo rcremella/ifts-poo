@@ -68,12 +68,15 @@ Si falta el secreto, la aplicación lanza el error `Falta ConnectionStrings:Club
 - `FrmRegistrarCliente`: alta de socios y no socios.
 - `FrmPagar`: cobro de la cuota (se busca a la persona por documento).
 - `FrmEntregarCarnet`: búsqueda del carnet de un socio. Solo se entrega si la cuota está paga.
+- `FrmCredencial`: credencial del socio. IMPRIMIR la guarda como imagen y registra la entrega del carnet; si ya estaba entregado pasa a REIMPRIMIR, que solo vuelve a guardar la imagen.
 - `FrmListarVencimientos`: grilla con los socios que vencen hoy o ya tienen la cuota vencida.
 
 ### Entidades (`Entidades/`)
 
 - `Persona`: clase base con los datos de cualquier persona y el acceso a la tabla `persona`.
 - `Socio` y `noSocio`: heredan de `Persona`. Cada una guarda sus datos en su tabla (`cliente` y `no_cliente`) con `registrarCliente`.
+- `Pago`: guarda el pago en la tabla `pago` y le suma un mes al vencimiento del socio.
+- `Precio`: consulta el precio de la cuota en la tabla `precio`.
 - `Usuario`: usuario del sistema, valida el login.
 - `Vencimiento`: consulta de los vencimientos de hoy y los atrasados.
 

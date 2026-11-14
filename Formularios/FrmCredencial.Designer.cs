@@ -180,7 +180,7 @@ namespace proyectoClub
             // lblMensaje
             // 
             lblMensaje.AutoSize = true;
-            lblMensaje.Location = new Point(20, 245);
+            lblMensaje.Location = new Point(23, 240);
             lblMensaje.Name = "lblMensaje";
             lblMensaje.Size = new Size(0, 15);
             lblMensaje.TabIndex = 1;

@@ -1,11 +1,11 @@
 ﻿namespace proyectoClub
 {
-    public partial class frmOpcionesGestion : Form
+    public partial class frmOpciones : Form
     {
         // el usuario que inicio sesion, viene desde el login
         private readonly Usuario _usuario;
 
-        public frmOpcionesGestion(Usuario usuario)
+        public frmOpciones(Usuario usuario)
         {
             InitializeComponent();
             _usuario = usuario;

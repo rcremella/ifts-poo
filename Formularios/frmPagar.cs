@@ -83,7 +83,7 @@ namespace proyectoClub
                 txtImporte.Enabled = true;
                 cboTipoPago.Enabled = true;
                 cboTipoPago.SelectedIndex = 0; // arranca en Efectivo
-                _idPersona = persona._id;
+                _idPersona = persona.Id;
                 _personaEncontrada = true;
 
                 // solo los socios tienen carnet, a los no socios les queda vacio

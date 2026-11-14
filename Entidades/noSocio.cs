@@ -17,7 +17,7 @@ namespace proyectoClub
         }
 
         // override de Persona: guarda al no socio en la tabla no_cliente
-        // va despues de registrarPersona porque usa su _id
+        // va despues de registrarPersona porque usa su Id
         public override bool registrarCliente()
         {
             // la transaccion agrupa las 2 escrituras: o se guardan las dos o ninguna
@@ -33,14 +33,14 @@ namespace proyectoClub
                     "values (@id_persona, (select importe from precio where detalle = 'no_socio'))";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion, transaccion);
-                cmd.Parameters.AddWithValue("@id_persona", _id);
+                cmd.Parameters.AddWithValue("@id_persona", Id);
 
                 // el apto fisico se guarda en persona, va en un comando aparte
                 // (si fueran los dos juntos ExecuteNonQuery sumaria las filas de ambos y nunca daria 1)
                 string queryUpdate = "UPDATE persona SET apto_fisico = @apto_fisico WHERE id = @id_persona";
                 MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, _conexion, transaccion);
                 cmdUpdate.Parameters.AddWithValue("@apto_fisico", AptoFisico);
-                cmdUpdate.Parameters.AddWithValue("@id_persona", _id);
+                cmdUpdate.Parameters.AddWithValue("@id_persona", Id);
 
                 // ExecuteNonQuery devuelve las filas afectadas, si es 1 se inserto bien
                 int filas = cmd.ExecuteNonQuery();

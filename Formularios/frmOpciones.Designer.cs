@@ -1,6 +1,6 @@
 ﻿namespace proyectoClub
 {
-    partial class frmOpcionesGestion
+    partial class frmOpciones
     {
         /// <summary>
         /// Required designer variable.
@@ -96,7 +96,7 @@
             lblDescripcionUsuario.TabIndex = 5;
             lblDescripcionUsuario.Text = "Usuario: ";
             // 
-            // frmOpcionesGestion
+            // frmOpciones
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -106,7 +106,7 @@
             Controls.Add(btnCarnet);
             Controls.Add(btnCobrar);
             Controls.Add(btnRegistrar);
-            Name = "frmOpcionesGestion";
+            Name = "frmOpciones";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Gestión Club";
             ResumeLayout(false);

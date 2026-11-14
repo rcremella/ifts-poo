@@ -8,8 +8,9 @@ namespace proyectoClub
         // protected: tambien lo puede usar Socio
         protected readonly MySqlConnection _conexion;
 
-        public int _documento { get; set; }
-        public int _id = 0; // 0 significa que todavia no se cargo o no existe en la base
+        // desde afuera solo se leen: el documento se fija en el constructor y el id lo cargan las consultas
+        public int Documento { get; private set; }
+        public int Id { get; protected set; } // 0 significa que todavia no se cargo o no existe en la base
 
         // atributos privados/protegidos, afuera se accede por las propiedades de abajo (encapsulamiento)
         protected string _nombre = "";
@@ -32,7 +33,7 @@ namespace proyectoClub
         // el constructor recibe la conexion y el dni, el resto de los datos se cargan despues
         public Persona(MySqlConnection conexion, int documento)
         {
-            _documento = documento;
+            Documento = documento;
             _conexion = conexion;
         }
 
@@ -53,14 +54,14 @@ namespace proyectoClub
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
                 // usar @parametros evita la inyeccion SQL
-                cmd.Parameters.AddWithValue("@documento", _documento.ToString());
+                cmd.Parameters.AddWithValue("@documento", Documento.ToString());
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
                 {
                     // si la encuentra cargo los datos de la persona
-                    _id = Convert.ToInt32(reader["id"]);
+                    Id = Convert.ToInt32(reader["id"]);
                     _nombre = reader["nombre"].ToString() ?? "";
                     _apellido = reader["apellido"].ToString() ?? "";
                     _telefono = reader["telefono"].ToString() ?? "";
@@ -130,14 +131,14 @@ namespace proyectoClub
                 cmd.Parameters.AddWithValue("@nombre", _nombre);
                 cmd.Parameters.AddWithValue("@apellido", _apellido);
                 cmd.Parameters.AddWithValue("@telefono", _telefono);
-                cmd.Parameters.AddWithValue("@documento", _documento);
+                cmd.Parameters.AddWithValue("@documento", Documento);
 
                 // devuelve cuantas filas se insertaron
                 int filas = cmd.ExecuteNonQuery();
 
                 if (filas == 1)
                 {
-                    _id = (int)cmd.LastInsertedId; // guardo el id para despues cargarlo en cliente
+                    Id = (int)cmd.LastInsertedId; // guardo el id para despues cargarlo en cliente
 
                     return true;
                 }

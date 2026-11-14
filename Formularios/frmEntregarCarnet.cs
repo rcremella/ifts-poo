@@ -122,7 +122,7 @@ namespace proyectoClub
             }
 
             // se abre de forma MODAL y le paso el documento para que traiga los datos
-            frmCredencial credencial = new frmCredencial(_socio._documento);
+            frmCredencial credencial = new frmCredencial(_socio.Documento);
             credencial.ShowDialog();
 
             // al volver busco de nuevo, asi el check "entregado" queda actualizado

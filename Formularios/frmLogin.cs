@@ -110,7 +110,7 @@ namespace proyectoClub
             {
                 this.Hide(); // oculto el login mientras está abierto el menú
 
-                Form formulario = new frmOpcionesGestion(u);
+                Form formulario = new frmOpciones(u);
                 formulario.ShowDialog(); // llama al formulario instanciado de la forma MODAL
 
                 this.Close(); // al cerrar el menú termina la aplicación

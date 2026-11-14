@@ -32,7 +32,7 @@ namespace proyectoClub
         }
 
         // override de Persona: guarda al socio en la tabla cliente y le crea el carnet
-        // va despues de registrarPersona porque usa su _id
+        // va despues de registrarPersona porque usa su Id
         public override bool registrarCliente()
         {
             // la transaccion agrupa las 3 escrituras: o se guardan todas o no se guarda ninguna
@@ -46,12 +46,12 @@ namespace proyectoClub
                 string query = "INSERT INTO cliente(id_persona, tipo) values (@id_persona, 'socio')";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion, transaccion);
-                cmd.Parameters.AddWithValue("@id_persona", _id);
+                cmd.Parameters.AddWithValue("@id_persona", Id);
 
                 string queryUpdate = "UPDATE persona SET apto_fisico = @apto_fisico WHERE id = @id_persona";
                 MySqlCommand cmdUpdate = new MySqlCommand(queryUpdate, _conexion, transaccion);
                 cmdUpdate.Parameters.AddWithValue("@apto_fisico", AptoFisico);
-                cmdUpdate.Parameters.AddWithValue("@id_persona", _id);
+                cmdUpdate.Parameters.AddWithValue("@id_persona", Id);
 
                 // ExecuteNonQuery devuelve las filas afectadas, si es 1 se inserto bien
                 int filas = cmd.ExecuteNonQuery();
@@ -105,14 +105,14 @@ namespace proyectoClub
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
                 // usar @parametros evita la inyeccion SQL
-                cmd.Parameters.AddWithValue("@documento", _documento.ToString());
+                cmd.Parameters.AddWithValue("@documento", Documento.ToString());
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
                 if (reader.Read())
                 {
                     // si la encuentra cargo los datos de la persona
-                    _id = Convert.ToInt32(reader["id"]);
+                    Id = Convert.ToInt32(reader["id"]);
                     _nombre = reader["nombre"].ToString() ?? "";
                     _apellido = reader["apellido"].ToString() ?? "";
                     tipo = reader["tipo"].ToString() ?? "";
@@ -147,7 +147,7 @@ namespace proyectoClub
         }
 
         // marca el carnet como entregado con la fecha de hoy, devuelve true si se guardo bien
-        // va despues de validarCarnet porque usa su _id
+        // va despues de validarCarnet porque usa su Id
         public bool entregarCarnet()
         {
             try
@@ -159,7 +159,7 @@ namespace proyectoClub
                                "WHERE id_cliente = (SELECT id FROM cliente WHERE id_persona = @id_persona)";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
-                cmd.Parameters.AddWithValue("@id_persona", _id);
+                cmd.Parameters.AddWithValue("@id_persona", Id);
 
                 // ExecuteNonQuery devuelve las filas afectadas, si es 1 se actualizo bien
                 int filas = cmd.ExecuteNonQuery();

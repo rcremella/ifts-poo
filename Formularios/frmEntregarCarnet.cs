@@ -98,7 +98,7 @@ namespace proyectoClub
             lblMensaje.Text = mensaje;
         }
 
-        // entrega el carnet: lo marca como entregado en la base y muestra sus datos
+        // abre la credencial del socio, desde ahi se imprime y se registra la entrega
         private void btnImprimir_Click(object sender, EventArgs e)
         {
             // el boton solo esta habilitado con un socio encontrado, igual lo reviso por las dudas
@@ -107,36 +107,12 @@ namespace proyectoClub
                 return;
             }
 
-            // si ya se entrego antes, pregunto si se quiere volver a imprimir (no se cambia la fecha)
-            if (_socio.Emitido)
-            {
-                DialogResult respuesta = MessageBox.Show("El carnet ya fue entregado. ¿Desea imprimirlo de nuevo?",
-                                                         "Carnet ya entregado", MessageBoxButtons.YesNo);
+            // se abre de forma MODAL y le paso el documento para que traiga los datos
+            frmCredencial credencial = new frmCredencial(_socio._documento);
+            credencial.ShowDialog();
 
-                if (respuesta == DialogResult.No)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                if (!_socio.entregarCarnet())
-                {
-                    lblMensaje.Text = "No se pudo registrar la entrega del carnet";
-                    return;
-                }
-
-                chkEntregado.Checked = true;
-                lblMensaje.Text = "Carnet entregado correctamente";
-            }
-
-            // la "impresion" es un resumen con los datos del carnet
-            string fecha = _socio.FechaEntrega.HasValue ? _socio.FechaEntrega.Value.ToString("dd/MM/yyyy") : "";
-
-            MessageBox.Show("Carnet N° " + _socio.Carnet + "\n" +
-                            "Socio: " + _socio.Nombre + " " + _socio.Apellido + "\n" +
-                            "Fecha de entrega: " + fecha,
-                            "Carnet");
+            // al volver busco de nuevo, asi el check "entregado" queda actualizado
+            buscarPersona();
         }
     }
 }

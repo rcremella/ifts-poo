@@ -58,6 +58,7 @@ Si falta el secreto, la aplicación lanza el error `Falta ConnectionStrings:Club
 
 - `Program.cs`: punto de entrada del sistema.
 - `Datos/Conexion.cs`: configuración de conexión a MySQL.
+- `Datos/Validador.cs`: validación del documento, compartida por los formularios.
 
 ### Formularios (`Formularios/`)
 

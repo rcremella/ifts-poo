@@ -113,8 +113,7 @@ namespace proyectoClub
 
             int documento;
 
-            // TryParse no tira error si no es un numero, devuelve false
-            if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
+            if (!Validador.documentoValido(txtDocumento.Text, out documento))
             {
                 bloquearDatos();
                 lblMensaje.Text = "Ingrese un documento válido";
@@ -135,7 +134,7 @@ namespace proyectoClub
 
             int documento;
 
-            if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
+            if (!Validador.documentoValido(txtDocumento.Text, out documento))
             {
                 lblMensaje.Text = "Ingrese un documento válido";
                 return;

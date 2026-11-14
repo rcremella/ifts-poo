@@ -42,8 +42,7 @@ namespace proyectoClub
         {
             int documento;
 
-            // mismas validaciones que en el registro de socios
-            if (!int.TryParse(txtDocumento.Text, out documento) || documento <= 0 || txtDocumento.Text.Length > 9)
+            if (!Validador.documentoValido(txtDocumento.Text, out documento))
             {
                 limpiarDatos("Ingrese un documento válido");
                 return;

@@ -30,7 +30,7 @@ namespace proyectoClub
             try
             {
                 Vencimiento vencimiento = new Vencimiento(Conexion.Obtener());
-                DataTable tabla = vencimiento.listarVencimientosDeHoy();
+                DataTable tabla = vencimiento.listarVencimientos();
 
                 // DataSource enlaza la tabla con la grilla
                 dgvVencimientos.DataSource = tabla;

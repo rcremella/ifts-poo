@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace proyectoClub
 {
-    // arma el listado de socios que vencen hoy, para mostrarlo en la grilla
+    // arma el listado de socios con la cuota vencida o que vence hoy, para mostrarlo en la grilla
     internal class Vencimiento
     {
         private readonly MySqlConnection _conexion;
@@ -13,8 +13,9 @@ namespace proyectoClub
             _conexion = conexion;
         }
 
-        // devuelve una tabla con los socios cuya fecha de vencimiento es la de hoy
-        public DataTable listarVencimientosDeHoy()
+        // devuelve una tabla con los socios cuya fecha de vencimiento es hoy o ya paso
+        // los que nunca pagaron (fechaVto null) no aparecen porque null no se puede comparar
+        public DataTable listarVencimientos()
         {
             try
             {
@@ -25,7 +26,8 @@ namespace proyectoClub
                                "p.telefono AS Telefono, DATE_FORMAT(c.fechaVto, '%d/%m/%Y') AS Vencimiento " +
                                "FROM persona p " +
                                "INNER JOIN cliente c ON p.id = c.id_persona " +
-                               "WHERE c.fechaVto = CURDATE()";
+                               "WHERE c.fechaVto <= CURDATE() " +
+                               "ORDER BY c.fechaVto";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
 

@@ -67,7 +67,7 @@ Si falta el secreto, la aplicación lanza el error `Falta ConnectionStrings:Club
 - `FrmOpciones`: menú principal.
 - `FrmRegistrarCliente`: alta de socios y no socios.
 - `FrmPagar`: cobro de la cuota (se busca a la persona por documento).
-- `FrmEntregarCarnet`: búsqueda del carnet de un socio.
+- `FrmEntregarCarnet`: búsqueda del carnet de un socio. Solo se entrega si la cuota está paga.
 - `FrmListarVencimientos`: grilla con los socios que vencen hoy o ya tienen la cuota vencida.
 
 ### Entidades (`Entidades/`)

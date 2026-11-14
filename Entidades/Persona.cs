@@ -13,7 +13,7 @@ namespace proyectoClub
         public int Id { get; protected set; } // 0 significa que todavia no se cargo o no existe en la base
 
         // hasta cuando tiene paga la cuota (solo socios), null si nunca pago
-        public DateTime? FechaVto { get; private set; }
+        public DateTime? FechaVto { get; protected set; }
 
         // atributos privados/protegidos, afuera se accede por las propiedades de abajo (encapsulamiento)
         protected string _nombre = "";

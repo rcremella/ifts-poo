@@ -65,6 +65,13 @@ namespace proyectoClub
                 lblMensaje.Text = "El carnet ya fue entregado";
                 btnImprimir.Enabled = false;
             }
+            else if (!_socio.CuotaActiva())
+            {
+                // por las dudas: desde Entregar carnet ya no se llega con la cuota sin pagar
+                lblEntrega.Text = "Pendiente";
+                lblMensaje.Text = "La cuota no está paga, no se puede entregar el carnet";
+                btnImprimir.Enabled = false;
+            }
             else
             {
                 lblEntrega.Text = "Pendiente";

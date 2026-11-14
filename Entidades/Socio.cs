@@ -98,7 +98,7 @@ namespace proyectoClub
             {
                 _conexion.Open();
 
-                string query = "select p.id, p.nombre, p.apellido, 'socio' as tipo, ca.id as carnet, ca.emitido, ca.fecha_entrega from cliente c " +
+                string query = "select p.id, p.nombre, p.apellido, 'socio' as tipo, ca.id as carnet, ca.emitido, ca.fecha_entrega, c.fechaVto as fecha_vto from cliente c " +
                                 "inner join persona p on p.id = c.id_persona " +
                                 "inner join carnet ca on c.id = ca.id_cliente " +
                                 "where p.documento = @documento ";
@@ -125,6 +125,12 @@ namespace proyectoClub
                         _fechaEntrega = Convert.ToDateTime(reader["fecha_entrega"]);
                     }
 
+                    // si nunca pago el vencimiento queda en null
+                    if (reader["fecha_vto"] != DBNull.Value)
+                    {
+                        FechaVto = Convert.ToDateTime(reader["fecha_vto"]);
+                    }
+
                     reader.Close();
                     return true;
                 }
@@ -146,7 +152,16 @@ namespace proyectoClub
             }
         }
 
+        // la cuota esta activa si el vencimiento es hoy o una fecha futura
+        // si nunca pago (null) o ya vencio, no esta activa
+        // va despues de validarCarnet porque usa su FechaVto
+        public bool CuotaActiva()
+        {
+            return FechaVto != null && FechaVto.Value.Date >= DateTime.Today;
+        }
+
         // marca el carnet como entregado con la fecha de hoy, devuelve true si se guardo bien
+        // solo se entrega si la cuota esta activa (si no, la consulta no encuentra el cliente y no cambia nada)
         // va despues de validarCarnet porque usa su Id
         public bool entregarCarnet()
         {
@@ -156,7 +171,7 @@ namespace proyectoClub
 
                 // el carnet se busca a traves del cliente que corresponde a esta persona
                 string query = "UPDATE carnet SET emitido = 1, fecha_entrega = CURDATE() " +
-                               "WHERE id_cliente = (SELECT id FROM cliente WHERE id_persona = @id_persona)";
+                               "WHERE id_cliente = (SELECT id FROM cliente WHERE id_persona = @id_persona AND fechaVto >= CURDATE())";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
                 cmd.Parameters.AddWithValue("@id_persona", Id);

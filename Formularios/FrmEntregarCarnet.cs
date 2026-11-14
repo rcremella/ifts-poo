@@ -93,6 +93,13 @@ namespace proyectoClub
                 _socio = socio;
                 btnImprimir.Enabled = true;
                 lblMensaje.Text = "Persona encontrada";
+
+                // no se entrega el carnet si la cuota no esta paga (si ya lo tiene entregado se puede ver igual)
+                if (!socio.Emitido && !socio.CuotaActiva())
+                {
+                    btnImprimir.Enabled = false;
+                    lblMensaje.Text = "La cuota no está paga, no se puede entregar el carnet";
+                }
             }
             else
             {

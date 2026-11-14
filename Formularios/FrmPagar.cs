@@ -12,6 +12,9 @@ namespace proyectoClub
         // id de la persona encontrada, lo necesita el pago para guardarse en la base
         private int _idPersona = 0;
 
+        // hasta cuando tiene paga la cuota el socio encontrado, es null si nunca pago o si es no socio
+        private DateTime? _fechaVto = null;
+
         // precio de la tabla precio segun el tipo de la persona, es null si no hay uno cargado
         private decimal? _precioBase = null;
 
@@ -84,6 +87,7 @@ namespace proyectoClub
                 cboTipoPago.Enabled = true;
                 cboTipoPago.SelectedIndex = 0; // arranca en Efectivo
                 _idPersona = persona.Id;
+                _fechaVto = persona.FechaVto;
                 _personaEncontrada = true;
 
                 // solo los socios tienen carnet, a los no socios les queda vacio
@@ -132,6 +136,7 @@ namespace proyectoClub
         {
             _personaEncontrada = false;
             _idPersona = 0;
+            _fechaVto = null;
             _precioBase = null;
             txtNombre.Text = "";
             txtApellido.Text = "";
@@ -211,7 +216,22 @@ namespace proyectoClub
                 return;
             }
 
+            // si ya tiene la cuota paga por adelantado, confirmo antes de cobrar otro mes
+            // (evita cobrar dos veces por error, el mes nuevo se suma al vencimiento que ya tiene)
+            if (_fechaVto != null && _fechaVto.Value.Date > DateTime.Today)
+            {
+                DialogResult respuesta = MessageBox.Show(
+                    "La cuota ya está paga hasta el " + _fechaVto.Value.ToString("dd/MM/yyyy") + ". ¿Cobrar otro mes igual?",
+                    "Cuota al día", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             bool guardado;
+            DateTime? nuevoVto = null; // lo completa el pago si es un socio
 
             // si faltan los user secrets o falla MySQL aviso con un mensaje (sin detalles de la cadena)
             try
@@ -232,6 +252,7 @@ namespace proyectoClub
 
                 Pago pago = new Pago(myCon, _idPersona, importe, tipoPago);
                 guardado = pago.registrar();
+                nuevoVto = pago.NuevoVencimiento;
             }
             catch (Exception)
             {
@@ -243,7 +264,15 @@ namespace proyectoClub
             {
                 // limpio todo para el proximo cobro
                 txtDocumento.Text = "";
-                limpiarDatos("Pago registrado correctamente");
+                // a los socios les aviso hasta cuando queda paga la cuota
+                string mensaje = "Pago registrado correctamente";
+
+                if (nuevoVto != null)
+                {
+                    mensaje += ", vence el " + nuevoVto.Value.ToString("dd/MM/yyyy");
+                }
+
+                limpiarDatos(mensaje);
                 txtDocumento.Focus();
             }
             else

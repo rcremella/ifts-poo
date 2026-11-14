@@ -75,7 +75,7 @@ Si falta el secreto, la aplicación lanza el error `Falta ConnectionStrings:Club
 - `Persona`: clase base con los datos de cualquier persona y el acceso a la tabla `persona`.
 - `Socio` y `noSocio`: heredan de `Persona`. Cada una guarda sus datos en su tabla (`cliente` y `no_cliente`) con `registrarCliente`.
 - `Usuario`: usuario del sistema, valida el login.
-- `Vencimiento`: consulta de los vencimientos del día.
+- `Vencimiento`: consulta de los vencimientos de hoy y los atrasados.
 
 ## Base de datos
 

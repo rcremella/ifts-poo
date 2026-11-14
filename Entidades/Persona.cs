@@ -12,6 +12,9 @@ namespace proyectoClub
         public int Documento { get; private set; }
         public int Id { get; protected set; } // 0 significa que todavia no se cargo o no existe en la base
 
+        // hasta cuando tiene paga la cuota (solo socios), null si nunca pago
+        public DateTime? FechaVto { get; private set; }
+
         // atributos privados/protegidos, afuera se accede por las propiedades de abajo (encapsulamiento)
         protected string _nombre = "";
         protected string _apellido = "";
@@ -46,10 +49,10 @@ namespace proyectoClub
                 _conexion.Open();
 
                 // busca en las dos tablas (socios y no socios), como el documento es unico solo va a traer una fila
-                string query = "select p.id, p.nombre, p.apellido, p.documento, p.telefono, p.apto_fisico, 'socio' as tipo from cliente c " +
+                string query = "select p.id, p.nombre, p.apellido, p.documento, p.telefono, p.apto_fisico, 'socio' as tipo, c.fechaVto as fecha_vto from cliente c " +
                                 "inner join persona p on p.id = c.id_persona where p.documento = @documento " +
                                 "union all " +
-                                "select p.id, p.nombre, p.apellido, p.documento, p.telefono, p.apto_fisico, 'no_socio' as tipo from no_cliente nc " +
+                                "select p.id, p.nombre, p.apellido, p.documento, p.telefono, p.apto_fisico, 'no_socio' as tipo, null as fecha_vto from no_cliente nc " +
                                 "inner join persona p on p.id = nc.id_persona where p.documento = @documento";
 
                 MySqlCommand cmd = new MySqlCommand(query, _conexion);
@@ -71,6 +74,12 @@ namespace proyectoClub
                     if (reader["apto_fisico"] != DBNull.Value)
                     {
                         _aptoFisico = Convert.ToBoolean(reader["apto_fisico"]);
+                    }
+
+                    // solo los socios tienen vencimiento, si nunca pago o es no socio queda en null
+                    if (reader["fecha_vto"] != DBNull.Value)
+                    {
+                        FechaVto = Convert.ToDateTime(reader["fecha_vto"]);
                     }
 
                     reader.Close();
